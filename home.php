@@ -12,10 +12,14 @@
 <body>
     <?php
         require_once "src/UsuarioDAO.php";
-        $usuario = $_SESSION['email'];
+        $email = $_SESSION['email'];
+
+        $usuario = UsuarioDAO::consultarUsuario($email);
+
 
         
     ?>
-    <h1>Seja bem-vindo(a)!</h1>
+    <h1>Seja bem-vindo(a) <?= $usuario['nomeusuario'] ?>!</h1>
+    <img src="uploads\<?= $usuario['foto'] ?>" alt="">
 </body>
 </html>

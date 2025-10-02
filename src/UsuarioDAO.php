@@ -55,11 +55,12 @@ class UsuarioDAO
         $conexao = ConexaoBD::conectar();
 
         $stmt = $conexao->prepare($sql);
-        $stmt->bindParam(1, $email);
-        $conexao = ConexaoBD::conectar();
-        $resultado = $conexao->query($sql);
+        $stmt->bindParam(1, $email, PDO::PARAM_STR);
+        $stmt->execute();
 
-        return $resultado->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC); // Retorna apenas UM usuário
     }
+
+
 }
 ?>
