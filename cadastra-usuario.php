@@ -41,13 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     UsuarioDAO::cadastrarUsuario($_POST);
-
-    if ($resultado) {
-        echo "<script>alert('Cadastro realizado com sucesso!'); window.location.href = 'index.html';</script>";
-    } else {
-        echo "Erro ao cadastrar usuário.";
-    }
-} else {
+    header('form-cadastra-usuario.html');
+}
+ else {
     die("Requisição inválida.");
 }
 ?>

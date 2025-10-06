@@ -2,8 +2,9 @@
     session_start();
     require "src/UsuarioDAO.php";
 
-    if (UsuarioDAO::validarUsuario($_POST)){    
+    if ($idusuario = UsuarioDAO::validarUsuario($_POST)){    
         $_SESSION['email'] = $_POST['email'];
+        $_SESSION['idusuario'] = $idusuario;
         header("Location:home.php");
     }else{
         $_SESSION['msg'] = "Usuário ou senha inválido.";

@@ -45,7 +45,14 @@ class UsuarioDAO
         $stmt->bindParam(2, $senhaCriptografada);
         $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($stmt->rowCount() > 0) {
+            return $usuario['idusuario'];
+        } else {
+            return false; 
+
+        }
+    
     }
 
     public static function consultarUsuario($email)
@@ -59,6 +66,18 @@ class UsuarioDAO
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC); // Retorna apenas UM usuário
+    }
+
+    public static function listarUsuarios()
+    {
+        $sql = "SELECT * FROM usuario";
+
+        $conexao = ConexaoBD::conectar();
+
+        $stmt = $conexao->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retorna apenas UM usuário
     }
 
 
