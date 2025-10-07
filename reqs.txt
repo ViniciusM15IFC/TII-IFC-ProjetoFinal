@@ -1,0 +1,63 @@
+Requisitos
+Listagem de Requisitos Funcionais
+
+Nº
+Descrição do Requisito Funcional
+
+RF4.
+O sistema deve permitir o usuário publicar avaliações aos conteúdos, contendo uma nota e um texto escrito por ele 
+RF5.
+O sistema deve permitir que os usuários possam seguir uns aos outros
+RF6.
+O sistema deve permitir que os usuários comentem nas publicações uns dos outros
+RF7.
+O sistema deve permitir ao usuário restringir seu perfil apenas para amigos (pessoas que se seguem mutuamente)
+RF8.
+As mídias apresentadas no catálogo deverão individualmente ter as seguintes informações: classificação, gênero,  sinopse
+RF9.
+O sistema deve permitir com que o usuário pesquise por conteúdos pelo nome ou pelo gênero 
+RF10.
+O sistema deve conter uma aba que mostra os conteúdos separados por categoria (filme, série, livro) e por gênero
+RF11.
+Ao ao entrar no perfil de outro usuário qualquer, que não tenha o perfil restrito, o sistema deve permitir que o usuário visualize as publicações, seguidores e pessoas que segue, 
+RF12.
+O sistema deve permitir ao usuário denunciar postagens
+RF13.
+O sistema deve permitir ao usuário mandar sugestões de conteúdo a serem adicionados
+RF14.
+O sistema deve permitir o administrador realizar o cadastro de novos conteúdos
+RF15.
+O sistema deve permitir que o usuário exclua permanentemente sua conta e todos os seus dados pessoais
+
+Listagem de Requisitos Não-Funcionais
+ 
+Nº
+Descrição do Requisito Não-Funcional
+
+
+O Sistema deve armazenar as senhas no banco de forma criptografada;
+RNF2.
+O sistema deve carregar as páginas em média menos de 3 segundos;
+RNF3.
+O sistema deve oferecer temas claro e escuro para melhor conforto visual do usuário;
+RNF4.
+O sistema deve exibir mensagens de erro claras e informativas ao usuário em caso de falhas;
+RFN5.
+O sistema deve ter design responsivo para ser compatível com diferentes resoluções
+
+
+Regras de Negócio
+ 
+Nº
+Descrição da Regra de Negócio
+RN1.
+O Sistema não deve permitir que o usuário avalie duas vezes o mesmo conteúdo;
+RN2.
+O sistema deve impedir que o usuário edite ou exclua avaliações de outros usuários;
+RN3.
+O sistema deve confirmar as ações críticas (excluir uma postagem ou avaliação) do usuário antes de executá-las
+
+
+
+
+

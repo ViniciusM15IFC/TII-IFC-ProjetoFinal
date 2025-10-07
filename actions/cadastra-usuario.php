@@ -1,5 +1,5 @@
 <?php
-require_once 'src/UsuarioDAO.php'; // Inclui a classe que tem a função consultarUsuario()
+require_once '../src/UsuarioDAO.php'; // Inclui a classe que tem a função consultarUsuario()
 
 // 1. Verifica se veio um POST válido
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -13,31 +13,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Valida: campos obrigatórios
     if (empty($nome) || empty($email) || empty($senha) || empty($confirmar) || empty($dataNasc)) {
-        die("Preencha todos os campos obrigatórios.");
+        $_SESSION['msg'] = "Preencha todos os campos.";
     }
 
     // Valida: senhas coincidem
     if ($senha !== $confirmar) {
-        die("As senhas não coincidem.");
+        $_SESSION['msg'] = "As senhas devem ser iguais.";
     }
 
     // Valida: idade mínima de 13 anos
     $nascimento = DateTime::createFromFormat('Y-m-d', $dataNasc);
     if (!$nascimento) {
-        die("Data de nascimento inválida.");
+        $_SESSION['msg'] = "Data de Nascimento Inválida.";
     }
 
     $hoje = new DateTime();
     $idade = $hoje->diff($nascimento)->y;
 
     if ($idade < 13) {
-        die("Você precisa ter pelo menos 13 anos para se cadastrar.");
+        $_SESSION['msg'] = "Você precisa ter 13 ou mais para se cadastrar.";
     }
 
     // Valida: e-mail já cadastrado
     $usuarios = UsuarioDAO::consultarUsuario($email);
     if (!empty($usuarios)) {
-        die("Este e-mail já está em uso. Escolha outro.");
+        $_SESSION['msg'] = "Email já em uso.";
     }
 
     UsuarioDAO::cadastrarUsuario($_POST);

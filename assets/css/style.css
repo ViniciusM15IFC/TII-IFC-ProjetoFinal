@@ -1,13 +1,19 @@
 :root {
-  --bg-color: #fff;
-  --color1: #000;
+  --bg-color: #000;
+  --color1: #fff;
   --color2: red;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    --bg-color: #000;
-    --color1: #fff;
+    --bg-color: #fff;
+    --color1: #000;
     --color2: red;
   }
 }
+
+body {
+  background-color: var(--bg-color);
+  color: var(--color1);
+}
+

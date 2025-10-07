@@ -1,5 +1,5 @@
 <?php
-include "incs/valida-sessao.php";
+    include "../incs/valida-sessao.php";   
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +50,7 @@ include "incs/valida-sessao.php";
         
 
             <?php
-            require_once "src/UsuarioDAO.php";
+            require_once "../src/UsuarioDAO.php";
             $usuarios = UsuarioDAO::listarUsuarios();
 
             foreach ($usuarios as $usuario) {
@@ -60,7 +60,7 @@ include "incs/valida-sessao.php";
                     ?>
                     <div class="d-flex row w-50">
                         <p class="col-8"><?= $usuario['nomeusuario'] ?></p>
-                        <a href="seguir-function.php?idseguidor=<?= $usuario['idusuario'] ?>" class="col-4 btn btn-secondary my-1" onclick="">Seguir</a>
+                        <a href="../actions/seguir-function.php/?idseguidor=<?= $usuario['idusuario'] ?>" class="col-4 btn btn-secondary my-1" onclick="">Seguir</a>
                     </div>
                     <?php
                 }
