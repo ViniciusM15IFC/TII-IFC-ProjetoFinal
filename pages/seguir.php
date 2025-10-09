@@ -60,7 +60,7 @@
                     ?>
                     <div class="d-flex row w-50">
                         <p class="col-8"><?= $usuario['nomeusuario'] ?></p>
-                        <a href="../actions/seguir-function.php/?idseguidor=<?= $usuario['idusuario'] ?>" class="col-4 btn btn-secondary my-1" onclick="">Seguir</a>
+                        <a href="../actions/seguir-function.php?idseguido=<?= $usuario['idusuario'] ?>" class="col-4 btn btn-secondary my-1" onclick="">Seguir</a>
                     </div>
                     <?php
                 }
