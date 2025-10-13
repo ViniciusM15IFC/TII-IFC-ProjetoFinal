@@ -46,18 +46,18 @@ class UsuarioDAO
         $stmt->execute();
 
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($stmt->rowCount() > 0) {
+        if ($stmt->rowCount() > 0) {
             return $usuario['idusuario'];
         } else {
-            return false; 
+            return false;
 
         }
-    
+
     }
 
-    public static function consultarUsuario($email)
+    public static function consultarUsuario($id)
     {
-        $sql = "SELECT * FROM usuario WHERE email = ?";
+        $sql = "SELECT * FROM usuario WHERE idusuario = ?";
 
         $conexao = ConexaoBD::conectar();
 
@@ -92,5 +92,14 @@ class UsuarioDAO
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retorna apenas UM usuário
     }
+    public static function excluirUsuario($idUsuario)
+    {
+        $sql = "DELETE FROM usuario WHERE idusuario = ?";
+        $conexao = ConexaoBD::conectar();
+        $stmt = $conexao->prepare($sql);
+        $stmt->bindParam(1, $idUsuario, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
 }
 ?>

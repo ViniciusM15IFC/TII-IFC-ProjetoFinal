@@ -22,9 +22,9 @@ include "../incs/valida-sessao.php";
         <div class="container">
             <?php
             require_once "../src/UsuarioDAO.php";
-            $email = $_SESSION['email'];
+            $id = $_SESSION['idusuario'];
 
-            $usuario = UsuarioDAO::consultarUsuario($email);
+            $usuario = UsuarioDAO::consultarUsuario($id);
 
             ?>
             <h1>Seja bem-vindo(a) <?= $usuario['nomeusuario'] ?>!</h1>
@@ -33,6 +33,7 @@ include "../incs/valida-sessao.php";
             <iconify-icon icon="ic:baseline-home" width="24" height="24"></iconify-icon>
 
         </div>
+        
     </main>
     <?php include "../incs/components/footer.php"; ?>
 </body>
