@@ -9,7 +9,7 @@
           <li class="nav-item"><a class="nav-link" href="form-cadastra-usuario.php">Cadastro De Usuário</a></li>
           <li class="nav-item"><a class="nav-link" href="form-cadastra-conteudo.php">Cadastrar Conteúdos</a></li>
           <li class="nav-item"><a class="nav-link" href="../actions/logout.php">Sair</a></li>
-          <button type="button" id="toggle-theme"><iconify-icon icon="solar:moon-bold-duotone"></iconify-icon></button>
+          <button type="button" id="theme-switch"><iconify-icon icon="solar:moon-bold-duotone"></iconify-icon></button>
         </ul>
       </div>
     </div>

@@ -14,6 +14,7 @@ include "../incs/valida-sessao.php";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
     <link rel="stylesheet" href="..\assets\css\style.css">
+   
 </head>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 <body>
@@ -38,5 +39,5 @@ include "../incs/valida-sessao.php";
     </main>
     <?php include "../incs/components/footer.php"; ?>
 </body>
-
+ <script src="../assets/js/script.js"></script>
 </html>

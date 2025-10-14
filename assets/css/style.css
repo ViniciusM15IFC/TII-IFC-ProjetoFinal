@@ -1,16 +1,21 @@
 :root {
-  --bg-color: #000;
-  --color1: #fff;
-  --color2: red;
+  --base-color: white;
+  --text-color: #111528;
+  /* demais variáveis */
 }
 
-.light-theme {
-  --bg-color: #fff;
-  --color1: #000;
-  --color2: red;
+.darkmode {
+  --base-color: #070b1d;
+  --text-color: #fff;
+  /* demais variáveis do darkmode */
 }
 
+/* use as variáveis no CSS normal */
 body {
-  background-color: var(--bg-color);
-  color: var(--color1);
+  background-color: var(--base-color);
+  color: var(--text-color); 
+}
+
+main {
+  margin-top: 40px;
 }

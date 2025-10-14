@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . "autoload.php";
+require "autoload.php";
 
 
 class CategoriaDAO
@@ -10,8 +10,8 @@ class CategoriaDAO
         $sql = "SELECT * FROM categoria";
         $stmt = $conexao->prepare($sql);
         $stmt->execute();
-        $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $categorias;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
     }
 
 }

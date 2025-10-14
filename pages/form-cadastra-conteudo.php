@@ -19,8 +19,7 @@ include "../incs/valida-sessao-admin.php";
     <?php include "../incs/exibir-header.php"; ?>
     <main>
         <div class="container">
-            <form action="../actions/cadastra-usuario.php" method="post" enctype="multipart/form-data"
-                class="w-50 mx-auto text-start row">
+            <form action="" class="w-50 mx-auto text-start row">
                 <?php
                 if (isset($_SESSION['msg'])) {
                     echo '<div class="alert alert-danger" role="alert">';
@@ -43,33 +42,114 @@ include "../incs/valida-sessao-admin.php";
 
                         foreach ($categorias as $categoria) {
                             ?>
-                            <option value="<?= $categoria['id_categoria'] ?>"><?= $categoria['nome_categoria'] ?></option>
+                            <option value="<?= $categoria['idcategoria'] ?>"><?= $categoria['nomecategoria'] ?></option>
                             <?php
                         }
 
                         ?>
+                    </select>
+                </div>
+            </form>
+            <form action="../actions/cadastra-usuario.php" method="post" enctype="multipart/form-data"
+                class="w-50 mx-auto text-start row">
+
+                <div class="mb-3">
+                    <label class="form-label">Título</label>
+                    <input type="text" class="form-control" name="titulo" placeholder="Titulo" required />
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">Genero</label>
+                    <select class="form-select" id="genero" name="genero" required>
+                        <option selected>Selecione</option>
+                        <?php
+
+                        $generos = GeneroDAO::consultar();
+
+                        foreach ($generos as $genero) {
+                            ?>
+                            <option value="<?= $genero['idgenero'] ?>"><?= $genero['nomegenero'] ?></option>
+                            <?php
+                        }
+
+                        ?>
+                    </select>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-control" name="email" placeholder="Email" required />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Data de Nascimento</label>
-                    <input type="date" class="form-control" name="datanasc" placeholder="01/01/2025" required />
+                    <label class="form-label">Classificacao</label>
+                    <select class="form-select" id="classificacao" name="classificacao" required>
+                        <option selected>Selecione</option>
+                        <?php
+
+                        $classificacoes = ClassificacaoDAO::consultar();
+
+                        foreach ($classificacoes as $classificacao) {
+                            ?>
+                            <option value="<?= $classificacao['idclassificacao'] ?>">
+                                <?= $classificacao['nomeclassificacao'] ?>
+                            </option>
+                            <?php
+                        }
+
+                        ?>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Imagem</label>
-                    <input type="file" class="form-control" name="imagem" placeholder="Insira uma foto" />
+                    <input type="file" class="form-control" name="imagem" placeholder="Insira uma " />
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Senha</label>
-                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Escreva sua Senha"
-                        required />
+                <?php
+                    
+
+                ?>
+                <div id="form-filme">
+                    <div class="mb-3">
+                        <label class="form-label">Duração</label>
+                        <input type="text" class="form-control" name="duracao" placeholder="1h23min" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Diretor</label>
+                        <input type="text" class="form-control" name="diretor" placeholder="Christopher Nolan" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Ano de Lançamento</label>
+                        <input type="number" class="form-control" name="ano-lancamento" placeholder="2025" />
+                    </div>
+
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Confirmar Senha</label>
-                    <input type="password" class="form-control" id="confirmarsenha" name="confirmarsenha"
-                        placeholder="Repita sua Senha" required />
+                <div id="form-serie">
+                    <div class="mb-3">
+                        <label class="form-label">Número de Episódios</label>
+                        <input type="number" class="form-control" name="episodios" placeholder="12" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Número de Temporadas</label>
+                        <input type="number" class="form-control" name="temporadas" placeholder="3" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Ano de Início</label>
+                        <input type="number" class="form-control" name="temporadas" placeholder="3" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Ano de Encerramento</label>
+                        <input type="number" class="form-control" name="temporadas"
+                            placeholder="Deixar em branco caso ainda esteja em andamento" />
+                    </div>
+                </div>
+                <div id="form-livro">
+                    <div class="mb-3">
+                        <label class="form-label">Número de Páginas</label>
+                        <input type="number" class="form-control" name="autor" placeholder="123" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Autor</label>
+                        <input type="text" class="form-control" name="autor" placeholder="Agatha Christie" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Editora</label>
+                        <input type="text" class="form-control" name="editora" placeholder="" />
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary btn-lg my-4">
                     Cadastrar
@@ -78,6 +158,8 @@ include "../incs/valida-sessao-admin.php";
         </div>
     </main>
     <?php include "../incs/components/footer.php"; ?>
+    <script src="../assets/js/form.js"></script>
 </body>
+<script src="../assets/js/script.js"></script>
 
 </html>

@@ -33,5 +33,5 @@ include "../incs/valida-sessao.php";
     </main>
     <?php include "../incs/components/footer.php"; ?>
 </body>
-
+<script src="../assets/js/script.js"></script>
 </html>
