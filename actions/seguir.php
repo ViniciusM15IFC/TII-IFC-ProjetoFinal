@@ -1,7 +1,7 @@
 <?php 
 
 include "../incs/valida-sessao.php";
-require_once "../src/SeguidoDAO.php";
+require_once __DIR__ . "/../src/autoload.php";
 
 if (isset($_GET['idseguido'])) 
 {

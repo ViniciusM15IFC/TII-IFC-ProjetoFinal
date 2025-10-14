@@ -50,7 +50,7 @@
         
 
             <?php
-            require_once "../src/UsuarioDAO.php";
+            require_once __DIR__ . "/../src/autoload.php";
             $usuarios = UsuarioDAO::listarUsuarios();
 
             foreach ($usuarios as $usuario) {

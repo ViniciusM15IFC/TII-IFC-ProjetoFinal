@@ -47,7 +47,7 @@ class UsuarioDAO
 
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($stmt->rowCount() > 0) {
-            return $usuario['idusuario'];
+            return $usuario;
         } else {
             return false;
 
@@ -62,7 +62,7 @@ class UsuarioDAO
         $conexao = ConexaoBD::conectar();
 
         $stmt = $conexao->prepare($sql);
-        $stmt->bindParam(1, $email, PDO::PARAM_STR);
+        $stmt->bindParam(1, $id, PDO::PARAM_STR);
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC); // Retorna apenas UM usuário

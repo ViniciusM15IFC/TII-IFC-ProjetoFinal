@@ -20,7 +20,7 @@ include "../incs/valida-sessao.php";
     <main>
         <div class="container">
             <?php
-            require_once "../src/UsuarioDAO.php";
+            require_once __DIR__ . "/../src/autoload.php";
             $id = $_SESSION['idusuario'];
 
             $usuario = UsuarioDAO::consultarUsuario($id);

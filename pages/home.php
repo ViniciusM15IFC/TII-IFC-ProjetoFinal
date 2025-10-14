@@ -15,20 +15,21 @@ include "../incs/valida-sessao.php";
     <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
     <link rel="stylesheet" href="..\assets\css\style.css">
 </head>
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 <body>
-    <?php include "../incs/components/header.php"; ?>
+    <?php include "../incs/exibir-header.php"; ?>
     <main>
         <div class="container">
             <?php
-            require_once "../src/UsuarioDAO.php";
+            require_once __DIR__ . "/../src/autoload.php";
             $id = $_SESSION['idusuario'];
+            $nome = $_SESSION['nomeusuario'];
+            $foto = $_SESSION['foto'];
 
-            $usuario = UsuarioDAO::consultarUsuario($id);
 
             ?>
-            <h1>Seja bem-vindo(a) <?= $usuario['nomeusuario'] ?>!</h1>
-            <img src="uploads\<?= $usuario['foto'] ?>" alt="">
+            <h1>Seja bem-vindo(a) <?= $_SESSION['nomeusuario'] ?>!</h1>
+            <img src="../uploads/<?= $foto ?>" alt="">
             
             <iconify-icon icon="ic:baseline-home" width="24" height="24"></iconify-icon>
 
