@@ -97,7 +97,7 @@ CREATE TABLE `conteudo` (
   `idconteudo` int NOT NULL,
   `idcategoria` int NOT NULL,
   PRIMARY KEY (`idconteudo`,`idcategoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,8 +151,7 @@ CREATE TABLE `filme` (
   `sinopse` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `anolancamento` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `imagem` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`idfilme`),
-  CONSTRAINT `filme_chk_1` CHECK (json_valid(`idgenero`))
+  PRIMARY KEY (`idfilme`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -208,7 +207,7 @@ CREATE TABLE `livro` (
   `editora` varchar(45) DEFAULT NULL,
   `sinopse` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`idlivro`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -289,7 +288,7 @@ CREATE TABLE `serie` (
   `anoencerramento` varchar(45) DEFAULT NULL,
   `sinopse` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`idserie`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -363,3 +362,4 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2025-10-19 22:09:50
+
