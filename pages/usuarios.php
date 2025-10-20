@@ -54,18 +54,12 @@ include "../incs/valida-sessao.php";
                 $usuarios = UsuarioDAO::listarUsuarios();
             }
 
-
             foreach ($usuarios as $usuario) {
-
-
                 if ($idUsuarioLogado !== $usuario['idusuario']) {
                     Componentes::cardUsuario($usuario);
                 }
-
-
             }
             ?>
-
         </div>
 
     </main>

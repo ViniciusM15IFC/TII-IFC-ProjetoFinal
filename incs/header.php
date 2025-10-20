@@ -9,6 +9,7 @@
                     <li class="nav-item"><a class="nav-link" href="form-cadastra-usuario.php">Cadastro</a></li>
                     <li class="nav-item"><a class="nav-link" href="usuarios.php">Usuários</a></li>
                     <li class="nav-item"><a class="nav-link" href="catalogo.php">Catálogo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="postagens.php">Postagens</a></li>
                     <li class="nav-item"><a class="nav-link" href="../actions/logout.php">Sair</a></li>
                     
 

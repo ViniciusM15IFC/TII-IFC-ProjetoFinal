@@ -53,8 +53,10 @@ class Componentes
                         <p class="card-text"><?= nl2br(htmlspecialchars($filme['sinopse'])) ?></p>
                         <p class="card-text"><small class="text-muted">Lançamento:
                                 <?= htmlspecialchars($filme['anofilme'] ?? '—') ?></small></p>
-                        <a href="detalhes.php?idconteudo=<?= $filme['idfilme'] ?>&tipo=filme" class="btn btn-primary">Ver
-                            mais</a>
+                        <a href="../pages/form-avaliacao.php?idconteudo=<?= $filme['idfilme'] ?>>&idcategoria=1"
+                            class="col-4 btn btn-secondary my-1">
+                            Avaliar
+                        </a>
                     </div>
                 </div>
             </div>
@@ -80,8 +82,10 @@ class Componentes
                         <p class="card-text"><?= nl2br(htmlspecialchars($serie['sinopse'])) ?></p>
                         <p class="card-text"><small class="text-muted">Temporadas:
                                 <?= htmlspecialchars($serie['temporadas'] ?? '—') ?></small></p>
-                        <a href="detalhes.php?idconteudo=<?= $serie['idserie'] ?>&tipo=serie" class="btn btn-primary">Ver
-                            mais</a>
+                        <a href="../pages/form-avaliacao.php?idconteudo=<?= $serie['idserie'] ?>>&idcategoria=2"
+                            class="col-4 btn btn-secondary my-1">
+                            Avaliar
+                        </a>
                     </div>
                 </div>
             </div>
@@ -107,8 +111,10 @@ class Componentes
                         <p class="card-text"><?= nl2br(htmlspecialchars($livro['sinopse'])) ?></p>
                         <p class="card-text"><small class="text-muted">Autor:
                                 <?= htmlspecialchars($livro['autor'] ?? '—') ?></small></p>
-                        <a href="detalhes.php?idconteudo=<?= $livro['idlivro'] ?>&tipo=livro" class="btn btn-primary">Ver
-                            mais</a>
+                        <a href="../pages/form-avaliacao.php?idconteudo=<?= $livro['idlivro'] ?>>&idcategoria=3"
+                            class="col-4 btn btn-secondary my-1">
+                            Avaliar
+                        </a>
                     </div>
                 </div>
             </div>
@@ -119,7 +125,22 @@ class Componentes
     public static function cardPostagem($postagem)
     {
         ?>
-
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header d-flex align-items-center">
+                <img src="../uploads/<?= htmlspecialchars($postagem['foto'] ?? '../assets/img/default-user.png') ?>"
+                    alt="Foto de <?= htmlspecialchars($postagem['nomeusuario']) ?>" class="rounded-circle me-2"
+                    style="width:40px; height:40px; object-fit:cover;">
+                <strong><?= htmlspecialchars($postagem['nomeusuario']) ?></strong>
+                <small class="text-muted ms-auto"><?= date('d/m/Y H:i', strtotime($postagem['datapostagem'])) ?></small>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"><?= htmlspecialchars($postagem['nomeconteudo']) ?></h5>
+                <?php if (!empty($postagem['nota'])): ?>
+                    <p class="card-text"><strong>Nota:</strong> <?= htmlspecialchars($postagem['nota']) ?>/10</p>
+                <?php endif; ?>
+                <p class="card-text"><?= nl2br(htmlspecialchars($postagem['texto'])) ?></p>
+            </div>
+        </div>
         <?php
     }
 }
