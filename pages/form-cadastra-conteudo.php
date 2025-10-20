@@ -8,7 +8,8 @@ include "../incs/valida-sessao-admin.php";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>O Crítico - Cadastro de Conteúdo</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
@@ -16,10 +17,10 @@ include "../incs/valida-sessao-admin.php";
 </head>
 
 <body>
-    <?php include "../incs/exibir-header.php"; ?>
+    <?php include "../incs/header.php"; ?>
     <main>
         <div class="container">
-            <form action="" class="w-50 mx-auto text-start row">
+            <form action="../actions/cadastra-conteudo.php" method="post" enctype="multipart/form-data" class="w-50 mx-auto text-start row">
                 <?php
                 if (isset($_SESSION['msg'])) {
                     echo '<div class="alert alert-danger" role="alert">';
@@ -49,9 +50,8 @@ include "../incs/valida-sessao-admin.php";
                         ?>
                     </select>
                 </div>
-            </form>
-            <form action="../actions/cadastra-usuario.php" method="post" enctype="multipart/form-data"
-                class="w-50 mx-auto text-start row">
+            
+                
 
                 <div class="mb-3">
                     <label class="form-label">Título</label>
@@ -97,7 +97,11 @@ include "../incs/valida-sessao-admin.php";
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Imagem</label>
-                    <input type="file" class="form-control" name="imagem" placeholder="Insira uma " />
+                    <input type="file" class="form-control" name="imagem" placeholder="Insira uma imagem" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Sinopse</label>
+                    <textarea class="form-control" name="sinopse" rows="3" placeholder="Insira a sinopse"></textarea>
                 </div>
                 <?php
                     
@@ -129,26 +133,22 @@ include "../incs/valida-sessao-admin.php";
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Ano de Início</label>
-                        <input type="number" class="form-control" name="temporadas" placeholder="3" />
+                        <input type="number" class="form-control" name="ano-inicio" placeholder="3" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Ano de Encerramento</label>
-                        <input type="number" class="form-control" name="temporadas"
+                        <input type="number" class="form-control" name="ano-encerramento"
                             placeholder="Deixar em branco caso ainda esteja em andamento" />
                     </div>
                 </div>
                 <div id="form-livro">
                     <div class="mb-3">
                         <label class="form-label">Número de Páginas</label>
-                        <input type="number" class="form-control" name="autor" placeholder="123" />
+                        <input type="number" class="form-control" name="paginas" placeholder="123" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Autor</label>
                         <input type="text" class="form-control" name="autor" placeholder="Agatha Christie" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Editora</label>
-                        <input type="text" class="form-control" name="editora" placeholder="" />
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary btn-lg my-4">
@@ -157,7 +157,7 @@ include "../incs/valida-sessao-admin.php";
             </form>
         </div>
     </main>
-    <?php include "../incs/components/footer.php"; ?>
+    <?php include "../incs/footer.php"; ?>
     <script src="../assets/js/form.js"></script>
 </body>
 <script src="../assets/js/script.js"></script>

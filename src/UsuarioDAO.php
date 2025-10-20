@@ -1,17 +1,11 @@
 <?php
-require "ConexaoBD.php";
-require "Util.php";
+require_once __DIR__ . "/../src/autoload.php";
 
 class UsuarioDAO
 {
 
     public static function cadastrarUsuario($dados)
     {
-        // Verifica se as senhas coincidem
-        if ($dados['senha'] !== $dados['confirmarsenha']) {
-            echo "As senhas não coincidem!";
-            return;
-        }
 
         $conexao = ConexaoBD::conectar();
 
@@ -83,6 +77,7 @@ class UsuarioDAO
     public static function buscarUsuarios($texto)
     {
         $sql = "SELECT * FROM usuario WHERE nomeusuario LIKE ?";
+        $texto = "$texto%";
 
         $conexao = ConexaoBD::conectar();
 
@@ -92,6 +87,7 @@ class UsuarioDAO
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retorna apenas UM usuário
     }
+
     public static function excluirUsuario($idUsuario)
     {
         $sql = "DELETE FROM usuario WHERE idusuario = ?";
@@ -100,6 +96,22 @@ class UsuarioDAO
         $stmt->bindParam(1, $idUsuario, PDO::PARAM_INT);
         $stmt->execute();
     }
+
+    public static function listarSeguidos($idusuario)
+    {
+        $conexao = ConexaoBD::conectar();
+
+        $sql = "SELECT u.*
+            FROM seguido s
+            JOIN usuario u ON s.idseguido = u.idusuario
+            WHERE s.idusuario = ?";
+
+        $stmt = $conexao->prepare($sql);
+        $stmt->execute([$idusuario]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
 }
 ?>

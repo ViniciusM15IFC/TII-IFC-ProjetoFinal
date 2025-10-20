@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../src/autoload.php"; // Inclui a classe que tem a função consultarUsuario()
+require_once __DIR__ . "/../src/autoload.php"; 
 
 // 1. Verifica se veio um POST válido
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

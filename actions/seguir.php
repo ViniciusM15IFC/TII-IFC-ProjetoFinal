@@ -8,5 +8,5 @@ if (isset($_GET['idseguido']))
     SeguidoDAO::seguir($_SESSION['idusuario'], $_GET['idseguido']);
 }
 
-header("location:../pages/seguir.php");
+header("location:../pages/usuarios.php");
 

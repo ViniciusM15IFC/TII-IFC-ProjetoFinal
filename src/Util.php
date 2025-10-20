@@ -4,7 +4,7 @@ class Util
     public static function salvarArquivo()
     {
         // Define o diretório onde os arquivos serão salvos
-        $diretorioUpload = "uploads/";
+        $diretorioUpload = "../uploads/";
 
         // Verifica se o diretório existe, senão, cria
         if (!is_dir($diretorioUpload)) {
