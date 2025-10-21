@@ -18,8 +18,8 @@ include "../incs/valida-sessao.php";
 
 <body>
     <?php include "../incs/header.php"; ?>
-    <main>
-        <div class="container">
+    <main class="my-4 w-75 align-items-center" >
+        <div class="container ">
             <?php
                 require_once __DIR__ . "/../src/autoload.php";
 

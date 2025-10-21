@@ -125,22 +125,67 @@ class Componentes
     public static function cardPostagem($postagem)
     {
         ?>
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header d-flex align-items-center">
-                <img src="../uploads/<?= htmlspecialchars($postagem['foto'] ?? '../assets/img/default-user.png') ?>"
-                    alt="Foto de <?= htmlspecialchars($postagem['nomeusuario']) ?>" class="rounded-circle me-2"
-                    style="width:40px; height:40px; object-fit:cover;">
-                <strong><?= htmlspecialchars($postagem['nomeusuario']) ?></strong>
-                <small class="text-muted ms-auto"><?= date('d/m/Y H:i', strtotime($postagem['datapostagem'])) ?></small>
+        <div class="card-post mb-4 p-3 rounded-4 shadow-sm text-light mx-auto">
+            <!-- Topo -->
+            <div class="d-flex align-items-center mb-2">
+                <div class="user-icon me-2">
+                    <img src="../uploads/<?= htmlspecialchars($postagem['foto'] ?? '../assets/img/default-user.png') ?>"
+                        alt="Foto de <?= htmlspecialchars($postagem['nomeusuario']) ?>" class="rounded-circle"
+                        style="width:40px; height:40px; object-fit:cover;">
+                </div>
+                <h6 class="mb-0 me-2 fw-semibold"><?= htmlspecialchars($postagem['nomeusuario']) ?></h6>
+                <a href=""><button class="seguir-btn">Seguir</button></a>
+                <small class="text-secondary ms-auto">
+                    <?= date('d/m/Y H:i', strtotime($postagem['datapostagem'])) ?>
+                </small>
             </div>
-            <div class="card-body">
-                <h5 class="card-title"><?= htmlspecialchars($postagem['nomeconteudo']) ?></h5>
-                <?php if (!empty($postagem['nota'])): ?>
-                    <p class="card-text"><strong>Nota:</strong> <?= htmlspecialchars($postagem['nota']) ?>/10</p>
+
+            <!-- Corpo -->
+            <div class="row align-items-start">
+                <div class="col-md-8">
+                    <p class="mb-0">
+                        <?= nl2br(htmlspecialchars($postagem['texto'])) ?>
+                    </p>
+                </div>
+
+                <!-- Imagem lateral + estrelas -->
+                <?php if (!empty($postagem['nomeconteudo'])): ?>
+                    <div class="col-md-4 d-flex justify-content-end align-items-center mt-3 mt-md-0">
+                        <div class="d-flex align-items-center">
+                            <div class="rating-vertical">
+                                <?php
+                                $nota = intval($postagem['nota'] ?? 0);
+                                for ($i = 1; $i <= 5; $i++) {
+                                    if ($i <= round($nota / 2)) {
+                                        echo '<iconify-icon icon="ic:round-star"></iconify-icon>';
+                                    } else {
+                                        echo '<iconify-icon icon="ic:round-star-border"></iconify-icon>';
+                                    }
+                                }
+                                ?>
+                            </div>
+                            <div class="text-center ms-2">
+                                <img src="../uploads/<?= htmlspecialchars($postagem['imagemconteudo'] ?? 'https://via.placeholder.com/120x160') ?>"
+                                    alt="<?= htmlspecialchars($postagem['nomeconteudo']) ?>" class="game-img mb-1">
+                                <p class="small text-light-50 mb-0"><?= htmlspecialchars($postagem['nomeconteudo']) ?></p>
+                            </div>
+                        </div>
+                    </div>
                 <?php endif; ?>
-                <p class="card-text"><?= nl2br(htmlspecialchars($postagem['texto'])) ?></p>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Rodapé -->
+            <div class="d-flex justify-content-between footer-icons">
+                <div>
+                    <iconify-icon icon="mdi:heart-outline"></iconify-icon>
+                    <iconify-icon icon="mdi:comment-outline" class="ms-3"></iconify-icon>
+                </div>
+                <iconify-icon icon="mdi:alert-outline"></iconify-icon>
             </div>
         </div>
         <?php
     }
+
 }

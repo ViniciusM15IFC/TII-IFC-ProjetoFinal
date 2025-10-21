@@ -46,30 +46,32 @@ class PostagemDAO
     }
 
     public static function listarFeed($idUsuario)
-{
-    $sql = "SELECT 
-                p.*,
-                u.nomeusuario,
-                u.foto,
-                COALESCE(f.nomefilme, s.nomeserie, l.nomelivro) AS nomeconteudo
-            FROM postagem p
-            JOIN usuario u ON p.idusuario = u.idusuario
-            LEFT JOIN filme f ON p.idcategoria = 1 AND p.idconteudo = f.idfilme
-            LEFT JOIN serie s ON p.idcategoria = 2 AND p.idconteudo = s.idserie
-            LEFT JOIN livro l ON p.idcategoria = 3 AND p.idconteudo = l.idlivro
-            WHERE p.idusuario = :idUsuario
-               OR p.idusuario IN (
-                   SELECT s.idseguido FROM seguido s WHERE s.idusuario = :idUsuario
-               )
-            ORDER BY p.datapostagem DESC";
+    {
+        $sql = "SELECT 
+        p.*,
+        u.nomeusuario,
+        u.foto,
+        COALESCE(f.nomefilme, s.nomeserie, l.nomelivro) AS nomeconteudo,
+        COALESCE(f.imagem, s.imagem, l.imagem) AS imagemconteudo
+        FROM postagem p
+        JOIN usuario u ON p.idusuario = u.idusuario
+        LEFT JOIN filme f ON p.idcategoria = 1 AND p.idconteudo = f.idfilme
+        LEFT JOIN serie s ON p.idcategoria = 2 AND p.idconteudo = s.idserie
+        LEFT JOIN livro l ON p.idcategoria = 3 AND p.idconteudo = l.idlivro
+        WHERE p.idusuario = :idUsuario
+        OR p.idusuario IN (
+            SELECT s.idseguido FROM seguido s WHERE s.idusuario = :idUsuario
+        )
+        ORDER BY p.datapostagem DESC;
+        ";
 
-    $conexao = ConexaoBD::conectar();
-    $stmt = $conexao->prepare($sql);
-    $stmt->bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
-    $stmt->execute();
+        $conexao = ConexaoBD::conectar();
+        $stmt = $conexao->prepare($sql);
+        $stmt->bindParam(':idUsuario', $idUsuario, PDO::PARAM_INT);
+        $stmt->execute();
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 
     // ===============================

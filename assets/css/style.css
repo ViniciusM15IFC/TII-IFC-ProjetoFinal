@@ -19,3 +19,76 @@ body {
 main {
   margin-top: 40px;
 }
+
+.card-post {
+  background-color: #1e1e1e;
+  border: none;
+  color: #f1f1f1;
+}
+
+.user-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seguir-btn {
+  background-color: #0d6efd;
+  color: white;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  padding: 3px 12px;
+  transition: 0.2s;
+}
+
+.seguir-btn:hover {
+  background-color: #0b5ed7;
+}
+
+.rating-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.rating-vertical iconify-icon {
+  color: #5dade2;
+  font-size: 22px;
+  margin: 1px 0;
+}
+
+.game-img {
+  border-radius: 10px;
+  width: 120px;
+  height: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.divider {
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  margin: 0.75rem 0;
+}
+
+.footer-icons iconify-icon {
+  color: #5dade2;
+  font-size: 24px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.footer-icons iconify-icon:hover {
+  color: #0d6efd;
+}
+
+@media (max-width: 768px) {
+  .rating-vertical {
+    flex-direction: row;
+  }
+
+  .rating-vertical iconify-icon {
+    margin: 0 3px;
+  }
+}
+
