@@ -1,18 +1,22 @@
 :root {
-  --base-color: white;
-  --text-color: #111528;
-  /* demais variáveis */
+  --bg-color: #292727;
+  --color1: #669BBC;
+  --color2: #22465C;
+  --color3: #D0CBCF;
+  --color4: #F7F0F5;
 }
 
 .darkmode {
-  --base-color: #070b1d;
-  --text-color: #fff;
-  /* demais variáveis do darkmode */
+  --bg-color: #F7F0F5;
+  --color1: #C1121F;
+  --color2: #780000;
+  --color3: #D0CBCF;
+  --color4: #292727;
 }
 
 /* use as variáveis no CSS normal */
 body {
-  background-color: var(--base-color);
+  background-color: var(--bg-color);
   color: var(--text-color); 
 }
 
@@ -20,10 +24,10 @@ main {
   margin-top: 40px;
 }
 
-.card-post {
-  background-color: #1e1e1e;
+.card-post, .card-post * {
+  background-color: var(--bg-color);
   border: none;
-  color: #f1f1f1;
+  color: var(--color4);
 }
 
 .user-icon {
@@ -33,7 +37,7 @@ main {
 }
 
 .seguir-btn {
-  background-color: #0d6efd;
+  background-color: var(--color1);
   color: white;
   font-size: 0.9rem;
   border: none;
@@ -43,7 +47,7 @@ main {
 }
 
 .seguir-btn:hover {
-  background-color: #0b5ed7;
+  background-color: var(--color2);
 }
 
 .rating-vertical {
@@ -54,7 +58,7 @@ main {
 }
 
 .rating-vertical iconify-icon {
-  color: #5dade2;
+  color: var(--color1);
   font-size: 22px;
   margin: 1px 0;
 }
@@ -67,19 +71,19 @@ main {
 }
 
 .divider {
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-top: 1px solid var(--color3);
   margin: 0.75rem 0;
 }
 
 .footer-icons iconify-icon {
-  color: #5dade2;
+  color: var(--color1);
   font-size: 24px;
   cursor: pointer;
   transition: 0.2s;
 }
 
 .footer-icons iconify-icon:hover {
-  color: #0d6efd;
+  color: var(--color2);
 }
 
 @media (max-width: 768px) {
@@ -91,4 +95,115 @@ main {
     margin: 0 3px;
   }
 }
+
+.footer-icons form,
+.footer-icons iconify-icon {
+  vertical-align: middle;
+}
+.footer-icons form {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ====== HEADER ====== */
+header.navbar {
+  background-color: var(--bg-color);
+  color: var(--color4);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+header .nav-link {
+  color: var(--color4);
+  transition: color 0.3s;
+}
+
+header .nav-link.active,
+header .nav-link:hover {
+  color: var(--color1);
+}
+
+header iconify-icon {
+  color: var(--color1);
+  transition: color 0.3s;
+}
+
+header iconify-icon:hover {
+  color: var(--color2);
+}
+
+header .form-control {
+  background-color: white;
+  border: 1px solid var(--color1);
+  color: var(--color4);
+}
+
+header .form-control::placeholder {
+  color: var(--color4);
+}
+
+header .dropdown-menu {
+  background-color: var(--bg-color);
+  border: 1px solid var(--color2);
+}
+
+header .dropdown-menu .nav-link {
+  color: var(--color4);
+}
+
+header .dropdown-menu .nav-link:hover {
+  background-color: var(--color1);
+  color: var(--bg-color);
+}
+
+.dropdown-toggle {
+  color: var(--color4) !important;
+}
+
+/* Dropdown do perfil */
+.perfil-menu {
+  background-color: var(--bg-color);
+  border: 1px solid var(--color3);
+  border-radius: 12px;
+  padding: 0.5rem;
+  min-width: 160px;
+}
+
+.perfil-menu .dropdown-item {
+  color: var(--color4);
+  font-size: 0.9rem;
+  border-radius: 6px;
+  padding: 6px 10px;
+  transition: 0.2s;
+}
+
+.perfil-menu .dropdown-item:hover {
+  background-color: var(--color2);
+  color: var(--color4);
+}
+
+.perfil-menu .dropdown-divider {
+  border-top: 1px solid var(--color3);
+  margin: 6px 0;
+}
+
+/* Botão do modo */
+.btn-theme {
+  background: transparent;
+  border: none;
+  padding: 2px 6px;
+  color: var(--color1);
+  transition: 0.2s;
+}
+
+.btn-theme:hover {
+  color: var(--color2);
+  transform: scale(1.1);
+}
+
+/* Ajuste do ícone no botão */
+.btn-theme iconify-icon {
+  font-size: 1.1rem;
+  vertical-align: middle;
+}
+
 

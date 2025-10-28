@@ -124,6 +124,7 @@ class Componentes
 
     public static function cardPostagem($postagem)
     {
+        $jaCurtiu = CurtidaDAO::usuarioCurtiu($_SESSION['idusuario'], $postagem['idpostagem']);
         ?>
         <div class="card-post mb-4 p-3 rounded-4 shadow-sm text-light mx-auto">
             <!-- Topo -->
@@ -134,7 +135,21 @@ class Componentes
                         style="width:40px; height:40px; object-fit:cover;">
                 </div>
                 <h6 class="mb-0 me-2 fw-semibold"><?= htmlspecialchars($postagem['nomeusuario']) ?></h6>
-                <a href=""><button class="seguir-btn">Seguir</button></a>
+                <?php
+                $idUsuarioLogado = $_SESSION['idusuario'] ?? null;
+                $idAutor = $postagem['idusuario'];
+
+                if ($idUsuarioLogado && $idAutor != $idUsuarioLogado) {
+                    $seguido = SeguidoDAO::seguidoOuNao($idUsuarioLogado, $idAutor);
+
+                    if (empty($seguido)) {
+                        // Não segue ainda
+                        ?>
+                        <a href="../actions/seguir.php?idseguido=<?= $idAutor ?>" class="seguir-btn">Seguir</a>
+                        <?php
+                    }
+                }
+                ?>
                 <small class="text-secondary ms-auto">
                     <?= date('d/m/Y H:i', strtotime($postagem['datapostagem'])) ?>
                 </small>
@@ -143,7 +158,7 @@ class Componentes
             <!-- Corpo -->
             <div class="row align-items-start">
                 <div class="col-md-8">
-                    <p class="mb-0">
+                    <p class="mb-0 ts-1 fs-5">
                         <?= nl2br(htmlspecialchars($postagem['texto'])) ?>
                     </p>
                 </div>
@@ -178,12 +193,25 @@ class Componentes
 
             <!-- Rodapé -->
             <div class="d-flex justify-content-between footer-icons">
-                <div>
-                    <iconify-icon icon="mdi:heart-outline"></iconify-icon>
-                    <iconify-icon icon="mdi:comment-outline" class="ms-3"></iconify-icon>
+                <div class="d-flex align-items-center">
+                    <form action="../actions/curte-postagem.php" method="POST" style="display:inline;">
+                        <input type="hidden" name="idpostagem" value="<?= $postagem['idpostagem'] ?>">
+                        <?php if ($jaCurtiu): ?>
+                            <button type="submit" name="acao" value="descurtir" class="btn p-0 border-0 bg-transparent text-danger">
+                                <iconify-icon icon="mdi:heart"></iconify-icon>
+                            </button>
+                        <?php else: ?>
+                            <button type="submit" name="acao" value="curtir" class="btn p-0 border-0 bg-transparent text-light">
+                                <iconify-icon icon="mdi:heart-outline"></iconify-icon>
+                            </button>
+                        <?php endif; ?>
+                    </form>
+
+                    <iconify-icon icon="ant-design:comment-outlined" class="ms-3"></iconify-icon>
                 </div>
-                <iconify-icon icon="mdi:alert-outline"></iconify-icon>
+                <iconify-icon icon="jam:triangle-danger"></iconify-icon>
             </div>
+
         </div>
         <?php
     }
