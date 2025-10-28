@@ -6,24 +6,32 @@
         <!-- Lado esquerdo -->
         <div class="d-flex align-items-center gap-3">
             <iconify-icon icon="mdi:lightning-bolt-circle" class="fs-4"></iconify-icon>
-            <a href="#" class="nav-link fw-semibold">Catálogo</a>
+            <a href="catalogo.php" class="nav-link fw-semibold">Catálogo</a>
             <a href="#" class="nav-link active border-bottom fw-semibold">Explorar</a>
         </div>
 
         <!-- Barra de pesquisa -->
-        <form class="d-none d-md-flex align-items-center position-relative" style="width: 260px;">
+        <form class="d-none d-md-flex align-items-center position-relative w-50">
             <input type="text" class="form-control rounded-pill ps-3 pe-5" placeholder=" ">
             <button class="btn position-absolute end-0 me-2 p-0 border-0 bg-transparent" type="submit">
                 <iconify-icon icon="mdi:magnify" class="fs-5 text-secondary"></iconify-icon>
             </button>
         </form>
 
+
         <!-- Perfil -->
         <div class="d-flex align-items-center">
             <div>
-                <img src="../uploads/<?= $_SESSION['foto']; ?>"
-                    class="bg-danger rounded-circle d-flex justify-content-center align-items-center me-2"
-                    style="width: 32px; height: 32px;" alt="">
+                <?php
+                if (!$_SESSION['foto']) {
+                    $fotoPath = '../assets/img/profile-placeholder.png';
+                } else {
+                    $fotoPath = '../uploads/' . $_SESSION['foto'];
+                }
+                ?>
+                <img src="<?= $fotoPath ?> "
+                    class="bg-danger rounded-circle d-flex justify-content-center align-items-center me-2 prof-mini-img"
+                    alt="">
             </div>
             <div class="dropdown">
                 <a class="dropdown-toggle text-decoration-none fw-semibold" href="#" role="button"

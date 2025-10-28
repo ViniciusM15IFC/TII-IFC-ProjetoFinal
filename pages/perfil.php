@@ -17,7 +17,7 @@ include "../incs/valida-sessao.php";
 </head>
 
 <body>
-    <?php include "../incs/components/header.php"; ?>
+    <?php include "../incs/header.php"; ?>
     <main>
         <div class="container">
             <?php

@@ -4,10 +4,7 @@ Listagem de Requisitos Funcionais
 Nº
 Descrição do Requisito Funcional
 
-RF4.
-O sistema deve permitir o usuário publicar avaliações aos conteúdos, contendo uma nota e um texto escrito por ele 
-RF5.
-O sistema deve permitir que os usuários possam seguir uns aos outros **HOJE
+
 RF6.
 O sistema deve permitir que os usuários comentem nas publicações uns dos outros
 RF7.
@@ -35,7 +32,6 @@ Nº
 Descrição do Requisito Não-Funcional
 
 
-O Sistema deve armazenar as senhas no banco de forma criptografada;
 RNF2.
 O sistema deve carregar as páginas em média menos de 3 segundos;
 RNF3.

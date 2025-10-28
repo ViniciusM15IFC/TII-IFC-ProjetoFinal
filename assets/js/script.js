@@ -1,19 +1,32 @@
-let darkmode = localStorage.getItem('darkmode')
-const themeSwitch = document.getElementById('theme-switch')
+document.addEventListener('DOMContentLoaded', () => {
+  let darkmode = localStorage.getItem("darkmode") || "inactive";
+  console.log("darkmode:", darkmode); // Debugging
 
-const enableDarkmode = () => {
-  document.body.classList.add('darkmode')
-  localStorage.setItem('darkmode', 'active')
-}
+  const themeSwitch = document.getElementById("theme-switch");
 
-const disableDarkmode = () => {
-  document.body.classList.remove('darkmode')
-  localStorage.setItem('darkmode', null)
-}
+  const enableDarkmode = () => {
+    document.body.classList.add("darkmode");
+    localStorage.setItem("darkmode", "active");
+  };
 
-if(darkmode === "active") enableDarkmode()
+  const disableDarkmode = () => {
+    document.body.classList.remove("darkmode");
+    localStorage.setItem("darkmode", "inactive");
+  };
 
-themeSwitch.addEventListener("click", () => {
-  darkmode = localStorage.getItem('darkmode')
-  darkmode !== "active" ? enableDarkmode() : disableDarkmode()
-})
+  // Inicializa o modo escuro se a chave no localStorage estiver ativa
+  if (darkmode === "active") {
+    enableDarkmode();
+  }
+
+  // Evento de clique no botão de alternância de tema
+  themeSwitch.addEventListener("click", () => {
+    darkmode = localStorage.getItem("darkmode");
+
+    if (darkmode !== "active") {
+      enableDarkmode(); // Ativa o modo escuro
+    } else {
+      disableDarkmode(); // Desativa o modo escuro
+    }
+  });
+});

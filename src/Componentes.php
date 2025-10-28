@@ -9,11 +9,18 @@ class Componentes
         $idUsuarioLogado = $_SESSION['idusuario'];
         $seguidos = SeguidoDAO::listarSeguidos($idUsuarioLogado); // retorna array de usuários seguidos
         $idsSeguidos = array_column($seguidos, 'idusuario'); // só pega os IDs
+
+        if (!$usuario['foto']) {
+            $fotoPath = '../assets/img/profile-placeholder.png';
+        } else {
+            $fotoPath = '../uploads/' . $usuario['foto'];
+        }
+
         ?>
         <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="../uploads/<?= $usuario['foto'] ?>" class="img-fluid rounded-start">
+                    <img src="../uploads/<?= $fotoPath ?>" class="img-fluid rounded-start">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -125,6 +132,11 @@ class Componentes
     public static function cardPostagem($postagem)
     {
         $jaCurtiu = CurtidaDAO::usuarioCurtiu($_SESSION['idusuario'], $postagem['idpostagem']);
+        if (!$postagem['foto']) {
+            $fotoPath = '../assets/img/profile-placeholder.png';
+        } else {
+            $fotoPath = '../uploads/' . $postagem['foto'];
+        }
         ?>
         <div class="card-post mb-4 p-3 rounded-4 shadow-sm text-light mx-auto">
             <!-- Topo -->
