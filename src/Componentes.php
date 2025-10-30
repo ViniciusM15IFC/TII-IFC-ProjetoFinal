@@ -142,9 +142,17 @@ class Componentes
             <!-- Topo -->
             <div class="d-flex align-items-center mb-2">
                 <div class="user-icon me-2">
-                    <img src="../uploads/<?= htmlspecialchars($postagem['foto'] ?? '../assets/img/default-user.png') ?>"
-                        alt="Foto de <?= htmlspecialchars($postagem['nomeusuario']) ?>" class="rounded-circle"
-                        style="width:40px; height:40px; object-fit:cover;">
+
+                    <?php
+                    if (!$postagem['foto']) {
+                        $fotoPath = '../assets/img/profile-placeholder.png';
+                    } else {
+                        $fotoPath = '../uploads/' . $postagem['foto'];
+                    }
+                    ?>
+                    <img src="<?= $fotoPath ?>" alt="Foto de <?= htmlspecialchars($postagem['nomeusuario']) ?>"
+                        class="rounded-circle" style="width:40px; height:40px; object-fit:cover;">
+
                 </div>
                 <h6 class="mb-0 me-2 fw-semibold"><?= htmlspecialchars($postagem['nomeusuario']) ?></h6>
                 <?php
@@ -181,11 +189,20 @@ class Componentes
                         <div class="d-flex align-items-center">
                             <div class="rating-vertical">
                                 <?php
-                                $nota = intval($postagem['nota'] ?? 0);
+                                // A avaliação está de 1 a 10, então dividimos por 2 para ter uma escala de 1 a 5
+                                $nota = floatval($postagem['nota'] ?? 0) / 2; // Divide a nota para mapear para o sistema de 5 estrelas
+                    
                                 for ($i = 1; $i <= 5; $i++) {
-                                    if ($i <= round($nota / 2)) {
+                                    $starFraction = $nota - ($i - 1); // Calcula a parte da estrela que falta para o número da estrela atual
+                    
+                                    if ($starFraction >= 1) {
+                                        // Estrela cheia
                                         echo '<iconify-icon icon="ic:round-star"></iconify-icon>';
+                                    } elseif ($starFraction >= 0.5) {
+                                        // Estrela meio cheia (se for mais que 0.5, mas menos que 1)
+                                        echo '<iconify-icon icon="ic:round-star-half"></iconify-icon>';
                                     } else {
+                                        // Estrela vazia
                                         echo '<iconify-icon icon="ic:round-star-border"></iconify-icon>';
                                     }
                                 }
@@ -198,22 +215,25 @@ class Componentes
                             </div>
                         </div>
                     </div>
+
                 <?php endif; ?>
             </div>
 
             <div class="divider"></div>
 
             <!-- Rodapé -->
-            <div class="d-flex justify-content-between footer-icons">
+            <div class="d-flex align-items-center justify-content-between footer-icons">
                 <div class="d-flex align-items-center">
                     <form action="../actions/curte-postagem.php" method="POST" style="display:inline;">
                         <input type="hidden" name="idpostagem" value="<?= $postagem['idpostagem'] ?>">
                         <?php if ($jaCurtiu): ?>
-                            <button type="submit" name="acao" value="descurtir" class="btn p-0 border-0 bg-transparent text-danger">
+                            <button type="submit" name="acao" value="descurtir"
+                                class="btn p-0 border-0 bg-transparent text-danger d-flex align-items-center justify-content-center">
                                 <iconify-icon icon="mdi:heart"></iconify-icon>
                             </button>
                         <?php else: ?>
-                            <button type="submit" name="acao" value="curtir" class="btn p-0 border-0 bg-transparent text-light">
+                            <button type="submit" name="acao" value="curtir"
+                                class="btn p-0 border-0 bg-transparent text-light d-flex align-items-center justify-content-center">
                                 <iconify-icon icon="mdi:heart-outline"></iconify-icon>
                             </button>
                         <?php endif; ?>
@@ -223,6 +243,7 @@ class Componentes
                 </div>
                 <iconify-icon icon="jam:triangle-danger"></iconify-icon>
             </div>
+
 
         </div>
         <?php

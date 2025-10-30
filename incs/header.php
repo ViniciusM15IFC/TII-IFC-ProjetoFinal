@@ -19,6 +19,7 @@
         </form>
 
 
+
         <!-- Perfil -->
         <div class="d-flex align-items-center">
             <div>
@@ -40,14 +41,6 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end perfil-menu shadow">
                     <li><a class="dropdown-item" href="perfil.php">Ver Perfil</a></li>
-                    <li>
-                        <div class="dropdown-item d-flex justify-content-between align-items-center">
-                            <span>Modo</span>
-                            <button type="button" id="theme-switch" class="btn btn-sm btn-theme">
-                                <iconify-icon icon="solar:moon-bold-duotone"></iconify-icon>
-                            </button>
-                        </div>
-                    </li>
 
                     <div class="dropdown-divider"></div>
 
@@ -66,6 +59,9 @@
                 </ul>
 
             </div>
+            <button type="button" id="theme-switch" class="btn btn-sm btn-theme ms-4" onClick="toggleDarkMode()">
+                    <iconify-icon icon="solar:moon-bold-duotone"></iconify-icon>
+                </button>
         </div>
 
     </div>

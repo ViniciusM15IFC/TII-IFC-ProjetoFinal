@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const enableDarkmode = () => {
     document.body.classList.add("darkmode");
     localStorage.setItem("darkmode", "active");
+    
   };
 
   const disableDarkmode = () => {
@@ -19,14 +20,18 @@ document.addEventListener('DOMContentLoaded', () => {
     enableDarkmode();
   }
 
-  // Evento de clique no botão de alternância de tema
-  themeSwitch.addEventListener("click", () => {
-    darkmode = localStorage.getItem("darkmode");
+  // Certifique-se de que o botão está acessível antes de associar o evento
+  if (themeSwitch) {
+    themeSwitch.addEventListener("click", () => {
+      darkmode = localStorage.getItem("darkmode");
 
-    if (darkmode !== "active") {
-      enableDarkmode(); // Ativa o modo escuro
-    } else {
-      disableDarkmode(); // Desativa o modo escuro
-    }
-  });
+      if (darkmode !== "active") {
+        enableDarkmode(); // Ativa o modo escuro
+      } else {
+        disableDarkmode(); // Desativa o modo escuro
+      }
+    });
+  }
+
+  
 });

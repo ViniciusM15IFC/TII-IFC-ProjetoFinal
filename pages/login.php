@@ -43,7 +43,7 @@
             <a href="logout.php">Logout</a>
         </div>
         <div class="text-end mt-2">
-            <a href="form-cadastra-usuario.html">Ainda não sou usuário</a>
+            <a href="form-cadastra-usuario.php">Ainda não sou usuário</a>
         </div>
     </form>
 </body>

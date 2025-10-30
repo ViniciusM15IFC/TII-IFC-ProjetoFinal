@@ -15,11 +15,6 @@
 
 <body>
 
-  <?php
-  session_start();
-  include "../incs/header.php"; ?>
-
-  <!-- Conteúdo Principal -->
   <main class="container text-center my-5">
     <h2 class="display-4">Bem-vindo!</h2>
     <p class="lead">Cadastre-se em nosso site.</p>

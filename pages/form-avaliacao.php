@@ -42,7 +42,7 @@ include "../incs/valida-sessao.php";
                 <!-- Nota -->
                 <div class="mb-3">
                     <label class="form-label">Nota</label>
-                    <input type="number" class="form-control" name="nota" placeholder="De 1 a 10" min="1" max="10" required>
+                    <input type="number" class="form-control" name="nota" placeholder="De 1 a 10" min="0" max="10" required>
                 </div>
 
                 <!-- Texto -->
@@ -58,6 +58,7 @@ include "../incs/valida-sessao.php";
         </div>
     </main>
     <?php include "../incs/footer.php"; ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 <script src="../assets/js/script.js"></script>
 </html>

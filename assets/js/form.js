@@ -18,18 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
   function mostrarFormulario(categoriaSelecionada) {
     esconderTodos();
 
-    switch (categoriaSelecionada.toLowerCase()) {
-      case "filme":
-      case "1": // caso use ID numérico no banco
+    switch (categoriaSelecionada) {
+      case "1":  // Filme
         formFilme.style.display = "block";
         break;
-      case "serie":
-      case "série":
-      case "2":
+      case "2":  // Série
         formSerie.style.display = "block";
         break;
-      case "livro":
-      case "3":
+      case "3":  // Livro
         formLivro.style.display = "block";
         break;
       default:
@@ -40,7 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Detecta mudança no select
   categoriaSelect.addEventListener("change", function () {
-    const categoriaSelecionada = categoriaSelect.options[categoriaSelect.selectedIndex].text;
-    mostrarFormulario(categoriaSelecionada);
+    mostrarFormulario(categoriaSelect.value);  // passa o valor numérico
   });
+
+  // Inicia a exibição com a categoria selecionada por padrão
+  mostrarFormulario(categoriaSelect.value);
 });
