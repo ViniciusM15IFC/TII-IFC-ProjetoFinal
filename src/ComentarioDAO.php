@@ -22,22 +22,25 @@ class ComentarioDAO
         $stmt->execute();
     }
 
-    public static function buscarComentariosPorConteudo($idconteudo)
+    public static function listarComentariosPorPostagem($idpostagem)
     {
         $conexao = ConexaoBD::conectar();
 
         $sql = "SELECT 
-                    c.idcomentario,
-                    u.nomeusuario AS usuario,
-                    c.texto,
-                    c.datahora
+                c.idcomentario,
+                c.idusuario,
+                c.idpostagem,
+                c.texto,
+                c.datacomentario,
+                u.*
                 FROM comentario c
                 JOIN usuario u ON c.idusuario = u.idusuario
-                WHERE c.idconteudo = ?
-                ORDER BY c.datahora DESC";
+                WHERE c.idpostagem = ?
+                ORDER BY c.datacomentario DESC;
+";
 
         $stmt = $conexao->prepare($sql);
-        $stmt->execute([$idconteudo]);
+        $stmt->execute([$idpostagem]);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

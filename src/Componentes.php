@@ -238,8 +238,9 @@ class Componentes
                             </button>
                         <?php endif; ?>
                     </form>
-
-                    <iconify-icon icon="ant-design:comment-outlined" class="ms-3"></iconify-icon>
+                        <button ><iconify-icon icon="ant-design:comment-outlined"
+                                class="ms-3" data-bs-toggle="modal"
+                            data-bs-target="#comentarioModal<?= $postagem['idpostagem'] ?>"></iconify-icon></button>  
                 </div>
                 <iconify-icon icon="jam:triangle-danger"></iconify-icon>
             </div>
@@ -249,4 +250,45 @@ class Componentes
         <?php
     }
 
+    public static function cardComentario($comentario)
+    {
+        ?>
+        <div class="card mb-2">
+            <div class="card-body">
+                <h6 class="card-title"><?= htmlspecialchars($comentario['nomeusuario']) ?></h6>
+                <p class="card-text"><?= nl2br(htmlspecialchars($comentario['texto']))  ?></p>
+            </div>  
+        <?php
+    }
+    public static function modalComentario($postagem)
+    {
+        ?>
+        <!-- Modal de Comentário -->
+        <div class="modal fade" id="comentarioModal<?= $postagem['idpostagem'] ?>" tabindex="-1" aria-labelledby="comentarioModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="comentarioModalLabel">Adicionar Comentário</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="comentarioForm" action="../actions/comentar.php">
+                            <input type="hidden" name="idpostagem" value="<?= $postagem['idpostagem'] ?> ">
+                            <div class="mb-3">
+                                <label for="comentarioTexto" class="form-label">Comentário</label>
+                                <textarea class="form-control" id="comentarioTexto" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <?php
+
+        ComentarioDAO::listarComentariosPorPostagem($postagem['idpostagem']);
+
+
+    }
 }
