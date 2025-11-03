@@ -238,11 +238,30 @@ class Componentes
                             </button>
                         <?php endif; ?>
                     </form>
-                        <button ><iconify-icon icon="ant-design:comment-outlined"
-                                class="ms-3" data-bs-toggle="modal"
-                            data-bs-target="#comentarioModal<?= $postagem['idpostagem'] ?>"></iconify-icon></button>  
+                    <button><iconify-icon icon="ant-design:comment-outlined" class="ms-3" data-bs-toggle="modal"
+                            data-bs-target="#comentarioModal<?= $postagem['idpostagem'] ?>"></iconify-icon></button>
                 </div>
-                <iconify-icon icon="jam:triangle-danger"></iconify-icon>
+                <div class="d-flex align-items-center justify-content-between footer-icons">
+                    <?php
+                    // Verifica se o usuário logado é o autor da postagem ou se é um administrador
+                    if ($_SESSION['idusuario'] == $postagem['idusuario'] || AdminDAO::validarAdmin($_SESSION['idusuario'])) {
+                        ?>
+                        <!-- Link para excluir postagem -->
+                         <button>
+                             <a href="../actions/excluir-postagem.php?idpostagem=<?= $postagem['idpostagem'] ?>"
+                                 class="btn p-0 border-0 bg-transparent text-danger d-flex align-items-center justify-content-center">
+                                 <iconify-icon icon="material-symbols:delete"></iconify-icon>
+                             </a>
+
+                         </button>
+                        <?php
+                    }
+                    ?>
+                    <button class="ms-2">
+                        <iconify-icon icon="jam:triangle-danger"></iconify-icon>
+                    </button>
+                </div>
+
             </div>
 
 
@@ -252,19 +271,56 @@ class Componentes
 
     public static function cardComentario($comentario)
     {
+        // Verifica se o comentário possui uma foto, caso contrário, define uma imagem padrão
+        if (!$comentario['foto']) {
+            $fotoPath = '../assets/img/profile-placeholder.png';
+        } else {
+            $fotoPath = '../uploads/' . $comentario['foto'];
+        }
         ?>
-        <div class="card mb-2">
-            <div class="card-body">
-                <h6 class="card-title"><?= htmlspecialchars($comentario['nomeusuario']) ?></h6>
-                <p class="card-text"><?= nl2br(htmlspecialchars($comentario['texto']))  ?></p>
-            </div>  
+        <div class="card-comentario mb-3 p-3 rounded-4 shadow-sm text-light mx-auto">
+            <!-- Topo -->
+            <div class="d-flex align-items-center mb-2">
+                <div class="user-icon me-2">
+                    <img src="<?= $fotoPath ?>" alt="Foto de <?= htmlspecialchars($comentario['nomeusuario']) ?>"
+                        class="rounded-circle" style="width:40px; height:40px; object-fit:cover;">
+                </div>
+                <h6 class="mb-0 me-2 fw-semibold"><?= htmlspecialchars($comentario['nomeusuario']) ?></h6>
+
+                <?php
+                // Verifica se o usuário logado não é o autor do comentário e se está seguindo
+                $idUsuarioLogado = $_SESSION['idusuario'] ?? null;
+                $idAutor = $comentario['idusuario'];
+
+                if ($idUsuarioLogado && $idAutor != $idUsuarioLogado) {
+                    $seguido = SeguidoDAO::seguidoOuNao($idUsuarioLogado, $idAutor);
+
+                    if (empty($seguido)) {
+                        // Se não segue, exibe a opção para seguir
+                        ?>
+                        <a href="../actions/seguir.php?idseguido=<?= $idAutor ?>" class="seguir-btn">Seguir</a>
+                        <?php
+                    }
+                }
+                ?>
+
+                <small class="text-secondary ms-auto">
+                    <?= date('d/m/Y H:i', strtotime($comentario['datacomentario'])) ?>
+                </small>
+            </div>
+
+            <!-- Corpo do comentário -->
+            <p class="card-text"><?= nl2br(htmlspecialchars($comentario['texto'])) ?></p>
+        </div>
         <?php
     }
+
     public static function modalComentario($postagem)
     {
         ?>
         <!-- Modal de Comentário -->
-        <div class="modal fade" id="comentarioModal<?= $postagem['idpostagem'] ?>" tabindex="-1" aria-labelledby="comentarioModalLabel" aria-hidden="true">
+        <div class="modal fade" id="comentarioModal<?= $postagem['idpostagem'] ?>" tabindex="-1"
+            aria-labelledby="comentarioModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -272,23 +328,41 @@ class Componentes
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="comentarioForm" action="../actions/comentar.php">
-                            <input type="hidden" name="idpostagem" value="<?= $postagem['idpostagem'] ?> ">
+                        <form id="comentarioForm" action="../actions/comentar.php" method="POST">
+                            <input type="hidden" name="idpostagem" value="<?= $postagem['idpostagem'] ?>">
                             <div class="mb-3">
                                 <label for="comentarioTexto" class="form-label">Comentário</label>
-                                <textarea class="form-control" id="comentarioTexto" rows="3" required></textarea>
+                                <textarea class="form-control" id="comentarioTexto" name="comentarioTexto" rows="3"
+                                    required></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Enviar</button>
                         </form>
+
+
+
+
+                        <?php
+
+                        $comentarios = ComentarioDAO::listarComentariosPorPostagem($postagem['idpostagem']);
+                        foreach ($comentarios as $comentario) {
+                            Componentes::cardComentario($comentario);
+                        }
+
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
-
         <?php
 
-        ComentarioDAO::listarComentariosPorPostagem($postagem['idpostagem']);
+    }
 
+    public static function modalDenuncia()
+    {
 
+    }
+    public static function modalExcluirPostagem()
+    {
+        
     }
 }

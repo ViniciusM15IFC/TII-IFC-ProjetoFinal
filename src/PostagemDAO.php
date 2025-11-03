@@ -155,5 +155,22 @@ class PostagemDAO
         $stmt->bindParam(1, $idPostagem, PDO::PARAM_INT);
         $stmt->execute();
     }
+
+    // ===============================
+// Obter autor de uma postagem
+// ===============================
+    public static function getAutorPostagem($idPostagem)
+    {
+        $sql = "SELECT idusuario FROM postagem WHERE idpostagem = ?";
+        $conexao = ConexaoBD::conectar();
+        $stmt = $conexao->prepare($sql);
+        $stmt->bindParam(1, $idPostagem, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $resultado ? $resultado['idusuario'] : null;
+    }
+
 }
 ?>

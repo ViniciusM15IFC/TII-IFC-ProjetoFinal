@@ -215,7 +215,11 @@ header .dropdown-menu .nav-link:hover {
 .modal-footer {
   background-color: var(--bg-color) !important;
   color: var(--color4) !important;
-  border: 1px solid var(--color3);
+}
+
+.modal * {
+  background-color: var(--bg-color) !important;
+  color: var(--color4) !important;
 }
 
 .modal-title {

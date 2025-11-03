@@ -12,13 +12,7 @@ $dados = [
     'texto' => $texto
 ];
 
-if ($idusuario && $idpostagem) {
-    $comentarioTexto = trim($_POST['comentarioTexto'] ?? '');
-
-    if (!empty($comentarioTexto)) {
-        ComentarioDAO::inserir($dados);
-    }
-}
+ComentarioDAO::inserir($dados);
 
 header('Location: ' . $_SERVER['HTTP_REFERER']);
 exit;
