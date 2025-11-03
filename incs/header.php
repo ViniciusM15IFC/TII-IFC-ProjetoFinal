@@ -53,6 +53,7 @@
                     if (AdminDAO::validarAdmin($_SESSION['idusuario'])) {
                         ?>
                         <li><a class="dropdown-item" href="form-cadastra-conteudo.php">Cadastrar Conteúdos</a></li>
+                        <li><a class="dropdown-item" href="denuncias.php">Ver Denuncias</a></li>
                         <?php
                     }
                     ?>

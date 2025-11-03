@@ -246,20 +246,33 @@ class Componentes
                     // Verifica se o usuário logado é o autor da postagem ou se é um administrador
                     if ($_SESSION['idusuario'] == $postagem['idusuario'] || AdminDAO::validarAdmin($_SESSION['idusuario'])) {
                         ?>
-                        <!-- Link para excluir postagem -->
-                         <button>
-                             <a href="../actions/excluir-postagem.php?idpostagem=<?= $postagem['idpostagem'] ?>"
-                                 class="btn p-0 border-0 bg-transparent text-danger d-flex align-items-center justify-content-center">
-                                 <iconify-icon icon="material-symbols:delete"></iconify-icon>
-                             </a>
+                        <!-- Excluir postagem -->
+                        <button data-bs-toggle="modal" data-bs-target="#excluirPostagemModal<?= $postagem['idpostagem'] ?>">
+                            <iconify-icon icon="material-symbols:delete"></iconify-icon>
+                        </button>
 
-                         </button>
+
+                        <?php
+                    }
+                    if (AdminDAO::validarAdmin($_SESSION['idusuario'])) {
+                        ?>
+                        <!-- Ver denúncias -->
+                        <button data-bs-toggle="modal" data-bs-target="#mostrarDenunciasModal<?= $postagem['idpostagem'] ?>">
+                            <iconify-icon icon="mdi:alert-circle-outline"></iconify-icon>
+                        </button>
+                        <?php
+
+                    } else {
+                        ?>
+                        <button class="ms-2" data-bs-toggle="modal"
+                            data-bs-target="#denunciarPostagemModal<?= $postagem['idpostagem'] ?>">
+                            <iconify-icon icon="jam:triangle-danger"></iconify-icon>
+                        </button>
                         <?php
                     }
                     ?>
-                    <button class="ms-2">
-                        <iconify-icon icon="jam:triangle-danger"></iconify-icon>
-                    </button>
+
+
                 </div>
 
             </div>
@@ -321,7 +334,7 @@ class Componentes
         <!-- Modal de Comentário -->
         <div class="modal fade" id="comentarioModal<?= $postagem['idpostagem'] ?>" tabindex="-1"
             aria-labelledby="comentarioModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="comentarioModalLabel">Adicionar Comentário</h5>
@@ -357,12 +370,104 @@ class Componentes
 
     }
 
-    public static function modalDenuncia()
+    public static function modalConfirmar($postagem)
     {
+        ?>
+        <div class="modal fade" id="excluirPostagemModal<?= $postagem['idpostagem'] ?>" tabindex="-1"
+            aria-labelledby="comentarioModalLabel" aria-hidden="true">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="comentarioModalLabel">Confirmação</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
 
+
+                        <p>Tem certeza que deseja excluir esta postagem?</p>
+                        <a
+                            href="../actions/excluir-postagem.php?idpostagem=<?= $postagem['idpostagem'] ?>"><button>Sim</button></a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <?php
     }
-    public static function modalExcluirPostagem()
+
+    public static function modalDenuncia($postagem)
     {
-        
+        ?>
+        <div class="modal fade" id="denunciarPostagemModal<?= $postagem['idpostagem'] ?>" tabindex="-1"
+            aria-labelledby="comentarioModalLabel" aria-hidden="true">
+            <div class="modal-dialog ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="comentarioModalLabel">Denunciar Postagem</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="../actions/denunciar-postagem.php" method="POST">
+                            <input type="hidden" name="idpostagem" value="<?= $postagem['idpostagem'] ?>">
+                            <div class="mb-3">
+                                <label for="motivoDenuncia" class="form-label">Motivo da Denúncia</label>
+                                <textarea class="form-control" id="motivoDenuncia" name="motivoDenuncia" rows="3"
+                                    required></textarea>
+                                <button type="submit">Enviar</button>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <?php
+    }
+
+    public static function modalMostrarDenuncias($postagem)
+    {
+        ?>
+        <!-- Modal de Denúncia para Admin -->
+        <div class="modal fade" id="mostrarDenunciasModal<?= $postagem['idpostagem'] ?>" tabindex="-1"
+            aria-labelledby="mostrarDenunciasModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mostrarDenunciasModal">Denuncias da Postagem</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <?php
+
+                        $denuncias = DenunciaDAO::listarPorPostagem($postagem['idpostagem']);
+                        foreach ($denuncias as $denuncia) {
+                            Componentes::cardDenuncia($denuncia);
+                        }
+
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+    public static function cardDenuncia($denuncia)
+    {
+        ?>
+        <div class="card-denuncia mb-3 p-3 rounded-4 shadow-sm text-light mx-auto">
+            <!-- Topo -->
+            <div class="d-flex align-items-center mb-2">
+                <h6 class="mb-0 me-2 fw-semibold">Denúncia ID: <?= htmlspecialchars($denuncia['iddenuncia']) ?></h6>
+
+            </div>
+
+            <!-- Corpo da denúncia -->
+            <p class="card-text"><?= nl2br(htmlspecialchars($denuncia['motivo'])) ?></p>
+        </div>
+        <?php
     }
 }

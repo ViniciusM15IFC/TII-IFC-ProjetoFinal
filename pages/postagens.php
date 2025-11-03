@@ -29,6 +29,9 @@ include "../incs/valida-sessao.php";
                 foreach ($postagens as $postagem) {
                     Componentes::cardPostagem($postagem);
                     Componentes::modalComentario($postagem);
+                    Componentes::modalConfirmar($postagem);
+                    Componentes::modalDenuncia($postagem);
+                    Componentes::modalMostrarDenuncias($postagem);
                 }
 
 
