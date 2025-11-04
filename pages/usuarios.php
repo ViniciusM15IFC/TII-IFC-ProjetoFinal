@@ -37,29 +37,7 @@ include "../incs/valida-sessao.php";
         <div class="container w-50 mx-auto text-start row">
 
 
-            <?php
-            require_once __DIR__ . "/../src/autoload.php";
-
-            $idUsuarioLogado = $_SESSION['idusuario'];
-            $seguidos = SeguidoDAO::listarSeguidos($idUsuarioLogado); // retorna array de usuários seguidos
-            $idsSeguidos = array_column($seguidos, 'idusuario'); // só pega os IDs
             
-            $nome = $_GET['nome'] ?? ''; // evita erro de índice indefinido
-            
-            if ($_SERVER['REQUEST_METHOD'] === 'GET' && $nome !== '') {
-                // Se o formulário foi enviado e tem nome preenchido
-                $usuarios = UsuarioDAO::buscarUsuarios($nome);
-            } else {
-                // Se o campo está vazio ou o form não foi enviado
-                $usuarios = UsuarioDAO::listarUsuarios();
-            }
-
-            foreach ($usuarios as $usuario) {
-                if ($idUsuarioLogado !== $usuario['idusuario']) {
-                    Componentes::cardUsuario($usuario);
-                }
-            }
-            ?>
         </div>
 
     </main>

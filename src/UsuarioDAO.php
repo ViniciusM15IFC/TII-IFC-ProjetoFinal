@@ -112,6 +112,15 @@ class UsuarioDAO
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function restringirPerfil($idusuario)
+    {
+        $conexao = ConexaoBD::conectar();
+        $sql = "UPDATE usuario SET restrito = 'true' WHERE idusuario = ?";
+        $stmt = $conexao->prepare($sql);
+        $stmt->bindParam(1, $idusuario, PDO::PARAM_INT);
+        $stmt->execute();
+
+    }
 
 }
 ?>

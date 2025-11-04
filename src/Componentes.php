@@ -20,7 +20,7 @@ class Componentes
         <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="../uploads/<?= $fotoPath ?>" class="img-fluid rounded-start">
+                    <a href="perfil.php?idusuario=<?= $usuario['idusuario'] ?>">"><img src="../uploads/<?= $fotoPath ?>" class="img-fluid rounded-start"></a>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -150,8 +150,10 @@ class Componentes
                         $fotoPath = '../uploads/' . $postagem['foto'];
                     }
                     ?>
-                    <img src="<?= $fotoPath ?>" alt="Foto de <?= htmlspecialchars($postagem['nomeusuario']) ?>"
-                        class="rounded-circle" style="width:40px; height:40px; object-fit:cover;">
+                    <a href="perfil.php?idusuario=<?= $postagem['idusuario'] ?>">
+                        <img src="<?= $fotoPath ?>" alt="Foto de <?= htmlspecialchars($postagem['nomeusuario']) ?>"
+                            class="rounded-circle" style="width:40px; height:40px; object-fit:cover;">
+                    </a>
 
                 </div>
                 <h6 class="mb-0 me-2 fw-semibold"><?= htmlspecialchars($postagem['nomeusuario']) ?></h6>
@@ -470,4 +472,5 @@ class Componentes
         </div>
         <?php
     }
+    
 }

@@ -2,7 +2,7 @@
 include "../incs/valida-sessao.php";
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt br">
 
 <head>
     <meta charset="UTF-8">
@@ -19,17 +19,56 @@ include "../incs/valida-sessao.php";
 <body>
     <?php include "../incs/header.php"; ?>
     <main>
-        <div class="container">
-            <?php
-            require_once __DIR__ . "/../src/autoload.php";
-            $id = $_SESSION['idusuario'];
+        <div class="container w-75">
+            <div class="text-center py-4">
+                <?php
+                require_once __DIR__ . "/../src/autoload.php";
+                $idusuario = $_GET['idusuario'];
+                $usuario = UsuarioDAO::consultarUsuario($idusuario);
 
-            $usuario = UsuarioDAO::consultarUsuario($id);
+                if (isset($usuario['foto']) && !empty($usuario['foto'])) {
+                    $fotoPath = '../uploads/' . $usuario['foto'];
+                } else {
+                    $fotoPath = '../assets/img/default-profile.png';
+                }
+                ?>
+                <img src="<?= $fotoPath ?>" alt="" class="rounded-circle img-profile">
 
-            ?>
-            <h1>Seja bem-vindo(a) <?= $usuario['nomeusuario'] ?>!</h1>
-            <p><?= $usuario['email'] ?></p>
-            <img src="uploads\<?= $usuario['foto'] ?>" alt="">
+                <h5 class="mt-3 mb-3"><?= $usuario['nomeusuario'] ?></h5>
+                <div class="d-flex justify-content-center gap-5">
+                    <div class="text-center">
+                        <div class="fw-bold">Seguidores</div>
+                        <p><?= SeguidoDAO::contarSeguidores($usuario['idusuario']) ?></p>
+                    </div>
+                    <div>
+                        <div class="fw-bold">Seguindo</div>
+                        <p><?= SeguidoDAO::contarSeguidos($usuario['idusuario']) ?></p>
+                    </div>
+                </div>
+            </div>
+            <section>
+                <?php
+                $postagens = PostagemDAO::listarPorUsuario($usuario['idusuario']);
+
+                if (empty($postagens)) {
+                    ?>
+                    <div class="text-center" role="alert">
+                        Não há nenhuma postagem.
+                    </div>
+                    <?php
+                }
+
+                foreach ($postagens as $postagem) {
+                    Componentes::cardPostagem($postagem);
+                    Componentes::modalComentario($postagem);
+                    Componentes::modalConfirmar($postagem);
+                    Componentes::modalDenuncia($postagem);
+                    Componentes::modalMostrarDenuncias($postagem);
+                }
+
+
+                ?>
+            </section>
         </div>
     </main>
     <?php include "../incs/footer.php"; ?>
