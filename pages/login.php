@@ -23,20 +23,6 @@
                             <form action="../actions/efetua-login.php" method="post">
                                 <h2 class="text-white fw-bold mb-4">Login</h2>
 
-                                <?php
-                                session_start();
-                                if (isset($_SESSION['msg'])) {
-                                    echo '<div class="alert alert-danger" role="alert">';
-                                    echo $_SESSION['msg'];
-                                    unset($_SESSION['msg']);
-                                    echo '</div>';
-                                } else {
-                                    echo '<div class="alert alert-info" role="alert">';
-                                    echo 'Informe seu email e senha para entrar.';
-                                    echo '</div>';
-                                }
-                                ?>
-
                                 <div class="mb-3">
                                     <label for="email" class="form-label text-white fw-semibold">Email</label>
                                     <input type="email" name="email" id="email" class="form-control"
@@ -54,7 +40,8 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <a href="form-cadastra-usuario.php" class="text-white text-decoration-none">ou <strong>Criar Conta</strong></a>
+                                    <a href="form-cadastra-usuario.php" class="text-white text-decoration-none">ou
+                                        <strong>Criar Conta</strong></a>
                                 </div>
                             </form>
                         </div>
@@ -67,6 +54,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+    <?php Componentes::exibirAlert(); ?>
+    <script src="../assets/js/alert.js"></script>
 </body>
 
 </html>

@@ -30,7 +30,8 @@ class PostagemDAO
                 p.*,
                 u.nomeusuario,
                 u.foto,
-                COALESCE(f.nomefilme, s.nomeserie, l.nomelivro) AS nomeconteudo
+                COALESCE(f.nomefilme, s.nomeserie, l.nomelivro) AS nomeconteudo,
+                COALESCE(f.imagem, s.imagem, l.imagem) AS imagemconteudo
             FROM postagem p
             JOIN usuario u ON p.idusuario = u.idusuario
             LEFT JOIN filme f ON p.idcategoria = 1 AND p.idconteudo = f.idfilme
@@ -44,6 +45,7 @@ class PostagemDAO
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     public static function listarFeed($idUsuario)
     {
@@ -170,7 +172,7 @@ class PostagemDAO
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function buscarTudo( $texto)
+    public static function buscarTudo($texto)
     {
         // Criar a consulta SQL com filtros por texto, nome do usuário, e nome do conteúdo (filme/série/livro)
         $sql = "SELECT 

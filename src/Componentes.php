@@ -10,60 +10,141 @@ class Componentes
         $seguidos = SeguidoDAO::listarSeguidos($idUsuarioLogado); // retorna array de usuários seguidos
         $idsSeguidos = array_column($seguidos, 'idusuario'); // só pega os IDs
 
-        if (!$usuario['foto']) {
-            $fotoPath = '../assets/img/profile-placeholder.png';
-        } else {
-            $fotoPath = '../uploads/' . $usuario['foto'];
+        ?>
+
+        <div class="d-flex align-items-center mb-4">
+            <div class="user-icon me-2">
+
+                <?php
+                if (!$usuario['foto']) {
+                    $fotoPath = '../assets/img/profile-placeholder.png';
+                } else {
+                    $fotoPath = '../uploads/' . $usuario['foto'];
+                }
+                ?>
+                <a href="perfil.php?idusuario=<?= $usuario['idusuario'] ?>">
+                    <img src="<?= $fotoPath ?>" alt="Foto de <?= htmlspecialchars($usuario['nomeusuario']) ?>"
+                        class="rounded-circle" style="width:40px; height:40px; object-fit:cover;">
+                </a>
+
+            </div>
+            <h6 class="mb-0 me-2 fw-semibold border border-0"><?= htmlspecialchars($usuario['nomeusuario']) ?></h6>
+            <?php
+            $idUsuarioLogado = $_SESSION['idusuario'] ?? null;
+            $idAutor = $usuario['idusuario'];
+
+            if ($idUsuarioLogado && $idAutor != $idUsuarioLogado) {
+                $seguido = SeguidoDAO::seguidoOuNao($idUsuarioLogado, $idAutor);
+
+                if (empty($seguido)) {
+                    // Não segue ainda
+                    ?>
+                    <a href="../actions/seguir.php?idseguido=<?= $idAutor ?>" class="seguir-btn text-decoration-none">Seguir</a>
+                    <?php
+                }
+            }
+            ?>
+        </div>
+        <?php
+    }
+
+    public static function cardConteudo($conteudo)
+    {
+        // Debug - verifique qual campo tem o ID
+        $id = $conteudo['id'] ?? $conteudo['idfilme'] ?? $conteudo['idserie'] ?? $conteudo['idlivro'] ?? null;
+        $categoria = $conteudo['categoria_nome'] ?? $conteudo['categoria'] ?? null;
+        $titulo = $conteudo['titulo'] ?? $conteudo['nomefilme'] ?? $conteudo['nomeserie'] ?? $conteudo['nomelivro'] ?? 'Sem título';
+        $imagem = $conteudo['imagem'] ?? 'placeholder.png';
+
+        // Cria ID único
+        $modalId = 'modal' . ucfirst(strtolower(str_replace('Série', 'Serie', $categoria))) . $id;
+
+        // Debug
+        // echo "ID: $id, Categoria: $categoria, ModalID: $modalId<br>";
+
+        ?>
+        <div class="card-conteudo position-relative" data-bs-toggle="modal" data-bs-target="#<?= $modalId ?>"
+            style="cursor: pointer;">
+            <img src="../uploads/<?= htmlspecialchars($imagem) ?>" alt="<?= htmlspecialchars($titulo) ?>"
+                class="img-fluid img-slider rounded">
+
+            <div class="overlay-conteudo position-absolute bottom-0 start-0 end-0 p-2 text-white">
+                <h6 class="text-truncate mb-0"><?= htmlspecialchars($titulo) ?></h6>
+            </div>
+        </div>
+
+        <?php
+        switch ($categoria) {
+            case 'Filme':
+                self::modalFilme($conteudo, $modalId);
+                break;
+            case 'Série':
+                self::modalSerie($conteudo, $modalId);
+                break;
+            case 'Livro':
+                self::modalLivro($conteudo, $modalId);
+                break;
         }
-
-        ?>
-        <div class="card mb-3">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <a href="perfil.php?idusuario=<?= $usuario['idusuario'] ?>">"><img src="../uploads/<?= $fotoPath ?>" class="img-fluid rounded-start"></a>
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title"><?= $usuario['nomeusuario'] ?></h5>
-                        <p class="card-text"><small class="text-muted">Email: <?= $usuario['email'] ?></small></p>
-                        <p class="card-text"><small class="text-muted">Data de Nascimento: <?= $usuario['datanasc'] ?></small>
-                        </p>
-
-                        <?php if (!in_array($usuario['idusuario'], $idsSeguidos) && $usuario['idusuario'] != $idUsuarioLogado): ?>
-                            <a href="../actions/seguir.php?idseguido=<?= $usuario['idusuario'] ?>"
-                                class="col-4 btn btn-secondary my-1">
-                                Seguir
-                            </a>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php
     }
-
-    // ---------------------------
-    // COMPONENTE: FILME
-    // ---------------------------
-    public static function cardFilme($filme)
+    public static function modalFilme($filme, $modalId)
     {
+        $id = $filme['id'] ?? null;
+        $titulo = $filme['titulo'] ?? $filme['nomefilme'] ?? '';
+        $modalId = $modalId ?? 'modalConteudo' . $id;
         ?>
-        <div class="card mb-3 shadow-sm">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="../uploads/<?= $filme['imagem'] ?>" class="img-fluid rounded-start"
-                        alt="Capa do filme <?= $filme['nomefilme'] ?>">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title"><?= htmlspecialchars($filme['nomefilme']) ?></h5>
-                        <p class="card-text"><?= nl2br(htmlspecialchars($filme['sinopse'])) ?></p>
-                        <p class="card-text"><small class="text-muted">Lançamento:
-                                <?= htmlspecialchars($filme['anofilme'] ?? '—') ?></small></p>
-                        <a href="../pages/form-avaliacao.php?idconteudo=<?= $filme['idfilme'] ?>>&idcategoria=1"
-                            class="col-4 btn btn-secondary my-1">
-                            Avaliar
-                        </a>
+        <div class="modal fade" id="<?= $modalId ?>" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><?= htmlspecialchars($titulo) ?></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="../uploads/<?= htmlspecialchars($filme['imagem']) ?>" class="img-fluid rounded"
+                                    alt="<?= htmlspecialchars($titulo) ?>">
+                            </div>
+                            <div class="col-md-8">
+                                <p><strong>Lançamento:</strong> <?= htmlspecialchars($filme['anolancamento'] ?? '—') ?></p>
+                                <p><strong>Duração:</strong> <?= htmlspecialchars($filme['duracao'] ?? '—') ?></p>
+                                <p><strong>Direção:</strong> <?= htmlspecialchars($filme['direcao'] ?? '—') ?></p>
+                                <p><strong>Sinopse:</strong></p>
+                                <p><?= nl2br(htmlspecialchars($filme['sinopse'] ?? '')) ?></p>
+
+                                <hr>
+
+                                <form action="../actions/posta-avaliacao.php" method="POST">
+                                    <input type="hidden" name="idconteudo" value="<?= $id ?>">
+                                    <input type="hidden" name="idcategoria" value="1">
+                                    <input type="hidden" name="nota" id="notaFilme<?= $id ?>" value="0">
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Sua Avaliação</label>
+                                        <div class="rating-stars" data-input="notaFilme<?= $id ?>">
+                                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                <div class="star-container" style="display: inline-block; position: relative;">
+                                                    <iconify-icon icon="ic:round-star-border" data-value="<?= $i ?>"
+                                                        class="star full"
+                                                        style="cursor: pointer; font-size: 32px; margin: 0 4px;"></iconify-icon>
+                                                    <iconify-icon icon="ic:round-star-border" data-value="<?= $i - 0.5 ?>"
+                                                        class="star half"
+                                                        style="cursor: pointer; font-size: 32px; position: absolute; left: 4px; top: 0; width: 50%; overflow: hidden;"></iconify-icon>
+                                                </div>
+                                            <?php endfor; ?>
+                                        </div>
+                                        <p class="mt-2" id="notaTextoFilme<?= $id ?>">Selecione uma nota</p>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="textoFilme<?= $id ?>" class="form-label">Comentário (opcional)</label>
+                                        <textarea class="form-control" id="textoFilme<?= $id ?>" name="texto"
+                                            rows="3"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Enviar Avaliação</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -71,28 +152,67 @@ class Componentes
         <?php
     }
 
-    // ---------------------------
-    // COMPONENTE: SÉRIE
-    // ---------------------------
-    public static function cardSerie($serie)
+    public static function modalSerie($serie, $modalId)
     {
+        $id = $serie['id'] ?? null;
+        $titulo = $serie['titulo'] ?? $serie['nomeserie'] ?? '';
+        $modalId = $modalId ?? 'modalConteudo' . $id;
         ?>
-        <div class="card mb-3 shadow-sm">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="../uploads/<?= htmlspecialchars($serie['imagem']) ?>" class="img-fluid rounded-start"
-                        alt="Capa da série <?= htmlspecialchars($serie['nomeserie']) ?>">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title"><?= htmlspecialchars($serie['nomeserie']) ?></h5>
-                        <p class="card-text"><?= nl2br(htmlspecialchars($serie['sinopse'])) ?></p>
-                        <p class="card-text"><small class="text-muted">Temporadas:
-                                <?= htmlspecialchars($serie['temporadas'] ?? '—') ?></small></p>
-                        <a href="../pages/form-avaliacao.php?idconteudo=<?= $serie['idserie'] ?>>&idcategoria=2"
-                            class="col-4 btn btn-secondary my-1">
-                            Avaliar
-                        </a>
+        <div class="modal fade" id="<?= $modalId ?>" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><?= htmlspecialchars($titulo) ?></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="../uploads/<?= htmlspecialchars($serie['imagem']) ?>" class="img-fluid rounded"
+                                    alt="<?= htmlspecialchars($titulo) ?>">
+                            </div>
+                            <div class="col-md-8">
+                                <p><strong>Temporadas:</strong> <?= htmlspecialchars($serie['temporadas'] ?? '—') ?></p>
+                                <p><strong>Episódios:</strong> <?= htmlspecialchars($serie['episodios'] ?? '—') ?></p>
+                                <p><strong>Início:</strong> <?= htmlspecialchars($serie['anoinicio'] ?? '—') ?></p>
+                                <p><strong>Encerramento:</strong>
+                                    <?= htmlspecialchars($serie['anoencerramento'] ?? 'Em Andamento') ?></p>
+                                <p><strong>Sinopse:</strong></p>
+                                <p><?= nl2br(htmlspecialchars($serie['sinopse'] ?? '')) ?></p>
+
+                                <hr>
+
+                                <form action="../actions/posta-avaliacao.php" method="POST">
+                                    <input type="hidden" name="idconteudo" value="<?= $id ?>">
+                                    <input type="hidden" name="idcategoria" value="2">
+                                    <input type="hidden" name="nota" id="notaSerie<?= $id ?>" value="0">
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Sua Avaliação</label>
+                                        <div class="rating-stars" data-input="notaSerie<?= $id ?>">
+                                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                <div class="star-container" style="display: inline-block; position: relative;">
+                                                    <iconify-icon icon="ic:round-star-border" data-value="<?= $i ?>"
+                                                        class="star full"
+                                                        style="cursor: pointer; font-size: 32px; margin: 0 4px;"></iconify-icon>
+                                                    <iconify-icon icon="ic:round-star-border" data-value="<?= $i - 0.5 ?>"
+                                                        class="star half"
+                                                        style="cursor: pointer; font-size: 32px; position: absolute; left: 4px; top: 0; width: 50%; overflow: hidden;"></iconify-icon>
+                                                </div>
+                                            <?php endfor; ?>
+                                        </div>
+                                        <p class="mt-2" id="notaTextoSerie<?= $id ?>">Selecione uma nota</p>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="textoSerie<?= $id ?>" class="form-label">Comentário (opcional)</label>
+                                        <textarea class="form-control" id="textoSerie<?= $id ?>" name="texto"
+                                            rows="3"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Enviar Avaliação</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -100,34 +220,72 @@ class Componentes
         <?php
     }
 
-    // ---------------------------
-    // COMPONENTE: LIVRO
-    // ---------------------------
-    public static function cardLivro($livro)
+    public static function modalLivro($livro, $modalId = null)
     {
+        $id = $livro['id'] ?? null;
+        $titulo = $livro['titulo'] ?? $livro['nomelivro'] ?? '';
+        $modalId = $modalId ?? 'modalConteudo' . $id;
         ?>
-        <div class="card mb-3 shadow-sm">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img src="../uploads/<?= htmlspecialchars($livro['imagem']) ?>" class="img-fluid rounded-start"
-                        alt="Capa do livro <?= htmlspecialchars($livro['nomelivro']) ?>">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title"><?= htmlspecialchars($livro['nomelivro']) ?></h5>
-                        <p class="card-text"><?= nl2br(htmlspecialchars($livro['sinopse'])) ?></p>
-                        <p class="card-text"><small class="text-muted">Autor:
-                                <?= htmlspecialchars($livro['autor'] ?? '—') ?></small></p>
-                        <a href="../pages/form-avaliacao.php?idconteudo=<?= $livro['idlivro'] ?>>&idcategoria=3"
-                            class="col-4 btn btn-secondary my-1">
-                            Avaliar
-                        </a>
+        <div class="modal fade" id="<?= $modalId ?>" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><?= htmlspecialchars($titulo) ?></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="../uploads/<?= htmlspecialchars($livro['imagem']) ?>" class="img-fluid rounded"
+                                    alt="<?= htmlspecialchars($titulo) ?>">
+                            </div>
+                            <div class="col-md-8">
+                                <p><strong>Autor:</strong> <?= htmlspecialchars($livro['autor'] ?? '—') ?></p>
+                                <p><strong>Editora:</strong> <?= htmlspecialchars($livro['editora'] ?? '—') ?></p>
+                                <p><strong>Páginas:</strong> <?= htmlspecialchars($livro['paginas'] ?? '—') ?></p>
+                                <p><strong>Sinopse:</strong></p>
+                                <p><?= nl2br(htmlspecialchars($livro['sinopse'] ?? '')) ?></p>
+
+                                <hr>
+
+                                <form action="../actions/posta-avaliacao.php" method="POST">
+                                    <input type="hidden" name="idconteudo" value="<?= $id ?>">
+                                    <input type="hidden" name="idcategoria" value="3">
+                                    <input type="hidden" name="nota" id="notaLivro<?= $id ?>" value="0">
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Sua Avaliação</label>
+                                        <div class="rating-stars" data-input="notaLivro<?= $id ?>">
+                                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                <div class="star-container" style="display: inline-block; position: relative;">
+                                                    <iconify-icon icon="ic:round-star-border" data-value="<?= $i ?>"
+                                                        class="star full"
+                                                        style="cursor: pointer; font-size: 32px; margin: 0 4px;"></iconify-icon>
+                                                    <iconify-icon icon="ic:round-star-border" data-value="<?= $i - 0.5 ?>"
+                                                        class="star half"
+                                                        style="cursor: pointer; font-size: 32px; position: absolute; left: 4px; top: 0; width: 50%; overflow: hidden;"></iconify-icon>
+                                                </div>
+                                            <?php endfor; ?>
+                                        </div>
+                                        <p class="mt-2" id="notaTextoLivro<?= $id ?>">Selecione uma nota</p>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="textoLivro<?= $id ?>" class="form-label">Comentário (opcional)</label>
+                                        <textarea class="form-control" id="textoLivro<?= $id ?>" name="texto"
+                                            rows="3"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Enviar Avaliação</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <?php
     }
+
 
     public static function cardPostagem($postagem)
     {
@@ -167,7 +325,7 @@ class Componentes
                     if (empty($seguido)) {
                         // Não segue ainda
                         ?>
-                        <a href="../actions/seguir.php?idseguido=<?= $idAutor ?>" class="seguir-btn">Seguir</a>
+                        <a href="../actions/seguir.php?idseguido=<?= $idAutor ?>" class="seguir-btn text-decoration-none">Seguir</a>
                         <?php
                     }
                 }
@@ -472,5 +630,148 @@ class Componentes
         </div>
         <?php
     }
-    
+
+    public static function exibirPostagemCompleta($postagem)
+    {
+        Componentes::cardPostagem($postagem);
+        Componentes::modalComentario($postagem);
+        Componentes::modalConfirmar($postagem);
+        Componentes::modalDenuncia($postagem);
+        Componentes::modalMostrarDenuncias($postagem);
+    }
+
+
+    public static function exibirAlert()
+    {
+        $mensagem = $_SESSION['msg'] ?? '';
+        ?>
+        <!-- Modal de Notificação -->
+        <style>
+            #notificacaoModal {
+                background-color: transparent !important;
+            }
+
+            #notificacaoModal .modal-backdrop {
+                opacity: 0.3 !important;
+            }
+
+            #notificacaoModal .modal-dialog {
+                background-color: transparent !important;
+            }
+
+            .notificacao-content {
+                background: var(--bg-color);
+                border: 2px solid var(--color1);
+                border-radius: 12px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                max-width: 400px;
+                overflow: hidden;
+            }
+
+            .notificacao-header {
+                background: linear-gradient(135deg, var(--color1), var(--color2));
+                color: white;
+                border-radius: 10px 10px 0 0;
+                padding: 20px;
+            }
+
+            .notificacao-header .modal-title {
+                font-weight: bold;
+                font-size: 18px;
+                display: flex;
+                align-items: center;
+            }
+
+            .notificacao-body {
+                padding: 20px;
+                background: var(--bg-color);
+            }
+
+            .notificacao-body .alert {
+                border: none;
+                border-radius: 8px;
+                margin: 0;
+                padding: 15px;
+                font-size: 15px;
+                line-height: 1.5;
+            }
+
+            .notificacao-body .alert-success {
+                background-color: #d4edda;
+                color: #155724;
+                border-left: 4px solid #28a745;
+            }
+
+            .notificacao-body .alert-danger {
+                background-color: #f8d7da;
+                color: #721c24;
+                border-left: 4px solid #dc3545;
+            }
+
+            .notificacao-body .alert-info {
+                background-color: #d1ecf1;
+                color: #0c5460;
+                border-left: 4px solid #17a2b8;
+            }
+
+            .notificacao-body .alert-warning {
+                background-color: #fff3cd;
+                color: #856404;
+                border-left: 4px solid #ffc107;
+            }
+
+            #notificacaoModal .btn-primary {
+                background: linear-gradient(135deg, var(--color1), var(--color2));
+                border: none;
+                border-radius: 6px;
+                padding: 8px 24px;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                color: white;
+            }
+
+            #notificacaoModal .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(193, 18, 31, 0.3);
+                color: white;
+            }
+
+            #notificacaoModal .modal-content {
+                border: none;
+            }
+
+            #notificacaoModal .btn-close {
+                filter: brightness(0) invert(1);
+            }
+        </style>
+        <div class="modal fade" id="notificacaoModal" tabindex="-1" aria-labelledby="notificacaoLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content notificacao-content">
+                    <div class="modal-header notificacao-header border-0">
+                        <h5 class="modal-title" id="notificacaoLabel">
+                            <iconify-icon icon="mdi:check-circle" class="me-2"></iconify-icon>
+                            Notificação
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body notificacao-body">
+                        <div id="notificacaoMensagem" class="alert alert-info" role="alert"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            window.mensagemSessao = '<?= addslashes($mensagem) ?>';
+        </script>
+
+
+        <?php
+
+        // Limpa a mensagem após exibir
+        unset($_SESSION['msg']);
+    }
 }
+?>
+<script src="/assets/js/rating.js"></script>

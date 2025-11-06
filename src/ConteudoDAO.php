@@ -3,45 +3,59 @@ require_once __DIR__ . "/../src/autoload.php";
 
 class ConteudoDAO
 {
-    public static function inserir($idconteudo, $idcategoria)
+    public static function inserir($idConteudo, $idCategoria)
     {
         $conexao = ConexaoBD::conectar();
 
-
-        $sql = "INSERT INTO conteudo (
-                    idconteudo, idcategoria
-                ) VALUES (?, ?)";
+        $sql = "INSERT INTO conteudo (idconteudo, idcategoria) VALUES (?, ?)";
 
         $stmt = $conexao->prepare($sql);
-
-        $stmt->bindParam(1, $idconteudo);
-        $stmt->bindParam(2, $idcategoria);
-
-        $stmt->execute();
+        return $stmt->execute([$idConteudo, $idCategoria]);
     }
     public static function buscarConteudos($termo = "")
     {
         $conexao = ConexaoBD::conectar();
 
-        $sql = "SELECT 
-                c.idconteudo,
-                cat.nomecategoria AS categoria,
-                COALESCE(f.nomelfilme, l.nomelivro, s.nomeserie) AS titulo,
-                COALESCE(f.imagem, l.imagem, s.imagem) AS imagem,
-                COALESCE(f.sinopse, l.sinopse, s.sinopse) AS sinopse
-            FROM conteudo c
-            JOIN categoria cat ON c.idcategoria = cat.idcategoria
-            LEFT JOIN filme f ON f.idfilme = c.idconteudo
-            LEFT JOIN livro l ON l.idlivro = c.idconteudo
-            LEFT JOIN serie s ON s.idserie = c.idconteudo
-            WHERE COALESCE(f.nomelfilme, l.nomelivro, s.nomeserie) LIKE CONCAT('%', ?, '%')
-            ORDER BY titulo";
+        $sql = "
+            SELECT 
+                f.idfilme AS id,
+                1 AS categoria_id,
+                'Filme' AS categoria_nome,
+                f.nomefilme AS titulo,
+                f.imagem,
+                f.sinopse
+            FROM filme f
+            WHERE f.nomefilme LIKE CONCAT('%', ?, '%')
+
+            UNION ALL
+
+            SELECT 
+                s.idserie AS id,
+                2 AS categoria_id,
+                'Série' AS categoria_nome,
+                s.nomeserie AS titulo,
+                s.imagem,
+                s.sinopse
+            FROM serie s
+            WHERE s.nomeserie LIKE CONCAT('%', ?, '%')
+
+            UNION ALL
+
+            SELECT 
+                l.idlivro AS id,
+                3 AS categoria_id,
+                'Livro' AS categoria_nome,
+                l.nomelivro AS titulo,
+                l.imagem,
+                l.sinopse
+            FROM livro l
+            WHERE l.nomelivro LIKE CONCAT('%', ?, '%')
+        ";
 
         $stmt = $conexao->prepare($sql);
-        $stmt->execute([$termo]);
+        $stmt->execute([$termo, $termo, $termo]);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
 }
 ?>

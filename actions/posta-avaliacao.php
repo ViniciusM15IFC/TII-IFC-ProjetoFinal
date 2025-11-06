@@ -11,21 +11,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idconteudo = $_POST['idconteudo'] ?? null;
     $idcategoria = $_POST['idcategoria'] ?? null;
     $nota = $_POST['nota'] ?? null;
-    $texto = trim($_POST['texto'] ?? '');
+    $texto = trim($_POST['texto'] ?? ''); // Texto é opcional
 
-    // Validação simples
-    if (!$idusuario || !$idconteudo || !$idcategoria || !$nota || !$texto) {
-        $_SESSION['msg'] = "Preencha todos os campos.";
-        header("Location: ../pages/form-avaliacao.php?idconteudo={$idconteudo}");
+    // Validação - nota não pode ser 0
+    if (!$idusuario || !$idconteudo || !$idcategoria || !$nota || $nota == 0) {
+        $_SESSION['msg'] = "Selecione uma nota para avaliar.";
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit;
     }
 
     // Monta array de dados para o DAO
     $dados = [
+        'idusuario' => $idusuario,
         'idconteudo' => $idconteudo,
         'idcategoria' => $idcategoria,
         'nota' => $nota,
-        'texto' => $texto
+        'texto' => $texto,
+        'datapostagem' => date('Y-m-d H:i:s')
     ];
 
     try {
@@ -35,9 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['msg'] = "Erro ao enviar avaliação: " . $e->getMessage();
     }
 
-    header("Location: ../pages/form-avaliacao.php?idconteudo={$idconteudo}");
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit;
 
 } else {
     die("Requisição inválida.");
 }
+?>

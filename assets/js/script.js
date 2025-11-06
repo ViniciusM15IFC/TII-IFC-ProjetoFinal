@@ -20,6 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
     enableDarkmode();
   }
 
+  toggleMode = () => {
+    if (darkmode !== "active") {
+        enableDarkmode(); // Ativa o modo escuro
+      } else {
+        disableDarkmode(); // Desativa o modo escuro
+      }
+  }
+
   // Certifique-se de que o botão está acessível antes de associar o evento
   if (themeSwitch) {
     themeSwitch.addEventListener("click", () => {

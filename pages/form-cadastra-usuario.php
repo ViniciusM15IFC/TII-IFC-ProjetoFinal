@@ -2,15 +2,15 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O Crítico - Cadastro de Usuário</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
-    <link rel="stylesheet" href="..\assets\css\style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O Crítico - Cadastro de Usuário</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+  <link rel="stylesheet" href="..\assets\css\style.css">
 </head>
 
 <body>
@@ -20,19 +20,7 @@
     <p class="lead">Cadastre-se em nosso site.</p>
     <form action="../actions/cadastra-usuario.php" method="post" enctype="multipart/form-data"
       class="w-50 mx-auto text-start row">
-      <?php
 
-      if (isset($_SESSION['msg'])) {
-        echo '<div class="alert alert-danger" role="alert">';
-        echo $_SESSION['msg'];
-        unset($_SESSION['msg']);
-        echo '</div>';
-      } else {
-        echo '<div class="alert alert-info" role="alert">';
-        echo 'Informe seu dados para realizar o cadastro.';
-        echo '</div>';
-      }
-      ?>
       <div class="mb-3">
         <label class="form-label">Nome de Usuário</label>
         <input type="text" class="form-control" name="nome" placeholder="Nome" required />
@@ -65,7 +53,12 @@
   </main>
 
   <?php include "../incs/footer.php"; ?>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <?php require_once __DIR__ . "/../src/autoload.php";
+  Componentes::exibirAlert(); ?>
+  <script src="../assets/js/alert.js"></script>
 </body>
 
 </html>

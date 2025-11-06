@@ -2,7 +2,7 @@
 include "../incs/valida-sessao.php";
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
@@ -20,11 +20,92 @@ include "../incs/valida-sessao.php";
     <?php include "../incs/header.php"; ?>
     <main>
         <div class="container">
-    
+            <div class="slider-container position-relative py-3">
+                <h3>Galeria Estilo Netflix 1</h3>
+                <button class="btn btn-dark btn-left">&#10094;</button>
+                <div class="d-flex overflow-hidden gap-2 slider">
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    
+                </div>
+                <button class="btn btn-dark btn-right">&#10095;</button>
+            </div>
+
+            <div class="slider-container position-relative py-3">
+                <h3>Galeria Estilo Netflix 2</h3>
+                <button class="btn btn-dark btn-left">&#10094;</button>
+                <div class="d-flex overflow-hidden gap-2 slider">
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                    <div>
+                        <img src="/assets/img/profile-placeholder.png" class="img-slider" alt="">
+                    </div>
+                </div>
+                <button class="btn btn-dark btn-right">&#10095;</button>
+            </div>
+
+
         </div>
     </main>
     <?php include "../incs/footer.php"; ?>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
 </body>
+<script src="../assets/js/slider.js"></script>
 <script src="../assets/js/script.js"></script>
+
 </html>
