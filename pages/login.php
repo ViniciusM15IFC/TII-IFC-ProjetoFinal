@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . "/../src/autoload.php";
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 

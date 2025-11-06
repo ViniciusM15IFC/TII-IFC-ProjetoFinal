@@ -8,8 +8,6 @@ Descrição do Requisito Funcional
 
 RF7.
 O sistema deve permitir ao usuário restringir seu perfil apenas para amigos (pessoas que se seguem mutuamente)
-RF9.
-O sistema deve permitir com que o usuário pesquise por conteúdos pelo nome ou pelo gênero 
 RF11.
 Ao ao entrar no perfil de outro usuário qualquer, que não tenha o perfil restrito, o sistema deve permitir que o usuário visualize as publicações, seguidores e pessoas que segue, 
 RF13.
@@ -17,33 +15,8 @@ O sistema deve permitir ao usuário mandar sugestões de conteúdo a serem adici
 RF15.
 O sistema deve permitir que o usuário exclua permanentemente sua conta e todos os seus dados pessoais
 
-Listagem de Requisitos Não-Funcionais
+
  
-Nº
-Descrição do Requisito Não-Funcional
-
-
-RNF2.
-O sistema deve carregar as páginas em média menos de 3 segundos;
-RNF3.
-O sistema deve oferecer temas claro e escuro para melhor conforto visual do usuário;
-RNF4.
-O sistema deve exibir mensagens de erro claras e informativas ao usuário em caso de falhas;
-RFN5.
-O sistema deve ter design responsivo para ser compatível com diferentes resoluções
-
-
-Regras de Negócio
- 
-Nº
-Descrição da Regra de Negócio
-RN1.
-O Sistema não deve permitir que o usuário avalie duas vezes o mesmo conteúdo;
-RN2.
-O sistema deve impedir que o usuário edite ou exclua avaliações de outros usuários;
-RN3.
-O sistema deve confirmar as ações críticas (excluir uma postagem ou avaliação) do usuário antes de executá-las
-
 
 
 

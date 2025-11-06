@@ -23,7 +23,7 @@ if (isset($_GET['idpostagem']) && is_numeric($_GET['idpostagem'])) {
         PostagemDAO::excluirPostagem($idPostagem);
 
         // Redireciona de volta para a página anterior (feed ou outra página de postagens)
-        header("Location: ../pages/postagens.php"); // Ou a página que você deseja redirecionar
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit();
     }
 }

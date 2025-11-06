@@ -6,7 +6,7 @@
         <div class="d-flex align-items-center gap-3 mb-2">
             <a href="home.php"
                 class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'home.php') ? 'active' : ''; ?>">
-                <iconify-icon icon="mdi:lightning-bolt-circle" class="fs-4"></iconify-icon>
+                <div class="logo"></div>
             </a>
             <a href="catalogo.php"
                 class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'catalogo.php') ? 'active' : ''; ?>">Catálogo</a>
@@ -49,7 +49,6 @@
                             Perfil</a></li>
                     <div class="dropdown-divider"></div>
                     <li><a class="dropdown-item" href="home.php">Início</a></li>
-                    <li><a class="dropdown-item" href="usuarios.php">Usuários</a></li>
                     <li><a class="dropdown-item" href="home.php">Feed</a></li>
                     <li><a class="dropdown-item" href="../actions/logout.php">Sair</a></li>
 

@@ -8,17 +8,27 @@ class PostagemDAO
     // ===============================
     public static function criarPostagem($dados)
     {
-        $sql = "INSERT INTO postagem (idusuario, idconteudo, idcategoria, nota, texto, datapostagem)
+        try {
+            $sql = "INSERT INTO postagem (idusuario, idconteudo, idcategoria, nota, texto, datapostagem)
                 VALUES (?, ?, ?, ?, ?, NOW())";
 
-        $conexao = ConexaoBD::conectar();
-        $stmt = $conexao->prepare($sql);
-        $stmt->bindParam(1, $_SESSION['idusuario'], PDO::PARAM_INT);
-        $stmt->bindParam(2, $dados['idconteudo'], PDO::PARAM_INT);
-        $stmt->bindParam(3, $dados['idcategoria'], PDO::PARAM_INT);
-        $stmt->bindParam(4, $dados['nota'], PDO::PARAM_INT);
-        $stmt->bindParam(5, $dados['texto'], PDO::PARAM_STR);
-        $stmt->execute();
+            $conexao = ConexaoBD::conectar();
+            $stmt = $conexao->prepare($sql);
+            $stmt->bindParam(1, $dados['idusuario'], PDO::PARAM_INT);  // Corrigido: use $dados['idusuario']
+            $stmt->bindParam(2, $dados['idconteudo'], PDO::PARAM_INT);
+            $stmt->bindParam(3, $dados['idcategoria'], PDO::PARAM_INT);
+            $stmt->bindParam(4, $dados['nota'], PDO::PARAM_INT);
+            $stmt->bindParam(5, $dados['texto'], PDO::PARAM_STR);
+
+            if ($stmt->execute()) {
+                return true;  // Sucesso
+            } else {
+                return false;  // Falha na execução
+            }
+        } catch (PDOException $e) {
+            error_log("Erro ao criar postagem: " . $e->getMessage());
+            return false;  // Falha por exceção
+        }
     }
 
     // ===============================

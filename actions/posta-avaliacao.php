@@ -1,26 +1,27 @@
 <?php
-require_once __DIR__ . "/../src/autoload.php"; 
+require_once __DIR__ . "/../src/autoload.php";
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Verifique os dados recebidos
+    error_log("Dados recebidos: " . print_r($_POST, true));
 
-    // Pega o usuário logado da sessão
     $idusuario = $_SESSION['idusuario'] ?? null;
-
-    // Pega os dados do formulário
     $idconteudo = $_POST['idconteudo'] ?? null;
     $idcategoria = $_POST['idcategoria'] ?? null;
     $nota = $_POST['nota'] ?? null;
-    $texto = trim($_POST['texto'] ?? ''); // Texto é opcional
+    $texto = trim($_POST['texto'] ?? '');
 
-    // Validação - nota não pode ser 0
-    if (!$idusuario || !$idconteudo || !$idcategoria || !$nota || $nota == 0) {
-        $_SESSION['msg'] = "Selecione uma nota para avaliar.";
+    // Se os dados não estão sendo recebidos corretamente, você vai ver isso no log
+    error_log("ID Usuário: $idusuario, ID Conteúdo: $idconteudo, ID Categoria: $idcategoria, Nota: $nota, Texto: $texto");
+
+    if (!$idusuario || !$idconteudo || !$idcategoria || !is_numeric($nota) || $nota < 1 || $nota > 10) {
+        $_SESSION['msg'] = 'Selecione uma nota válida para avaliar (1 a 10).';
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit;
     }
 
-    // Monta array de dados para o DAO
+
     $dados = [
         'idusuario' => $idusuario,
         'idconteudo' => $idconteudo,
@@ -30,17 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'datapostagem' => date('Y-m-d H:i:s')
     ];
 
-    try {
-        PostagemDAO::criarPostagem($dados);
-        $_SESSION['msg'] = "Avaliação enviada com sucesso!";
-    } catch (PDOException $e) {
-        $_SESSION['msg'] = "Erro ao enviar avaliação: " . $e->getMessage();
+    if (PostagemDAO::criarPostagem($dados)) {
+        $_SESSION['msg'] = 'Avaliação enviada com sucesso!';
+    } else {
+        $_SESSION['msg'] = 'Erro ao enviar avaliação. Tente novamente.';
     }
 
     header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit;
-
-} else {
-    die("Requisição inválida.");
 }
-?>

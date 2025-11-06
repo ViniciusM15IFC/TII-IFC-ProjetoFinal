@@ -55,7 +55,7 @@ if (!empty($termo)) {
     <?php include "../incs/header.php"; ?>
 
     <main>
-        <div class="container py-5">
+        <div class="container py-5 w-75">
             <h2 class="mb-5"><?= htmlspecialchars($tituloPagina) ?></h2>
 
             <?php
@@ -156,6 +156,7 @@ if (!empty($termo)) {
     <script src="../assets/js/script.js"></script>
     <?php Componentes::exibirAlert(); ?>
     <script src="../assets/js/alert.js"></script>
+    <script src="../assets/js/rating.js"></script>
 </body>
 
 </html>

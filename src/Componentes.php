@@ -27,6 +27,7 @@ class Componentes
                         class="rounded-circle" style="width:40px; height:40px; object-fit:cover;">
                 </a>
 
+
             </div>
             <h6 class="mb-0 me-2 fw-semibold border border-0"><?= htmlspecialchars($usuario['nomeusuario']) ?></h6>
             <?php
@@ -39,7 +40,17 @@ class Componentes
                 if (empty($seguido)) {
                     // Não segue ainda
                     ?>
-                    <a href="../actions/seguir.php?idseguido=<?= $idAutor ?>" class="seguir-btn text-decoration-none">Seguir</a>
+                    <div class="row w-100">
+                        <a href="../actions/seguir.php?idseguido=<?= $idAutor ?>"
+                            class="seguir-btn text-decoration-none col-auto ms-auto">Seguir</a>
+                    </div>
+                    <?php
+                } else {
+                    ?>
+                    <div class="row w-100">
+                        <p class="col-auto ms-auto">Seguindo</p>
+                    </div>
+
                     <?php
                 }
             }
@@ -86,71 +97,63 @@ class Componentes
                 break;
         }
     }
-    public static function modalFilme($filme, $modalId)
-    {
-        $id = $filme['id'] ?? null;
-        $titulo = $filme['titulo'] ?? $filme['nomefilme'] ?? '';
-        $modalId = $modalId ?? 'modalConteudo' . $id;
-        ?>
-        <div class="modal fade" id="<?= $modalId ?>" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"><?= htmlspecialchars($titulo) ?></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="../uploads/<?= htmlspecialchars($filme['imagem']) ?>" class="img-fluid rounded"
-                                    alt="<?= htmlspecialchars($titulo) ?>">
-                            </div>
-                            <div class="col-md-8">
-                                <p><strong>Lançamento:</strong> <?= htmlspecialchars($filme['anolancamento'] ?? '—') ?></p>
-                                <p><strong>Duração:</strong> <?= htmlspecialchars($filme['duracao'] ?? '—') ?></p>
-                                <p><strong>Direção:</strong> <?= htmlspecialchars($filme['direcao'] ?? '—') ?></p>
-                                <p><strong>Sinopse:</strong></p>
-                                <p><?= nl2br(htmlspecialchars($filme['sinopse'] ?? '')) ?></p>
+public static function modalFilme($filme, $modalId)
+{
+    $id = $filme['id'] ?? null;
+    $titulo = $filme['titulo'] ?? $filme['nomefilme'] ?? '';
+    $modalId = $modalId ?? 'modalConteudo' . $id;
+    ?>
+    <div class="modal fade" id="<?= $modalId ?>" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><?= htmlspecialchars($titulo) ?></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="../uploads/<?= htmlspecialchars($filme['imagem']) ?>" class="img-fluid rounded" alt="<?= htmlspecialchars($titulo) ?>">
+                        </div>
+                        <div class="col-md-8">
+                            <p><strong>Lançamento:</strong> <?= htmlspecialchars($filme['anolancamento'] ?? '—') ?></p>
+                            <p><strong>Duração:</strong> <?= htmlspecialchars($filme['duracao'] ?? '—') ?></p>
+                            <p><strong>Direção:</strong> <?= htmlspecialchars($filme['direcao'] ?? '—') ?></p>
+                            <p><strong>Sinopse:</strong></p>
+                            <p><?= nl2br(htmlspecialchars($filme['sinopse'] ?? '')) ?></p>
 
-                                <hr>
+                            <hr>
 
-                                <form action="../actions/posta-avaliacao.php" method="POST">
-                                    <input type="hidden" name="idconteudo" value="<?= $id ?>">
-                                    <input type="hidden" name="idcategoria" value="1">
-                                    <input type="hidden" name="nota" id="notaFilme<?= $id ?>" value="0">
+                            <form action="../actions/posta-avaliacao.php" method="POST">
+                                <input type="hidden" name="idconteudo" value="<?= $id ?>">
+                                <input type="hidden" name="idcategoria" value="1">
+                                <input type="hidden" name="nota" id="notaFilme<?= $id ?>" value="0">
 
-                                    <div class="mb-3">
-                                        <label class="form-label">Sua Avaliação</label>
-                                        <div class="rating-stars" data-input="notaFilme<?= $id ?>">
-                                            <?php for ($i = 1; $i <= 5; $i++): ?>
-                                                <div class="star-container" style="display: inline-block; position: relative;">
-                                                    <iconify-icon icon="ic:round-star-border" data-value="<?= $i ?>"
-                                                        class="star full"
-                                                        style="cursor: pointer; font-size: 32px; margin: 0 4px;"></iconify-icon>
-                                                    <iconify-icon icon="ic:round-star-border" data-value="<?= $i - 0.5 ?>"
-                                                        class="star half"
-                                                        style="cursor: pointer; font-size: 32px; position: absolute; left: 4px; top: 0; width: 50%; overflow: hidden;"></iconify-icon>
-                                                </div>
-                                            <?php endfor; ?>
-                                        </div>
-                                        <p class="mt-2" id="notaTextoFilme<?= $id ?>">Selecione uma nota</p>
+                                <div class="mb-3">
+                                    <label class="form-label">Sua Avaliação</label>
+                                    <div class="rating">
+                                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                                            <input type="radio" id="star<?= $i ?>_filme<?= $id ?>" name="nota" value="<?= $i ?>" />
+                                            <label for="star<?= $i ?>_filme<?= $id ?>" class="star" title="Avaliar com <?= $i ?> estrela"></label>
+                                        <?php endfor; ?>
                                     </div>
+                                    <p class="mt-2" id="notaTextoFilme<?= $id ?>">Selecione uma nota</p>
+                                </div>
 
-                                    <div class="mb-3">
-                                        <label for="textoFilme<?= $id ?>" class="form-label">Comentário (opcional)</label>
-                                        <textarea class="form-control" id="textoFilme<?= $id ?>" name="texto"
-                                            rows="3"></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Enviar Avaliação</button>
-                                </form>
-                            </div>
+                                <div class="mb-3">
+                                    <label for="textoFilme<?= $id ?>" class="form-label">Comentário (opcional)</label>
+                                    <textarea class="form-control" id="textoFilme<?= $id ?>" name="texto" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Enviar Avaliação</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <?php
-    }
+    </div>
+    <?php
+}
 
     public static function modalSerie($serie, $modalId)
     {
@@ -189,19 +192,22 @@ class Componentes
 
                                     <div class="mb-3">
                                         <label class="form-label">Sua Avaliação</label>
-                                        <div class="rating-stars" data-input="notaSerie<?= $id ?>">
+                                        <div class="rating-stars" data-input="notaFilme<?= $id ?>">
                                             <?php for ($i = 1; $i <= 5; $i++): ?>
-                                                <div class="star-container" style="display: inline-block; position: relative;">
+                                                <span class="star-wrapper"
+                                                    style="display: inline-block; position: relative; width: 40px; height: 40px;">
+                                                    <!-- Estrela cheia -->
                                                     <iconify-icon icon="ic:round-star-border" data-value="<?= $i ?>"
-                                                        class="star full"
-                                                        style="cursor: pointer; font-size: 32px; margin: 0 4px;"></iconify-icon>
+                                                        class="star star-full"
+                                                        style="cursor: pointer; font-size: 32px; position: absolute; top: 0; left: 0;"></iconify-icon>
+                                                    <!-- Meia estrela (clicável na metade esquerda) -->
                                                     <iconify-icon icon="ic:round-star-border" data-value="<?= $i - 0.5 ?>"
-                                                        class="star half"
-                                                        style="cursor: pointer; font-size: 32px; position: absolute; left: 4px; top: 0; width: 50%; overflow: hidden;"></iconify-icon>
-                                                </div>
+                                                        class="star star-half"
+                                                        style="cursor: pointer; font-size: 32px; position: absolute; top: 0; left: 0; width: 50%; overflow: hidden; z-index: 2;"></iconify-icon>
+                                                </span>
                                             <?php endfor; ?>
                                         </div>
-                                        <p class="mt-2" id="notaTextoSerie<?= $id ?>">Selecione uma nota</p>
+                                        <p class="mt-2" id="notaTextoFilme<?= $id ?>">Selecione uma nota</p>
                                     </div>
 
                                     <div class="mb-3">
@@ -257,14 +263,8 @@ class Componentes
                                         <label class="form-label">Sua Avaliação</label>
                                         <div class="rating-stars" data-input="notaLivro<?= $id ?>">
                                             <?php for ($i = 1; $i <= 5; $i++): ?>
-                                                <div class="star-container" style="display: inline-block; position: relative;">
-                                                    <iconify-icon icon="ic:round-star-border" data-value="<?= $i ?>"
-                                                        class="star full"
-                                                        style="cursor: pointer; font-size: 32px; margin: 0 4px;"></iconify-icon>
-                                                    <iconify-icon icon="ic:round-star-border" data-value="<?= $i - 0.5 ?>"
-                                                        class="star half"
-                                                        style="cursor: pointer; font-size: 32px; position: absolute; left: 4px; top: 0; width: 50%; overflow: hidden;"></iconify-icon>
-                                                </div>
+                                                <iconify-icon icon="ic:round-star-border" data-value="<?= $i ?>" class="star"
+                                                    style="cursor: pointer; font-size: 32px; margin: 0 4px;"></iconify-icon>
                                             <?php endfor; ?>
                                         </div>
                                         <p class="mt-2" id="notaTextoLivro<?= $id ?>">Selecione uma nota</p>
