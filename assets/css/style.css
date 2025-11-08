@@ -732,44 +732,547 @@ header .nav-link:hover {
   background-size: cover;
   filter: invert(1) sepia(1) saturate(5) hue-rotate(var(--color1));
 }
- /* Esconde os inputs de radio */
+
+/* Esconde os inputs de radio */
 .rating input[type="radio"] {
-    display: none;
+  display: none;
 }
 
 /* Estilo geral das estrelas */
 .rating {
-    direction: rtl; /* Faz a estrela do lado direito ser a mais baixa */
+  direction: rtl;
+  /* Faz a estrela do lado direito ser a mais baixa */
 }
 
 .rating label {
-    font-size: 2rem;
-    color: #d3d3d3; /* Cor de estrela vazia */
-    cursor: pointer;
-    padding: 0 5px;
-    transition: color 0.2s;
+  font-size: 2rem;
+  color: #d3d3d3;
+  /* Cor de estrela vazia */
+  cursor: pointer;
+  padding: 0 5px;
+  transition: color 0.2s;
 }
 
 /* Quando o mouse passar por cima da estrela, ela muda para dourado */
-.rating input[type="radio"]:checked ~ label,
-.rating input[type="radio"]:hover ~ label {
-    color: #ffbf00; /* Cor dourada */
+.rating input[type="radio"]:checked~label,
+.rating input[type="radio"]:hover~label {
+  color: #ffbf00;
+  /* Cor dourada */
 }
 
 /* Exibe a cor dourada quando o usuário clica na estrela */
 .rating input[type="radio"]:checked {
-    color: #ffbf00; /* Cor da estrela quando selecionada */
+  color: #ffbf00;
+  /* Cor da estrela quando selecionada */
 }
 
 /* Adiciona um efeito de brilho na estrela enquanto o usuário passa o mouse */
 .rating label:hover,
-.rating label:hover ~ label {
-    color: #ffbf00; /* Dourado ao passar o mouse */
+.rating label:hover~label {
+  color: #ffbf00;
+  /* Dourado ao passar o mouse */
 }
 
 .rating input[type="radio"]:checked:hover,
-.rating input[type="radio"]:checked ~ label {
-    color: #ffbf00; /* Dourado após o click */
+.rating input[type="radio"]:checked~label {
+  color: #ffbf00;
+  /* Dourado após o click */
 }
 
+.modal-resenha-custom {
+  --bs-modal-bg: var(--bg-color);
+}
 
+.modal-resenha-custom .modal-content {
+  background-color: var(--bg-color);
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.modal-resenha-custom .modal-header {
+  background-color: var(--bg-color);
+  border: none;
+  padding: 1.5rem;
+}
+
+.modal-resenha-custom .modal-title {
+  color: var(--color4);
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.modal-resenha-custom .btn-close {
+  opacity: 0.5;
+}
+
+.modal-resenha-custom .modal-body {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.resenha-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.poster-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+  position: relative;
+}
+
+.poster-wrapper {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.poster-img {
+  width: 120px;
+  height: 160px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+}
+
+.stars-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  justify-content: center;
+}
+
+.stars-vertical iconify-icon {
+  font-size: 24px;
+  color: var(--color4);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.stars-vertical iconify-icon:hover {
+  transform: scale(1.15);
+}
+
+.rating-number-top {
+  position: absolute;
+  top: -50px;
+  left: 120px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rating-input-top {
+  width: 50px;
+  height: 40px;
+  padding: 4px !important;
+  border: 2px solid var(--color3) !important;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  background-color: var(--bg-color) !important;
+  color: var(--color4) !important;
+}
+
+.rating-input-top:focus {
+  border-color: var(--color1) !important;
+  box-shadow: none !important;
+  outline: none;
+}
+
+.content-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.titulo-content {
+  color: var(--color1);
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.badges-flex {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.badge-custom {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, var(--color1), var(--color2));
+  min-width: 45px;
+}
+
+.sinopse-box {
+  line-height: 1.5;
+  color: var(--color4);
+  font-size: 0.9rem;
+  text-align: justify;
+}
+
+.avaliacao-form {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color3);
+}
+
+.form-group-rating {
+  margin-bottom: 1.5rem;
+}
+
+.rating-label {
+  font-weight: 600;
+  color: var(--color4);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.rating-input-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.rating-input-custom {
+  width: 60px;
+  height: 45px;
+  padding: 6px !important;
+  border: 2px solid var(--color3) !important;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  background-color: var(--bg-color) !important;
+  color: var(--color4) !important;
+}
+
+.rating-input-custom:focus {
+  border-color: var(--color1) !important;
+  box-shadow: none !important;
+  outline: none;
+}
+
+.rating-stars-input {
+  display: flex;
+  gap: 3px;
+  font-size: 24px;
+}
+
+.rating-stars-input iconify-icon {
+  color: #ffc107;
+}
+
+.rating-badge {
+  background: linear-gradient(135deg, var(--color1), var(--color2));
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  display: none;
+}
+
+.error-message.show {
+  display: block;
+}
+
+.comentario-group {
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.comentario-label {
+  font-weight: 600;
+  color: var(--color4);
+  margin-bottom: 0.5rem;
+  display: block;
+  font-size: 0.95rem;
+}
+
+.textarea-wrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+
+.comentario-textarea {
+  width: 100%;
+  background-color: var(--bg-color) !important;
+  color: var(--color4) !important;
+  border: 1px solid var(--color3) !important;
+  border-radius: 4px;
+  padding: 0.75rem;
+  padding-right: 45px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  resize: vertical;
+}
+
+.comentario-textarea:focus {
+  border-color: var(--color1) !important;
+  box-shadow: none !important;
+  outline: none;
+}
+
+.btn-enviar-icon {
+  position: absolute;
+  right: 8px;
+  bottom: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  color: var(--color1);
+  transition: all 0.2s ease;
+}
+
+.btn-enviar-icon:hover {
+  color: var(--color2);
+  transform: scale(1.1);
+}
+
+.btn-enviar-icon iconify-icon {
+  font-size: 24px;
+}
+
+.modal-resenha-custom .modal-content {
+  background-color: var(--bg-color);
+  border: none;
+  border-radius: 12px;
+}
+
+.modal-resenha-custom .modal-header {
+  background-color: var(--bg-color);
+  border: none;
+  padding: 1.5rem;
+  position: relative;
+}
+
+.modal-resenha-custom .modal-title {
+  color: var(--color4);
+  font-weight: 700;
+}
+
+.modal-resenha-custom .modal-body {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.resenha-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.poster-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.rating-input-top {
+  width: 50px;
+  height: 40px;
+  padding: 4px !important;
+  border: 2px solid var(--color3) !important;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  background-color: var(--bg-color) !important;
+  color: var(--color4) !important;
+}
+
+.rating-input-top:focus {
+  border-color: var(--color1) !important;
+  box-shadow: none !important;
+  outline: none;
+}
+
+.poster-wrapper {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.poster-img {
+  width: 150px;
+  height: 200px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+}
+
+.stars-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stars-vertical iconify-icon {
+  font-size: 24px;
+  color: var(--color4);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.stars-vertical iconify-icon:hover {
+  transform: scale(1.15);
+}
+
+.content-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.titulo-content {
+  color: var(--color1);
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.badges-flex {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.badge-custom {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, var(--color1), var(--color2));
+}
+
+.sinopse-box {
+  line-height: 1.5;
+  color: var(--color4);
+  font-size: 0.9rem;
+  text-align: justify;
+}
+
+.rating-input-bottom {
+  width: 60px;
+  height: 45px;
+  padding: 6px !important;
+  border: 2px solid var(--color3) !important;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  background-color: var(--bg-color) !important;
+  color: var(--color4) !important;
+}
+
+.rating-input-bottom:focus {
+  border-color: var(--color1) !important;
+  box-shadow: none !important;
+  outline: none;
+}
+
+.rating-stars-input iconify-icon {
+  color: var(--color1);
+  font-size: 20px;
+}
+
+.rating-badge {
+  background: linear-gradient(135deg, var(--color1), var(--color2));
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  display: none;
+}
+
+.error-message.show {
+  display: block;
+}
+
+.textarea-wrapper {
+  position: relative;
+}
+
+.comentario-textarea {
+  width: 100%;
+  background-color: var(--bg-color) !important;
+  color: var(--color4) !important;
+  border: 1px solid var(--color3) !important;
+  border-radius: 4px;
+  padding: 0.75rem;
+  padding-right: 45px;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.comentario-textarea:focus {
+  border-color: var(--color1) !important;
+  box-shadow: none !important;
+  outline: none;
+}
+
+.btn-enviar-icon {
+  position: absolute;
+  right: 8px;
+  bottom: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--color1);
+  transition: all 0.2s ease;
+}
+
+.btn-enviar-icon:hover {
+  color: var(--color2);
+  transform: scale(1.1);
+}
+
+.btn-enviar-icon iconify-icon {
+  font-size: 24px;
+}
+
+ h5 {
+  color: var(--color1);
+}

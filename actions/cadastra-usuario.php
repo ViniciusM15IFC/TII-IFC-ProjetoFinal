@@ -14,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Valida: campos obrigatórios
     if (empty($nome) || empty($email) || empty($senha) || empty($confirmar) || empty($dataNasc)) {
         $_SESSION['msg'] = "Preencha todos os campos.";
-        header('Location: /pages/form-cadastra-usuario.php');
+        header('Location: /pages/
+        form-cadastra-usuario.php');
         exit;
     }
 

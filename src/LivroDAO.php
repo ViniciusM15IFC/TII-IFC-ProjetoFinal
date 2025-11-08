@@ -32,13 +32,10 @@ class LivroDAO
 
     public static function listar()
     {
-        $sql = "SELECT * FROM livro";
-
         $conexao = ConexaoBD::conectar();
-
+        $sql = "SELECT idlivro AS id, nomelivro AS titulo, imagem, sinopse FROM livro";
         $stmt = $conexao->prepare($sql);
         $stmt->execute();
-
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

@@ -33,13 +33,10 @@ class FilmeDAO
 
     public static function listar()
     {
-        $sql = "SELECT * FROM filme";
-
         $conexao = ConexaoBD::conectar();
-
+        $sql = "SELECT idfilme AS id, idclassificacao, imagem, sinopse, idgenero, duracao, nomefilme AS titulo FROM filme";
         $stmt = $conexao->prepare($sql);
         $stmt->execute();
-
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

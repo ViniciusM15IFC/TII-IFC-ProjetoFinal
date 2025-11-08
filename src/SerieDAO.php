@@ -34,13 +34,10 @@ class SerieDAO
 
     public static function listar()
     {
-        $sql = "SELECT * FROM serie";
-
         $conexao = ConexaoBD::conectar();
-
+        $sql = "SELECT idserie AS id, nomeserie AS titulo, imagem, sinopse FROM serie";
         $stmt = $conexao->prepare($sql);
         $stmt->execute();
-
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
