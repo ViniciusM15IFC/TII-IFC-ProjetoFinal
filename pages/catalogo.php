@@ -85,7 +85,7 @@ if (!empty($termo)) {
                 <?php if (!empty($filmes)): ?>
                     <div class="slider-container">
                         <h4 class="mb-3">Filmes</h4>
-                        <?php if (count($filmes) > 5): ?><button class="btn-slide btn-left" onclick="scroll_slider(this, -300)">&#10094;</button> <?php endif; ?>
+                        <?php if (count($filmes) > 5): ?><button class="btn-slide btn-left">&#10094;</button> <?php endif; ?>
                         
                         <div class="slider d-flex" id="sliderFilmes">
                             <?php
@@ -94,9 +94,8 @@ if (!empty($termo)) {
                                 Componentes::cardConteudo($filme);
                             }
                             ?>
-
                         </div>
-                        <?php if (count($filmes) > 5): ?><button class="btn-slide btn-right" onclick="scroll_slider(this, 300)">&#10095;</button> <?php endif; ?>
+                        <?php if (count($filmes) > 5): ?><button class="btn-slide btn-right">&#10095;</button> <?php endif; ?>
                     </div>
                 <?php endif; ?>
 
@@ -104,7 +103,7 @@ if (!empty($termo)) {
                 <?php if (!empty($series)): ?>
                     <div class="slider-container">
                         <h4 class="mb-3">Séries</h4>
-                        <?php if (count($series) > 5): ?><button class="btn-slide btn-left" onclick="scroll_slider(this, -300)">&#10094;</button> <?php endif; ?>
+                        <?php if (count($series) > 5): ?><button class="btn-slide btn-left">&#10094;</button> <?php endif; ?>
                         <div class="slider d-flex" id="sliderSeries">
                             <?php
                             foreach ($series as $serie) {
@@ -113,7 +112,7 @@ if (!empty($termo)) {
                             }
                             ?>
                         </div>
-                        <?php if (count($series) > 5): ?><button class="btn-slide btn-right" onclick="scroll_slider(this, 300)">&#10095;</button> <?php endif; ?>
+                        <?php if (count($series) > 5): ?><button class="btn-slide btn-right">&#10095;</button> <?php endif; ?>
                     </div>
                 <?php endif; ?>
 
@@ -121,7 +120,7 @@ if (!empty($termo)) {
                 <?php if (!empty($livros)): ?>
                     <div class="slider-container">
                         <h4 class="mb-3">Livros</h4>
-                        <?php if (count($livros) > 5): ?><button class="btn-slide btn-left" onclick="scroll_slider(this, -300)">&#10094;</button> <?php endif; ?>
+                        <?php if (count($livros) > 5): ?><button class="btn-slide btn-left">&#10094;</button> <?php endif; ?>
                         <div class="slider d-flex" id="sliderLivros">
                             <?php
                             foreach ($livros as $livro) {
@@ -130,9 +129,10 @@ if (!empty($termo)) {
                             }
                             ?>
                         </div>
-                        <?php if (count($livros) > 5): ?><button class="btn-slide btn-right" onclick="scroll_slider(this, 300)">&#10095;</button> <?php endif; ?>
+                        <?php if (count($livros) > 5): ?><button class="btn-slide btn-right">&#10095;</button> <?php endif; ?>
                     </div>
                 <?php endif; ?>
+                
                 <?php
             }
             $generos = GeneroDAO::consultar();
@@ -144,14 +144,13 @@ if (!empty($termo)) {
                     ?>
                     <div class="slider-container">
                         <h4 class="mb-3"><?php echo htmlspecialchars($genero['nomegenero']); ?></h4>
-                        <?php if (count($conteudos) > 5): ?><button class="btn-slide btn-left" onclick="scroll_slider(this, -300)">&#10094;</button> <?php endif; ?>
-                        <div class="slider d-flex" id="sliderConteudo">
+                        <?php if (count($conteudos) > 5): ?><button class="btn-slide btn-left">&#10094;</button> <?php endif; ?>
+                        <div class="slider d-flex">
                             <?php
                             foreach ($conteudos as $conteudo) {
                                 $conteudo = ConteudoDAO::consultarPorIdCategoria($conteudo['idconteudo'], $conteudo['idcategoria']);
                                 Componentes::cardConteudo($conteudo);
                             }
-
                             ?>
                         </div>
                         <?php if (count($conteudos) > 5): ?><button class="btn-slide btn-right">&#10095;</button> <?php endif; ?>

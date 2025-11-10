@@ -68,7 +68,23 @@ include "../incs/valida-sessao.php";
                         </div>
                         <?php
                     }
+                    if (isset($_SESSION['idusuario']) && $_SESSION['idusuario'] != $usuario['idusuario']) {
+                        if (SeguidoDAO::seguidoOuNao($_SESSION['idusuario'], $_GET['idusuario'])) {
+                            ?>
+                            <div class="text-center">
+                                <a href="../actions/deixar-de-seguir.php?idseguido=<?= $_GET['idusuario'] ?>" class="btn btn-secondary">Deixar de Seguir</a>
+                            </div>
+                            <?php
+                        } else {
+                            ?>
+                            <div class="text-center">
+                                <a href="../actions/seguir.php?idseguido=<?= $usuario['idusuario'] ?>" class="btn btn-primary">Seguir</a>
+                            </div>
+                            <?php
+                        }
+                    }
                     ?>
+
                 </div>
 
                 </div>

@@ -8,12 +8,8 @@ Descrição do Requisito Funcional
 
 RF7.
 O sistema deve permitir ao usuário restringir seu perfil apenas para amigos (pessoas que se seguem mutuamente)
-RF11.
-Ao ao entrar no perfil de outro usuário qualquer, que não tenha o perfil restrito, o sistema deve permitir que o usuário visualize as publicações, seguidores e pessoas que segue, 
 RF13.
 O sistema deve permitir ao usuário mandar sugestões de conteúdo a serem adicionados
-RF15.
-O sistema deve permitir que o usuário exclua permanentemente sua conta e todos os seus dados pessoais
 
 
  

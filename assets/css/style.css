@@ -728,10 +728,19 @@ header .nav-link:hover {
 .logo {
   width: 25px;
   height: 25px;
-  background-image: url('/assets/img/logo.png');
+  background-image: url('/assets/img/logo-light.png');
+  background-size: cover;
+}
+
+.darkmode .logo {
+  width: 25px;
+  height: 25px;
+  background-image: url('/assets/img/logo-dark.png');
   background-size: cover;
   filter: invert(1) sepia(1) saturate(5) hue-rotate(var(--color1));
 }
+
+
 
 /* Esconde os inputs de radio */
 .rating input[type="radio"] {
