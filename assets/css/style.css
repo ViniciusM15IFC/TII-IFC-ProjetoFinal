@@ -1287,8 +1287,7 @@ h5 {
   max-height: 120px;
 }
 
-h6.titulo-content
-{
+h6.titulo-content {
   color: var(--color1) !important;
 }
 
@@ -1296,6 +1295,37 @@ h6.titulo-content
   max-width: 600px;
 }
 
-.color1  {
+.color1 {
   color: var(--color1) !important;
+}
+
+.slider-container {
+  position: relative;
+  overflow: hidden;
+  /* impede a barra de aparecer */
+  margin-bottom: 2rem;
+}
+
+.slider {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  /* permite scroll via JS */
+  scroll-behavior: smooth;
+  /* rolagem suave */
+  scrollbar-width: none;
+  /* remove barra no Firefox */
+}
+
+.slider::-webkit-scrollbar {
+  display: none;
+  /* remove barra no Chrome/Safari/Edge */
+}
+
+.slider {
+  scroll-snap-type: x mandatory;
+}
+
+.slider>* {
+  scroll-snap-align: start;
 }

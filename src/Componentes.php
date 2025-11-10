@@ -69,7 +69,7 @@ class Componentes
             ?? $conteudo['idlivro']
             ?? null;
 
-        $categoria = $conteudo['categoria_nome'] ?? $conteudo['categoria'] ?? null;
+        $categoria = $conteudo['categoria_nome'] ?? $conteudo['categoria'] ?? $conteudo['idcategoria'] ??null;
         $titulo = $conteudo['titulo']
             ?? $conteudo['nomefilme']
             ?? $conteudo['nomeserie']

@@ -94,6 +94,7 @@ if (!empty($termo)) {
                                 Componentes::cardConteudo($filme);
                             }
                             ?>
+
                         </div>
                         <button class="btn-slide btn-right" onclick="scroll_slider(this, 300)">&#10095;</button>
                     </div>
@@ -137,24 +138,26 @@ if (!empty($termo)) {
             $generos = GeneroDAO::consultar();
 
             foreach ($generos as $genero) {
-                ?>
-                <div class="slider-container">
-                    <h4 class="mb-3"><?php echo htmlspecialchars($genero['nomegenero']); ?></h4>
-                    <button class="btn-slide btn-left" onclick="scroll_slider(this, -300)">&#10094;</button>
-                    <div class="slider d-flex" id="sliderConteudo">
-                        <?php
-                        $conteudos = ConteudoDAO::listarPorGenero($genero['idgenero']);
-                        foreach ($conteudos as $conteudo) {
-                            var_dump($conteudo); // 👈 pra ver o que realmente vem do listarPorGenero
-                            $conteudo = ConteudoDAO::consultarPorIdCategoria($conteudo['idconteudo'], $conteudo['idcategoria']);
-                            Componentes::cardConteudo($conteudo);
-                        }
+                $conteudos = ConteudoDAO::listarPorGenero($genero['idgenero']);
 
-                        ?>
+                if (!empty($conteudos)) {
+                    ?>
+                    <div class="slider-container">
+                        <h4 class="mb-3"><?php echo htmlspecialchars($genero['nomegenero']); ?></h4>
+                        <button class="btn-slide btn-left" onclick="scroll_slider(this, -300)">&#10094;</button>
+                        <div class="slider d-flex" id="sliderConteudo">
+                            <?php
+                            foreach ($conteudos as $conteudo) {
+                                $conteudo = ConteudoDAO::consultarPorIdCategoria($conteudo['idconteudo'], $conteudo['idcategoria']);
+                                Componentes::cardConteudo($conteudo);
+                            }
+
+                            ?>
+                        </div>
+                        <button class="btn-slide btn-right" onclick="scroll_slider(this, 300)">&#10095;</button>
                     </div>
-                    <button class="btn-slide btn-right" onclick="scroll_slider(this, 300)">&#10095;</button>
-                </div>
-                <?php
+                    <?php
+                }
             }
             ?>
         </div>
@@ -166,13 +169,22 @@ if (!empty($termo)) {
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
     <script>
+        let scrolling = false;
+
         function scroll_slider(button, direction) {
+            if (scrolling) return;
+            scrolling = true;
+
             const slider = button.parentElement.querySelector('.slider');
             slider.scrollBy({
                 left: direction,
                 behavior: 'smooth'
             });
+
+            // libera depois de um curto tempo
+            setTimeout(() => scrolling = false, 400);
         }
+
     </script>
     <script src="../assets/js/script.js"></script>
     <?php Componentes::exibirAlert(); ?>

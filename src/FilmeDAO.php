@@ -34,16 +34,16 @@ class FilmeDAO
     public static function listar()
     {
         $conexao = ConexaoBD::conectar();
-        $sql = "SELECT idfilme AS id, idclassificacao, imagem, sinopse, idgenero, duracao, anolancamento, nomefilme AS titulo FROM filme";
+        $sql = "SELECT idfilme AS id, 1 AS idcategoria, idclassificacao, imagem, sinopse, idgenero, duracao, anolancamento, nomefilme AS titulo FROM filme";
         $stmt = $conexao->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
+
     public static function consultarPorId($id)
     {
         $conexao = ConexaoBD::conectar();
-        $sql = "SELECT idfilme AS id, idclassificacao, imagem, sinopse, idgenero, duracao, anolancamento, nomefilme AS titulo FROM filme WHERE idfilme = ?";
+        $sql = "SELECT idfilme AS id, 1 AS idcategoria, idclassificacao, imagem, sinopse, idgenero, duracao, anolancamento, nomefilme AS titulo FROM filme WHERE idfilme = ?";
         $stmt = $conexao->prepare($sql);
         $stmt->bindParam(1, $id);
         $stmt->execute();
