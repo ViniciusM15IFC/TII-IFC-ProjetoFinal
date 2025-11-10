@@ -922,7 +922,7 @@ header .nav-link:hover {
   font-size: 0.8rem;
   font-weight: 700;
   color: white;
-  background: linear-gradient(135deg, var(--color1), var(--color2));
+  background: var(--color1);
   min-width: 45px;
 }
 
@@ -1346,4 +1346,167 @@ h6.titulo-content {
 
 .btn-primary:hover {
   background-color: var(--color2);
+}
+
+#notificacaoModal {
+  background-color: transparent !important;
+}
+
+#notificacaoModal .modal-backdrop {
+  opacity: 0 !important;
+  animation: fadeIn 0.3s ease-out;
+}
+
+#notificacaoModal .modal-dialog {
+  background-color: transparent !important;
+  animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.notificacao-content {
+  background: linear-gradient(135deg, var(--bg-color) 0%, rgba(255, 255, 255, 0.98) 100%);
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15),
+    0 0 1px rgba(0, 0, 0, 0.1);
+  max-width: 420px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.notificacao-header {
+  background: linear-gradient(135deg, var(--color1) 0%, rgba(var(--color1-rgb), 0.85) 100%);
+  color: white;
+  border-radius: 16px 16px 0 0;
+  padding: 24px 24px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.notificacao-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.notificacao-header * {
+  background-color: transparent !important;
+  color: white !important;
+  position: relative;
+  z-index: 1;
+}
+
+.notificacao-header .modal-title {
+  font-weight: 700;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.5px;
+  font-size: 14px;
+  background-color: transparent !important;
+  color: white !important;
+}
+
+.notificacao-body {
+  padding: 24px 24px;
+  background: var(--bg-color);
+  color: #2c3e50;
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: 0.3px;
+}
+
+.notificacao-body strong {
+  color: var(--color1);
+  font-weight: 600;
+}
+
+.notificacao-close {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border: none !important;
+  border-radius: 8px;
+  width: 36px !important;
+  height: 36px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.notificacao-close:hover {
+  background: rgba(255, 255, 255, 0.35) !important;
+  transform: scale(1.1) rotate(90deg);
+}
+
+/* Animações */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 0.5;
+  }
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .notificacao-content {
+    max-width: 90vw;
+    margin: 0 auto;
+  }
+
+  .notificacao-header {
+    padding: 20px 20px 16px;
+  }
+
+  .notificacao-header .modal-title {
+    font-size: 12px;
+  }
+
+  .notificacao-body {
+    padding: 20px;
+    font-size: 14px;
+  }
+}
+
+
+
+
+
+#notificacaoModal .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(193, 18, 31, 0.3);
+  color: white;
+}
+
+#notificacaoModal .modal-content {
+  border: none;
+}
+
+#notificacaoModal .btn-close {
+  filter: brightness(0) invert(1);
+}
+
+.btn-secondary {
+  background-color: var(--color3);
+  color: white;
+  border: 0;
 }

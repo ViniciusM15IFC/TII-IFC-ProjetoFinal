@@ -644,7 +644,7 @@ class Componentes
 
                         <p>Tem certeza que deseja excluir esta postagem?</p>
                         <a
-                            href="../actions/excluir-postagem.php?idpostagem=<?= $postagem['idpostagem'] ?>"><button>Sim</button></a>
+                            href="../actions/excluir-postagem.php?idpostagem=<?= $postagem['idpostagem'] ?>"><button class="btn btn-secondary">Sim</button></a>
 
 
                     </div>
@@ -743,105 +743,6 @@ class Componentes
     {
         $mensagem = $_SESSION['msg'] ?? '';
         ?>
-        <!-- Modal de Notificação -->
-        <style>
-            #notificacaoModal {
-                background-color: transparent !important;
-            }
-
-            #notificacaoModal .modal-backdrop {
-                opacity: 0.3 !important;
-            }
-
-            #notificacaoModal .modal-dialog {
-                background-color: transparent !important;
-            }
-
-            .notificacao-content {
-                background: var(--bg-color);
-                border: 2px solid var(--color1);
-                border-radius: 12px;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-                max-width: 400px;
-                overflow: hidden;
-            }
-
-            .notificacao-header {
-                background: linear-gradient(135deg, var(--color1), var(--color2));
-                color: white;
-                border-radius: 10px 10px 0 0;
-                padding: 20px;
-            }
-
-            .notificacao-header .modal-title {
-                font-weight: bold;
-                font-size: 18px;
-                display: flex;
-                align-items: center;
-            }
-
-            .notificacao-body {
-                padding: 20px;
-                background: var(--bg-color);
-            }
-
-            .notificacao-body .alert {
-                border: none;
-                border-radius: 8px;
-                margin: 0;
-                padding: 15px;
-                font-size: 15px;
-                line-height: 1.5;
-            }
-
-            .notificacao-body .alert-success {
-                background-color: #d4edda;
-                color: #155724;
-                border-left: 4px solid #28a745;
-            }
-
-            .notificacao-body .alert-danger {
-                background-color: #f8d7da;
-                color: #721c24;
-                border-left: 4px solid #dc3545;
-            }
-
-            .notificacao-body .alert-info {
-                background-color: #d1ecf1;
-                color: #0c5460;
-                border-left: 4px solid #17a2b8;
-            }
-
-            .notificacao-body .alert-warning {
-                background-color: #fff3cd;
-                color: #856404;
-                border-left: 4px solid #ffc107;
-            }
-
-            #notificacaoModal .btn-primary {
-                background: linear-gradient(135deg, var(--color1), var(--color2));
-                border: none;
-                border-radius: 6px;
-                padding: 8px 24px;
-                font-weight: 600;
-                transition: all 0.3s ease;
-                color: white;
-            }
-
-            #notificacaoModal .btn-primary:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 4px 12px rgba(193, 18, 31, 0.3);
-                color: white;
-            }
-
-            #notificacaoModal .modal-content {
-                border: none;
-            }
-
-            #notificacaoModal .btn-close {
-                filter: brightness(0) invert(1);
-            }
-        </style>
         <div class="modal fade" id="notificacaoModal" tabindex="-1" aria-labelledby="notificacaoLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content notificacao-content">
@@ -919,7 +820,7 @@ class Componentes
 
                         <p>Tem certeza que deseja excluir seu perfil?</p>
                         <a
-                            href="../actions/excluir-perfil.php?idusuario=<?= $idusuario ?>"><button>Sim</button></a>
+                            href="../actions/excluir-perfil.php?idusuario=<?= $idusuario ?>"><button class="btn btn-secondary">Sim</button></a>
 
 
                     </div>
