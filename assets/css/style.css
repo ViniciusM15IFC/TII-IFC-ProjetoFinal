@@ -1197,7 +1197,7 @@ header .nav-link:hover {
 }
 
 .rating-badge {
-  background: linear-gradient(135deg, var(--color1), var(--color2));
+  background-color: var(--color1) !important;
   color: white;
   padding: 6px 12px;
   border-radius: 4px;
@@ -1311,7 +1311,7 @@ h6.titulo-content {
   gap: 1rem;
   overflow-x: auto;
   /* permite scroll via JS */
-  scroll-behavior: smooth;
+  scroll-behavior: smooth !important;
   /* rolagem suave */
   scrollbar-width: none;
   /* remove barra no Firefox */
@@ -1328,4 +1328,13 @@ h6.titulo-content {
 
 .slider>* {
   scroll-snap-align: start;
+}
+
+.btn-primary {
+  background-color: var(--color1);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--color2);
 }

@@ -42,35 +42,56 @@ include "../incs/valida-sessao.php";
                 <h5 class="mt-3 mb-3"><?= $usuario['nomeusuario'] ?></h5>
                 <div class="d-flex justify-content-center gap-5">
                     <div class="text-center">
-                        <div class="fw-bold">Seguidores</div>
+                        <div class="fw-bold" data-bs-toggle="modal" data-bs-target="#Seguidores">Seguidores</div>
                         <p><?= SeguidoDAO::contarSeguidores($usuario['idusuario']) ?></p>
+                        <?php
+                        $seguidores = SeguidoDAO::listarSeguidores($usuario['idusuario']);
+                        Componentes::modalUsuarios($seguidores, "Seguidores");
+                        ?>
                     </div>
                     <div>
-                        <div class="fw-bold">Seguindo</div>
+                        <div class="fw-bold" data-bs-toggle="modal" data-bs-target="#Seguindo">Seguindo</div>
                         <p><?= SeguidoDAO::contarSeguidos($usuario['idusuario']) ?></p>
+                        <?php
+                        $seguidos = SeguidoDAO::listarSeguidos($usuario['idusuario']);
+                        Componentes::modalUsuarios($seguidos, "Seguindo");
+                        ?>
                     </div>
                 </div>
-            </div>
-            <section>
-                <?php
-                $postagens = PostagemDAO::listarPorUsuario($usuario['idusuario']);
-
-                if (empty($postagens)) {
-                    ?>
-                    <div class="text-center" role="alert">
-                        Não há nenhuma postagem.
-                    </div>
+                <div class="d-flex justify-content-center gap-5">
                     <?php
-                }
+                    if ($_GET['idusuario'] == $_SESSION['idusuario']) {
+                        ?>
+                        <div class="text-center">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#excluirPerfilModal<?= $_SESSION['idusuario'] ?>">Excluir Perfil</button>
+                            <?php Componentes::modalExcluirPerfil($_SESSION['idusuario']); ?>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
 
-                foreach ($postagens as $postagem) {
-                    Componentes::exibirPostagemCompleta($postagem);
-                }
+                </div>
+                <section>
+                    <?php
+                    $postagens = PostagemDAO::listarPorUsuario($usuario['idusuario']);
+
+                    if (empty($postagens)) {
+                        ?>
+                        <div class="text-center" role="alert">
+                            Não há nenhuma postagem.
+                        </div>
+                        <?php
+                    }
+
+                    foreach ($postagens as $postagem) {
+                        Componentes::exibirPostagemCompleta($postagem);
+                    }
 
 
-                ?>
-            </section>
-        </div>
+                    ?>
+                </section>
+            </div>
     </main>
     <?php include "../incs/footer.php"; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

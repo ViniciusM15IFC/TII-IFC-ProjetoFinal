@@ -45,6 +45,21 @@ class SeguidoDAO
         return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retorna todos os seguidos
     }
 
+    public static function listarSeguidores($idusuario)
+    {
+        $sql = "SELECT u.* FROM seguido s
+                JOIN usuario u ON s.idusuario = u.idusuario
+                WHERE s.idseguido = ?";
+
+        $conexao = ConexaoBD::conectar();
+
+        $stmt = $conexao->prepare($sql);
+        $stmt->bindParam(1, $idusuario, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retorna todos os seguidores
+    }
+
     public static function seguidoOuNao($idusuario, $idseguido)
     {
         $sql = "SELECT * FROM seguido WHERE idusuario = ? AND idseguido = ?";

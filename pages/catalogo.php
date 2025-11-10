@@ -55,8 +55,7 @@ if (!empty($termo)) {
     <?php include "../incs/header.php"; ?>
 
     <main>
-        <div class="container py-5 w-75">
-            <h2 class="mb-5"><?= htmlspecialchars($tituloPagina) ?></h2>
+        <div class="container py-3 w-75">
 
             <?php
             // Se é busca ou tipo específico
@@ -86,7 +85,8 @@ if (!empty($termo)) {
                 <?php if (!empty($filmes)): ?>
                     <div class="slider-container">
                         <h4 class="mb-3">Filmes</h4>
-                        <button class="btn-slide btn-left" onclick="scroll_slider(this, -300)">&#10094;</button>
+                        <?php if (count($filmes) > 5): ?><button class="btn-slide btn-left" onclick="scroll_slider(this, -300)">&#10094;</button> <?php endif; ?>
+                        
                         <div class="slider d-flex" id="sliderFilmes">
                             <?php
                             foreach ($filmes as $filme) {
@@ -96,7 +96,7 @@ if (!empty($termo)) {
                             ?>
 
                         </div>
-                        <button class="btn-slide btn-right" onclick="scroll_slider(this, 300)">&#10095;</button>
+                        <?php if (count($filmes) > 5): ?><button class="btn-slide btn-right" onclick="scroll_slider(this, 300)">&#10095;</button> <?php endif; ?>
                     </div>
                 <?php endif; ?>
 
@@ -104,7 +104,7 @@ if (!empty($termo)) {
                 <?php if (!empty($series)): ?>
                     <div class="slider-container">
                         <h4 class="mb-3">Séries</h4>
-                        <button class="btn-slide btn-left" onclick="scroll_slider(this, -300)">&#10094;</button>
+                        <?php if (count($series) > 5): ?><button class="btn-slide btn-left" onclick="scroll_slider(this, -300)">&#10094;</button> <?php endif; ?>
                         <div class="slider d-flex" id="sliderSeries">
                             <?php
                             foreach ($series as $serie) {
@@ -113,7 +113,7 @@ if (!empty($termo)) {
                             }
                             ?>
                         </div>
-                        <button class="btn-slide btn-right" onclick="scroll_slider(this, 300)">&#10095;</button>
+                        <?php if (count($series) > 5): ?><button class="btn-slide btn-right" onclick="scroll_slider(this, 300)">&#10095;</button> <?php endif; ?>
                     </div>
                 <?php endif; ?>
 
@@ -121,7 +121,7 @@ if (!empty($termo)) {
                 <?php if (!empty($livros)): ?>
                     <div class="slider-container">
                         <h4 class="mb-3">Livros</h4>
-                        <button class="btn-slide btn-left" onclick="scroll_slider(this, -300)">&#10094;</button>
+                        <?php if (count($livros) > 5): ?><button class="btn-slide btn-left" onclick="scroll_slider(this, -300)">&#10094;</button> <?php endif; ?>
                         <div class="slider d-flex" id="sliderLivros">
                             <?php
                             foreach ($livros as $livro) {
@@ -130,7 +130,7 @@ if (!empty($termo)) {
                             }
                             ?>
                         </div>
-                        <button class="btn-slide btn-right" onclick="scroll_slider(this, 300)">&#10095;</button>
+                        <?php if (count($livros) > 5): ?><button class="btn-slide btn-right" onclick="scroll_slider(this, 300)">&#10095;</button> <?php endif; ?>
                     </div>
                 <?php endif; ?>
                 <?php
@@ -144,7 +144,7 @@ if (!empty($termo)) {
                     ?>
                     <div class="slider-container">
                         <h4 class="mb-3"><?php echo htmlspecialchars($genero['nomegenero']); ?></h4>
-                        <button class="btn-slide btn-left" onclick="scroll_slider(this, -300)">&#10094;</button>
+                        <?php if (count($conteudos) > 5): ?><button class="btn-slide btn-left" onclick="scroll_slider(this, -300)">&#10094;</button> <?php endif; ?>
                         <div class="slider d-flex" id="sliderConteudo">
                             <?php
                             foreach ($conteudos as $conteudo) {
@@ -154,7 +154,7 @@ if (!empty($termo)) {
 
                             ?>
                         </div>
-                        <button class="btn-slide btn-right" onclick="scroll_slider(this, 300)">&#10095;</button>
+                        <?php if (count($conteudos) > 5): ?><button class="btn-slide btn-right">&#10095;</button> <?php endif; ?>
                     </div>
                     <?php
                 }
@@ -168,25 +168,8 @@ if (!empty($termo)) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
-    <script>
-        let scrolling = false;
-
-        function scroll_slider(button, direction) {
-            if (scrolling) return;
-            scrolling = true;
-
-            const slider = button.parentElement.querySelector('.slider');
-            slider.scrollBy({
-                left: direction,
-                behavior: 'smooth'
-            });
-
-            // libera depois de um curto tempo
-            setTimeout(() => scrolling = false, 400);
-        }
-
-    </script>
     <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/slider.js"></script>
     <?php Componentes::exibirAlert(); ?>
     <script src="../assets/js/alert.js"></script>
     <script src="../assets/js/rating.js"></script>

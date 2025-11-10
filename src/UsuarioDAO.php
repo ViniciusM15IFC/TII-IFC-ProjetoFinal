@@ -88,14 +88,43 @@ class UsuarioDAO
         return $stmt->fetchAll(PDO::FETCH_ASSOC); // Retorna apenas UM usuário
     }
 
-    public static function excluirUsuario($idUsuario)
-    {
-        $sql = "DELETE FROM usuario WHERE idusuario = ?";
-        $conexao = ConexaoBD::conectar();
+public static function excluirUsuario($idUsuario)
+{
+    $conexao = ConexaoBD::conectar();
+
+    // Inicia uma transação para garantir integridade
+    $conexao->beginTransaction();
+
+    try {
+        // 1️⃣ Apagar comentários feitos pelo usuário
+        $sql = "DELETE FROM comentario WHERE idusuario = ?";
         $stmt = $conexao->prepare($sql);
-        $stmt->bindParam(1, $idUsuario, PDO::PARAM_INT);
-        $stmt->execute();
+        $stmt->execute([$idUsuario]);
+
+        // 2️⃣ Apagar postagens do usuário
+        $sql = "DELETE FROM postagem WHERE idusuario = ?";
+        $stmt = $conexao->prepare($sql);
+        $stmt->execute([$idUsuario]);
+
+        // 3️⃣ Apagar relações de seguidores (seguindo ou sendo seguido)
+        $sql = "DELETE FROM seguido WHERE idusuario = ? OR idseguido = ?";
+        $stmt = $conexao->prepare($sql);
+        $stmt->execute([$idUsuario, $idUsuario]);
+
+        // 4️⃣ Finalmente, apagar o próprio usuário
+        $sql = "DELETE FROM usuario WHERE idusuario = ?";
+        $stmt = $conexao->prepare($sql);
+        $stmt->execute([$idUsuario]);
+
+        // Confirma as exclusões
+        $conexao->commit();
+    } catch (Exception $e) {
+        // Reverte se der erro
+        $conexao->rollBack();
+        throw $e;
     }
+}
+
 
     public static function listarSeguidos($idusuario)
     {

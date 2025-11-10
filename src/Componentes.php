@@ -29,7 +29,10 @@ class Componentes
 
 
             </div>
-            <h6 class="mb-0 me-2 fw-semibold border border-0"><?= htmlspecialchars($usuario['nomeusuario']) ?></h6>
+            <div class="text-start w-100">
+                <h6 class="mb-0 me-2 fw-semibold border border-0 start-0 "><?= htmlspecialchars($usuario['nomeusuario']) ?>
+                </h6>
+            </div>
             <?php
             $idUsuarioLogado = $_SESSION['idusuario'] ?? null;
             $idAutor = $usuario['idusuario'];
@@ -69,7 +72,7 @@ class Componentes
             ?? $conteudo['idlivro']
             ?? null;
 
-        $categoria = $conteudo['categoria_nome'] ?? $conteudo['categoria'] ?? $conteudo['idcategoria'] ??null;
+        $categoria = $conteudo['categoria_nome'] ?? $conteudo['categoria'] ?? $conteudo['idcategoria'] ?? null;
         $titulo = $conteudo['titulo']
             ?? $conteudo['nomefilme']
             ?? $conteudo['nomeserie']
@@ -589,8 +592,8 @@ class Componentes
         <!-- Modal de Comentário -->
         <div class="modal fade" id="comentarioModal<?= $postagem['idpostagem'] ?>" tabindex="-1"
             aria-labelledby="comentarioModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable">
-                <div class="modal-content">
+            <div class="modal-dialog modal-dialog-scrollable rounded-4">
+                <div class="modal-content rounded-4">
                     <div class="modal-header">
                         <h5 class="modal-title" id="comentarioModalLabel">Adicionar Comentário</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -606,7 +609,7 @@ class Componentes
                             <button type="submit" class="btn btn-primary">Enviar</button>
                         </form>
 
-
+                        <div class="divider w-100"></div>
 
 
                         <?php
@@ -625,13 +628,13 @@ class Componentes
 
     }
 
-    public static function modalConfirmar($postagem)
+    public static function modalExcluirPostagem($postagem)
     {
         ?>
         <div class="modal fade" id="excluirPostagemModal<?= $postagem['idpostagem'] ?>" tabindex="-1"
             aria-labelledby="comentarioModalLabel" aria-hidden="true">
-            <div class="modal-dialog ">
-                <div class="modal-content">
+            <div class="modal-dialog rounded-4">
+                <div class="modal-content rounded-4">
                     <div class="modal-header">
                         <h5 class="modal-title" id="comentarioModalLabel">Confirmação</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -657,8 +660,8 @@ class Componentes
         ?>
         <div class="modal fade" id="denunciarPostagemModal<?= $postagem['idpostagem'] ?>" tabindex="-1"
             aria-labelledby="comentarioModalLabel" aria-hidden="true">
-            <div class="modal-dialog ">
-                <div class="modal-content">
+            <div class="modal-dialog rounded-4">
+                <div class="modal-content rounded-4">
                     <div class="modal-header">
                         <h5 class="modal-title" id="comentarioModalLabel">Denunciar Postagem</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -730,7 +733,7 @@ class Componentes
     {
         Componentes::cardPostagem($postagem);
         Componentes::modalComentario($postagem);
-        Componentes::modalConfirmar($postagem);
+        Componentes::modalExcluirPostagem($postagem);
         Componentes::modalDenuncia($postagem);
         Componentes::modalMostrarDenuncias($postagem);
     }
@@ -866,6 +869,65 @@ class Componentes
 
         // Limpa a mensagem após exibir
         unset($_SESSION['msg']);
+    }
+
+    public static function modalUsuarios($usuarios, $tipo)
+    {
+        ?>
+        <div class="modal fade modal-resenha-custom" id="<?= $tipo ?>" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog rounded-4">
+                <div class="modal-content rounded-4">
+                    <div class="modal-header p-2 mt-3 position-relative justify-content-center">
+                        <h3 class="modal-title fs-4 text-center m-0"><?= htmlspecialchars($tipo) ?></h3>
+                        <button type="button" class="btn-close position-absolute end-0 top-0 mt-2 me-2"
+                            data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body m-3 rounded-4">
+
+                        <div>
+                            <?php
+                            if (!empty($usuarios)) {
+                                foreach ($usuarios as $usuario) {
+                                    self::cardUsuario($usuario);
+                                }
+                            } else {
+                                echo "<p class='text-center'>Nenhum usuário encontrado.</p>";
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <?php
+    }
+
+    public static function modalExcluirPerfil($idusuario)
+    {
+        ?>
+        <div class="modal fade" id="excluirPerfilModal<?= $idusuario ?>" tabindex="-1"
+            aria-labelledby="comentarioModalLabel" aria-hidden="true">
+            <div class="modal-dialog rounded-4">
+                <div class="modal-content rounded-4">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="comentarioModalLabel">Confirmação</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+
+                        <p>Tem certeza que deseja excluir seu perfil?</p>
+                        <a
+                            href="../actions/excluir-perfil.php?idusuario=<?= $idusuario ?>"><button>Sim</button></a>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <?php
     }
 }
 ?>
