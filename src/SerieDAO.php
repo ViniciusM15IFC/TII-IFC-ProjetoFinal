@@ -35,10 +35,20 @@ class SerieDAO
     public static function listar()
     {
         $conexao = ConexaoBD::conectar();
-        $sql = "SELECT idserie AS id, nomeserie AS titulo, imagem, sinopse FROM serie";
+        $sql = "SELECT idserie AS id, nomeserie AS titulo, imagem, sinopse, idgenero, idclassificacao, anoinicio, anoencerramento, temporadas, episodios FROM serie";
         $stmt = $conexao->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function consultarPorId($id)
+    {
+        $conexao = ConexaoBD::conectar();
+        $sql = "SELECT idserie AS id, nomeserie AS titulo, imagem, sinopse, idgenero, idclassificacao, anoinicio, anoencerramento, temporadas, episodios FROM serie WHERE idserie = ?";
+        $stmt = $conexao->prepare($sql);
+        $stmt->bindParam(1, $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
 ?>

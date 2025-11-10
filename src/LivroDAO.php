@@ -33,10 +33,20 @@ class LivroDAO
     public static function listar()
     {
         $conexao = ConexaoBD::conectar();
-        $sql = "SELECT idlivro AS id, nomelivro AS titulo, imagem, sinopse FROM livro";
+        $sql = "SELECT idlivro AS id, nomelivro AS titulo, imagem, sinopse, autor, idgenero, idclassificacao, paginas, editora FROM livro";
         $stmt = $conexao->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function consultarPorId($id)
+    {
+        $conexao = ConexaoBD::conectar();
+        $sql = "SELECT idlivro AS id, nomelivro AS titulo, imagem, sinopse, autor, idgenero, idclassificacao, paginas, editora FROM livro WHERE idlivro = ?";
+        $stmt = $conexao->prepare($sql);
+        $stmt->bindParam(1, $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
 ?>

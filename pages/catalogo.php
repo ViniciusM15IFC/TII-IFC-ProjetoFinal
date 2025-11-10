@@ -132,7 +132,28 @@ if (!empty($termo)) {
                         <button class="btn-slide btn-right" onclick="scroll_slider(this, 300)">&#10095;</button>
                     </div>
                 <?php endif; ?>
+                <?php
+            }
+            $generos = GeneroDAO::consultar();
 
+            foreach ($generos as $genero) {
+                ?>
+                <div class="slider-container">
+                    <h4 class="mb-3"><?php echo htmlspecialchars($genero['nomegenero']); ?></h4>
+                    <button class="btn-slide btn-left" onclick="scroll_slider(this, -300)">&#10094;</button>
+                    <div class="slider d-flex" id="sliderConteudo">
+                        <?php
+                        $conteudos = ConteudoDAO::listarPorGenero($genero['idgenero']);
+                        foreach ($conteudos as $conteudo) {
+                            var_dump($conteudo); // 👈 pra ver o que realmente vem do listarPorGenero
+                            $conteudo = ConteudoDAO::consultarPorIdCategoria($conteudo['idconteudo'], $conteudo['idcategoria']);
+                            Componentes::cardConteudo($conteudo);
+                        }
+
+                        ?>
+                    </div>
+                    <button class="btn-slide btn-right" onclick="scroll_slider(this, 300)">&#10095;</button>
+                </div>
                 <?php
             }
             ?>

@@ -57,5 +57,54 @@ class ConteudoDAO
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public static function listar()
+    {
+        $conexao = ConexaoBD::conectar();
+
+        $sql = "SELECT * FROM conteudo";
+        $stmt = $conexao->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function consultarPorIdCategoria($id, $idcategoria)
+    {
+        if ($idcategoria == 1) {
+            return FilmeDAO::consultarPorId($id);
+        } elseif ($idcategoria == 2) {
+            return SerieDAO::consultarPorId($id);
+        } elseif ($idcategoria == 3) {
+            return LivroDAO::consultarPorId($id);
+        } else {
+            return null;
+        }
+    }
+
+    public static function listarPorGenero($idgenero)
+    {
+        $conexao = ConexaoBD::conectar();
+
+        $sql = "
+                SELECT 
+                c.idconteudo,
+                c.idcategoria,
+                CASE 
+                WHEN c.idcategoria = 1 THEN 'Filme'
+                WHEN c.idcategoria = 2 THEN 'Série'
+                WHEN c.idcategoria = 3 THEN 'Livro'
+                END AS tipo
+                FROM conteudo c
+                LEFT JOIN filme f ON f.idfilme = c.idconteudo AND c.idcategoria = 1
+                LEFT JOIN serie s ON s.idserie = c.idconteudo AND c.idcategoria = 2
+                LEFT JOIN livro l ON l.idlivro = c.idconteudo AND c.idcategoria = 3
+                WHERE COALESCE(f.idgenero, s.idgenero, l.idgenero) = ?;
+        ";
+
+        $stmt = $conexao->prepare($sql);
+        $stmt->execute([$idgenero]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

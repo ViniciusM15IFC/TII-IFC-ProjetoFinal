@@ -834,7 +834,7 @@ header .nav-link:hover {
 
 .poster-img {
   width: 120px;
-  height: 160px;
+  height: 180px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   object-fit: cover;
@@ -1185,19 +1185,6 @@ header .nav-link:hover {
   text-align: justify;
 }
 
-.rating-input-bottom {
-  width: 60px;
-  height: 45px;
-  padding: 6px !important;
-  border: 2px solid var(--color3) !important;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 600;
-  text-align: center;
-  background-color: var(--bg-color) !important;
-  color: var(--color4) !important;
-}
-
 .rating-input-bottom:focus {
   border-color: var(--color1) !important;
   box-shadow: none !important;
@@ -1205,8 +1192,8 @@ header .nav-link:hover {
 }
 
 .rating-stars-input iconify-icon {
-  color: var(--color1);
-  font-size: 20px;
+  color: var(--color1) !important;
+  font-size: 1.95rem;
 }
 
 .rating-badge {
@@ -1273,6 +1260,42 @@ header .nav-link:hover {
   font-size: 24px;
 }
 
- h5 {
+h5 {
   color: var(--color1);
+}
+
+.badge-custom {
+  color: white;
+}
+
+.rating-input-top {
+  width: 25px;
+  height: 25px;
+  border: 0
+}
+
+.modal-header h3 {
+  color: var(--color1) !important;
+}
+
+.badge-custom {
+  color: white !important;
+  font-size: 1rem;
+}
+
+.sinopse-box {
+  max-height: 120px;
+}
+
+h6.titulo-content
+{
+  color: var(--color1) !important;
+}
+
+.modal-dialog.avaliacao {
+  max-width: 600px;
+}
+
+.color1  {
+  color: var(--color1) !important;
 }

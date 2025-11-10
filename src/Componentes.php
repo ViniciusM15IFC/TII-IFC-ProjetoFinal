@@ -120,18 +120,25 @@ class Componentes
         $genero = $genero['nomegenero'] ?? '—';
         $duracao = $filme['duracao'] ?? '—';
         $sinopse = $filme['sinopse'] ?? '';
+        $ano = $filme['anolancamento'] ?? '—';
         ?>
-        <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+
+        <style>
+
+
+        </style>
 
         <div class="modal fade modal-resenha-custom" id="<?= $modalId ?>" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Publicar Avaliação</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <div class="modal-dialog avaliacao rounded-4">
+                <div class="modal-content rounded-4">
+                    <div class="modal-header p-2 mt-3 position-relative justify-content-center">
+                        <h3 class="modal-title fs-3 text-center m-0">Publicar Avaliação</h3>
+                        <button type="button" class="btn-close position-absolute end-0 top-0 mt-2 me-2"
+                            data-bs-dismiss="modal"></button>
                     </div>
 
-                    <div class="modal-body">
+
+                    <div class="modal-body p-3 m-3 rounded-4">
                         <form action="../actions/posta-avaliacao.php" method="POST">
                             <input type="hidden" name="idconteudo" value="<?= $filme['id'] ?>">
                             <input type="hidden" name="idcategoria" value="1">
@@ -145,9 +152,10 @@ class Componentes
                                     <div class="poster-wrapper">
                                         <img src="../uploads/<?= htmlspecialchars($filme['imagem']) ?>"
                                             alt="<?= htmlspecialchars($titulo) ?>" class="poster-img">
-                                        <div class="stars-vertical" id="starsVertical<?= $id ?>">
-                                            <input type="number" id="ratingInputTop<?= $id ?>" class="rating-input-top" min="0"
-                                                max="10" step="1" value="0">
+                                        <div class="stars-vertical rating-stars-input gap-1 align-items-center"
+                                            id="starsVertical<?= $id ?>">
+                                            <input type="number" id="ratingInputTop<?= $id ?>"
+                                                class="rating-input-top rounded-3" min="0" max="10" step="1" value="0">
                                             <iconify-icon icon="ic:round-star-border"></iconify-icon>
                                             <iconify-icon icon="ic:round-star-border"></iconify-icon>
                                             <iconify-icon icon="ic:round-star-border"></iconify-icon>
@@ -159,21 +167,35 @@ class Componentes
 
                                 <!-- Coluna Direita: Título, Badges, Sinopse -->
                                 <div class="content-column">
-                                    <h6 class="titulo-content"><?= htmlspecialchars($titulo) ?></h6>
+                                    <h6 class="titulo-content fs-4"><?= htmlspecialchars($titulo) ?></h6>
 
                                     <div class="badges-flex">
-                                        <?php
-                                        $classifId = intval($classificacao);
-                                        if ($classifId >= 1 && $classifId <= 6) {
-                                            echo '<img src="../assets/img/classificacoes-icons/' . $classifId . '.png" alt="Classificação" style="width:36px; height:36px; margin-right:4px;">';
-                                        }
-                                        ?>
-                                        <span class="badge-custom"><?= htmlspecialchars($duracao) ?></span>
-                                        <span class="badge-custom"><?= htmlspecialchars($genero) ?></span>
+                                        <div class="d-flex flex-wrap gap-2 align-items-center">
 
+                                            <div>
+                                                <?php
+                                                $classifId = intval($classificacao);
+                                                if ($classifId >= 1 && $classifId <= 6) {
+                                                    ?>
+                                                    <img src="../assets/img/classificacoes-icons/<?= $classifId ?>.png"
+                                                        alt="Classificação" style="width:36px; height:36px; margin-right:4px;">
+                                                    <?php
+                                                }
+                                                ?>
+                                            </div>
+                                            <div>
+                                                <span class="badge-custom"><?= htmlspecialchars($duracao) ?></span>
+                                            </div>
+                                            <div>
+                                                <span class="badge-custom"><?= htmlspecialchars($genero) ?></span>
+                                            </div>
+                                            <div>
+                                                <span class="badge-custom"><?= htmlspecialchars($ano) ?></span>
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <p class="sinopse-box"><?= nl2br(htmlspecialchars($sinopse)) ?></p>
+                                    <p class="sinopse-box overflow-auto"><?= nl2br(htmlspecialchars($sinopse)) ?></p>
                                 </div>
                             </div>
 
@@ -182,6 +204,170 @@ class Componentes
                                 <label class="form-label">Escreva sua Opinião</label>
                                 <div class="textarea-wrapper">
                                     <textarea id="textoFilme<?= $id ?>" name="texto" class="comentario-textarea"
+                                        rows="3"></textarea>
+                                    <button type="submit" class="btn-enviar-icon color1" title="Enviar">
+                                        <iconify-icon icon="ic:round-send" class="color1"></iconify-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="/assets/js/rating.js"></script>
+        <?php
+    }
+
+    public static function modalSerie($serie, $modalId)
+    {
+        $id = $serie['id'] ?? uniqid('serie_');
+        $titulo = $serie['titulo'] ?? $serie['nomeserie'] ?? '';
+        $modalId = $modalId ?? 'modalConteudo' . $id;
+        $classificacao = $serie['idclassificacao'] ?? 'erro';
+        $genero = GeneroDAO::consultarPorID($serie['idgenero']) ?? '—';
+        $genero = $genero['nomegenero'] ?? '—';
+        $episodios = $serie['episodios'] ?? '—';
+        $temporadas = $serie['temporadas'] ?? '—';
+        $inicio = $serie['anoinicio'] ?? '—';
+        $fim = $serie['anoencerramento'] ?? '—';
+        $sinopse = $serie['sinopse'] ?? '';
+        ?>
+        <div class="modal fade modal-resenha-custom" id="<?= $modalId ?>" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog avaliacao rounded-4">
+                <div class="modal-content rounded-4">
+                    <div class="modal-header p-2 mt-3 position-relative justify-content-center">
+                        <h3 class="modal-title fs-3 text-center m-0">Publicar Avaliação</h3>
+                        <button type="button" class="btn-close position-absolute end-0 top-0 mt-2 me-2"
+                            data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body p-3 m-3 rounded-4">
+                        <form action="../actions/posta-avaliacao.php" method="POST">
+                            <input type="hidden" name="idconteudo" value="<?= $serie['id'] ?>">
+                            <input type="hidden" name="idcategoria" value="2">
+                            <input type="hidden" id="notaSerie<?= $id ?>" name="nota" value="0">
+
+                            <div class="resenha-container d-flex gap-4">
+                                <div class="poster-column">
+                                    <div class="poster-wrapper">
+                                        <img src="../uploads/<?= htmlspecialchars($serie['imagem']) ?>"
+                                            alt="<?= htmlspecialchars($titulo) ?>" class="poster-img rounded-4 shadow-sm">
+                                        <div class="stars-vertical rating-stars-input gap-1 align-items-center mt-2"
+                                            id="starsVertical<?= $id ?>">
+                                            <input type="number" id="ratingInputTop<?= $id ?>"
+                                                class="rating-input-top rounded-3" min="0" max="10" step="1" value="0">
+                                            <iconify-icon icon="ic:round-star-border"></iconify-icon>
+                                            <iconify-icon icon="ic:round-star-border"></iconify-icon>
+                                            <iconify-icon icon="ic:round-star-border"></iconify-icon>
+                                            <iconify-icon icon="ic:round-star-border"></iconify-icon>
+                                            <iconify-icon icon="ic:round-star-border"></iconify-icon>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="content-column flex-grow-1">
+                                    <h6 class="titulo-content fs-4"><?= htmlspecialchars($titulo) ?></h6>
+                                    <div class="d-flex flex-wrap gap-2 mb-2 align-items-center">
+                                        <?php if (intval($classificacao) >= 1 && intval($classificacao) <= 6): ?>
+                                            <img src="../assets/img/classificacoes-icons/<?= intval($classificacao) ?>.png"
+                                                alt="Classificação" style="width:36px;height:36px;">
+                                        <?php endif; ?>
+                                        <span class="badge-custom"><?= htmlspecialchars($genero) ?></span>
+                                        <span class="badge-custom"><?= htmlspecialchars($temporadas) ?> Temp.</span>
+                                        <span class="badge-custom"><?= htmlspecialchars($episodios) ?> Ep.</span>
+                                        <span
+                                            class="badge-custom"><?= htmlspecialchars($inicio) ?>–<?= htmlspecialchars($fim) ?></span>
+                                    </div>
+                                    <p class="sinopse-box overflow-auto"><?= nl2br(htmlspecialchars($sinopse)) ?></p>
+                                </div>
+                            </div>
+
+                            <div class="mt-3">
+                                <label class="form-label">Escreva sua Opinião</label>
+                                <div class="textarea-wrapper">
+                                    <textarea id="textoSerie<?= $id ?>" name="texto" class="comentario-textarea"
+                                        rows="3"></textarea>
+                                    <button type="submit" class="btn-enviar-icon" title="Enviar">
+                                        <iconify-icon icon="ic:round-send" class="color1"></iconify-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+
+    public static function modalLivro($livro, $modalId)
+    {
+        $id = $livro['id'] ?? uniqid('livro_');
+        $titulo = $livro['titulo'] ?? $livro['nomelivro'] ?? '';
+        $modalId = $modalId ?? 'modalConteudo' . $id;
+        $classificacao = $livro['idclassificacao'] ?? 'erro';
+        $genero = GeneroDAO::consultarPorID($livro['idgenero']) ?? '—';
+        $genero = $genero['nomegenero'] ?? '—';
+        $autor = $livro['autor'] ?? '—';
+        $editora = $livro['editora'] ?? '—';
+        $paginas = $livro['paginas'] ?? '—';
+        $sinopse = $livro['sinopse'] ?? '';
+        ?>
+        <div class="modal fade modal-resenha-custom" id="<?= $modalId ?>" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog avaliacao rounded-4">
+                <div class="modal-content rounded-4">
+                    <div class="modal-header p-2 mt-3 position-relative justify-content-center">
+                        <h3 class="modal-title fs-3 text-center m-0">Publicar Avaliação</h3>
+                        <button type="button" class="btn-close position-absolute end-0 top-0 mt-2 me-2"
+                            data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body p-3 m-3 rounded-4">
+                        <form action="../actions/posta-avaliacao.php" method="POST">
+                            <input type="hidden" name="idconteudo" value="<?= $livro['id'] ?>">
+                            <input type="hidden" name="idcategoria" value="3">
+                            <input type="hidden" id="notaLivro<?= $id ?>" name="nota" value="0">
+
+                            <div class="resenha-container d-flex gap-4">
+                                <div class="poster-column">
+                                    <div class="poster-wrapper">
+                                        <img src="../uploads/<?= htmlspecialchars($livro['imagem']) ?>"
+                                            alt="<?= htmlspecialchars($titulo) ?>" class="poster-img rounded-4 shadow-sm">
+                                        <div class="stars-vertical rating-stars-input gap-1 align-items-center mt-2"
+                                            id="starsVertical<?= $id ?>">
+                                            <input type="number" id="ratingInputTop<?= $id ?>"
+                                                class="rating-input-top rounded-3" min="0" max="10" step="1" value="0">
+                                            <iconify-icon icon="ic:round-star-border"></iconify-icon>
+                                            <iconify-icon icon="ic:round-star-border"></iconify-icon>
+                                            <iconify-icon icon="ic:round-star-border"></iconify-icon>
+                                            <iconify-icon icon="ic:round-star-border"></iconify-icon>
+                                            <iconify-icon icon="ic:round-star-border"></iconify-icon>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="content-column flex-grow-1">
+                                    <h6 class="titulo-content fs-4"><?= htmlspecialchars($titulo) ?></h6>
+                                    <div class="d-flex flex-wrap gap-2 mb-2 align-items-center">
+                                        <?php if (intval($classificacao) >= 1 && intval($classificacao) <= 6): ?>
+                                            <img src="../assets/img/classificacoes-icons/<?= intval($classificacao) ?>.png"
+                                                alt="Classificação" style="width:36px;height:36px;">
+                                        <?php endif; ?>
+                                        <span class="badge-custom"><?= htmlspecialchars($genero) ?></span>
+                                        <span class="badge-custom"><?= htmlspecialchars($autor) ?></span>
+                                        <span class="badge-custom"><?= htmlspecialchars($editora) ?></span>
+                                        <span class="badge-custom"><?= htmlspecialchars($paginas) ?> pág.</span>
+                                    </div>
+                                    <p class="sinopse-box overflow-auto"><?= nl2br(htmlspecialchars($sinopse)) ?></p>
+                                </div>
+                            </div>
+
+                            <div class="mt-3">
+                                <label class="form-label">Escreva sua Opinião</label>
+                                <div class="textarea-wrapper">
+                                    <textarea id="textoLivro<?= $id ?>" name="texto" class="comentario-textarea"
                                         rows="3"></textarea>
                                     <button type="submit" class="btn-enviar-icon" title="Enviar">
                                         <iconify-icon icon="ic:round-send"></iconify-icon>
@@ -193,184 +379,8 @@ class Componentes
                 </div>
             </div>
         </div>
-
-        <script>
-            (function () {
-                const ratingInputTop = document.getElementById('ratingInputTop<?= $id ?>');
-                const starsVertical = document.getElementById('starsVertical<?= $id ?>');
-                const notaInput = document.getElementById('notaFilme<?= $id ?>');
-                const starIcons = starsVertical.querySelectorAll('iconify-icon');
-
-                function updateStars(value) {
-                    value = parseFloat(value) || 0;
-
-                    if (value < 0 || value > 10) {
-                        value = 0;
-                    }
-
-                    notaInput.value = value;
-                    ratingInputTop.value = value;
-
-                    const starsValue = value / 2;
-
-                    // Atualiza estrelas verticais (ao lado da imagem)
-                    starIcons.forEach((star, index) => {
-                        const starNumber = index + 1;
-                        const diferenca = starsValue - (starNumber - 1);
-
-                        if (diferenca >= 1) {
-                            star.setAttribute('icon', 'ic:round-star');
-                        } else if (diferenca >= 0.5) {
-                            star.setAttribute('icon', 'ic:round-star-half');
-                        } else {
-                            star.setAttribute('icon', 'ic:round-star-border');
-                        }
-                    });
-                }
-
-                ratingInputTop.addEventListener('input', () => updateStars(ratingInputTop.value));
-
-                ratingInputTop.addEventListener('blur', () => {
-                    updateStars(ratingInputTop.value);
-                });
-
-                updateStars(0);
-            })();
-        </script>
         <?php
     }
-
-    public static function modalSerie($serie, $modalId)
-    {
-        $id = $serie['id'] ?? null;
-        $titulo = $serie['titulo'] ?? $serie['nomeserie'] ?? '';
-        $modalId = $modalId ?? 'modalConteudo' . $id;
-        ?>
-        <div class="modal fade" id="<?= $modalId ?>" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"><?= htmlspecialchars($titulo) ?></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="../uploads/<?= htmlspecialchars($serie['imagem']) ?>" class="img-fluid rounded"
-                                    alt="<?= htmlspecialchars($titulo) ?>">
-                            </div>
-                            <div class="col-md-8">
-                                <p><strong>Temporadas:</strong> <?= htmlspecialchars($serie['temporadas'] ?? '—') ?></p>
-                                <p><strong>Episódios:</strong> <?= htmlspecialchars($serie['episodios'] ?? '—') ?></p>
-                                <p><strong>Início:</strong> <?= htmlspecialchars($serie['anoinicio'] ?? '—') ?></p>
-                                <p><strong>Encerramento:</strong>
-                                    <?= htmlspecialchars($serie['anoencerramento'] ?? 'Em Andamento') ?></p>
-                                <p><strong>Sinopse:</strong></p>
-                                <p><?= nl2br(htmlspecialchars($serie['sinopse'] ?? '')) ?></p>
-
-                                <hr>
-
-                                <form action="../actions/posta-avaliacao.php" method="POST">
-                                    <input type="hidden" name="idconteudo" value="<?= $id ?>">
-                                    <input type="hidden" name="idcategoria" value="2">
-                                    <input type="hidden" name="nota" id="notaSerie<?= $id ?>" value="0">
-
-                                    <div class="mb-3">
-                                        <label class="form-label">Sua Avaliação</label>
-                                        <div class="rating-stars" data-input="notaFilme<?= $id ?>">
-                                            <?php for ($i = 1; $i <= 5; $i++): ?>
-                                                <span class="star-wrapper"
-                                                    style="display: inline-block; position: relative; width: 40px; height: 40px;">
-                                                    <!-- Estrela cheia -->
-                                                    <iconify-icon icon="ic:round-star-border" data-value="<?= $i ?>"
-                                                        class="star star-full"
-                                                        style="cursor: pointer; font-size: 32px; position: absolute; top: 0; left: 0;"></iconify-icon>
-                                                    <!-- Meia estrela (clicável na metade esquerda) -->
-                                                    <iconify-icon icon="ic:round-star-border" data-value="<?= $i - 0.5 ?>"
-                                                        class="star star-half"
-                                                        style="cursor: pointer; font-size: 32px; position: absolute; top: 0; left: 0; width: 50%; overflow: hidden; z-index: 2;"></iconify-icon>
-                                                </span>
-                                            <?php endfor; ?>
-                                        </div>
-                                        <p class="mt-2" id="notaTextoFilme<?= $id ?>">Selecione uma nota</p>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="textoSerie<?= $id ?>" class="form-label">Comentário (opcional)</label>
-                                        <textarea class="form-control" id="textoSerie<?= $id ?>" name="texto"
-                                            rows="3"></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Enviar Avaliação</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php
-    }
-
-    public static function modalLivro($livro, $modalId = null)
-    {
-        $id = $livro['id'] ?? null;
-        $titulo = $livro['titulo'] ?? $livro['nomelivro'] ?? '';
-        $modalId = $modalId ?? 'modalConteudo' . $id;
-        ?>
-        <div class="modal fade" id="<?= $modalId ?>" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title"><?= htmlspecialchars($titulo) ?></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="../uploads/<?= htmlspecialchars($livro['imagem']) ?>" class="img-fluid rounded"
-                                    alt="<?= htmlspecialchars($titulo) ?>">
-                            </div>
-                            <div class="col-md-8">
-                                <p><strong>Autor:</strong> <?= htmlspecialchars($livro['autor'] ?? '—') ?></p>
-                                <p><strong>Editora:</strong> <?= htmlspecialchars($livro['editora'] ?? '—') ?></p>
-                                <p><strong>Páginas:</strong> <?= htmlspecialchars($livro['paginas'] ?? '—') ?></p>
-                                <p><strong>Sinopse:</strong></p>
-                                <p><?= nl2br(htmlspecialchars($livro['sinopse'] ?? '')) ?></p>
-
-                                <hr>
-
-                                <form action="../actions/posta-avaliacao.php" method="POST">
-                                    <input type="hidden" name="idconteudo" value="<?= $id ?>">
-                                    <input type="hidden" name="idcategoria" value="3">
-                                    <input type="hidden" name="nota" id="notaLivro<?= $id ?>" value="0">
-
-                                    <div class="mb-3">
-                                        <label class="form-label">Sua Avaliação</label>
-                                        <div class="rating-stars" data-input="notaLivro<?= $id ?>">
-                                            <?php for ($i = 1; $i <= 5; $i++): ?>
-                                                <iconify-icon icon="ic:round-star-border" data-value="<?= $i ?>" class="star"
-                                                    style="cursor: pointer; font-size: 32px; margin: 0 4px;"></iconify-icon>
-                                            <?php endfor; ?>
-                                        </div>
-                                        <p class="mt-2" id="notaTextoLivro<?= $id ?>">Selecione uma nota</p>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="textoLivro<?= $id ?>" class="form-label">Comentário (opcional)</label>
-                                        <textarea class="form-control" id="textoLivro<?= $id ?>" name="texto"
-                                            rows="3"></textarea>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Enviar Avaliação</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php
-    }
-
 
     public static function cardPostagem($postagem)
     {
