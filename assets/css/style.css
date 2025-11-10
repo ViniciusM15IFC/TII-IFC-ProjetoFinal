@@ -246,7 +246,6 @@ input.form-control {
   background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 50%, #8b0000 100%);
   position: relative;
   overflow: hidden;
-  border: 3px solid #fff;
 }
 
 .hero-section::before {
@@ -1342,6 +1341,7 @@ h6.titulo-content {
 .btn-primary {
   background-color: var(--color1);
   color: white;
+  border: 0;
 }
 
 .btn-primary:hover {
