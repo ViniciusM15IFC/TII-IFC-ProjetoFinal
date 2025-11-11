@@ -1518,6 +1518,6 @@ h6.titulo-content {
 }
 
 .slider {
-  scroll-behavior: auto !important; /* nunca smooth aqui */
+  scroll-behavior: smooth; /* nunca smooth aqui */
 }
 

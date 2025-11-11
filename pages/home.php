@@ -30,8 +30,10 @@ include "../incs/valida-sessao.php";
         <div class="container my-4 w-75 align-items-center">
             <p>Postagens de quem você segue</p>
 
+
             <?php
             require_once __DIR__ . "/../src/autoload.php";
+
 
             if (isset($_GET['s'])) {
                 $postagens = PostagemDAO::buscarFeed($_SESSION['idusuario'], $_GET['s']);
