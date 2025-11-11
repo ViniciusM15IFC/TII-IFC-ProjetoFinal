@@ -53,6 +53,9 @@ if (!empty($termo)) {
         if (localStorage.getItem('darkmode') === 'active') {
             document.documentElement.classList.add('darkmode');
         }
+        else if (localStorage.getItem('darkmode') === 'inactive') {
+            document.documentElement.classList.remove('darkmode');
+        }
     </script>
 </head>
 
@@ -70,7 +73,7 @@ if (!empty($termo)) {
                 } else {
                     ?>
                     <div class="slider-container">
-                        <button class="btn-slide btn-left" onclick="scroll_slider(this, -300)">&#10094;</button>
+                        <button class="btn-slide btn-left">&#10094;</button>
                         <div class="slider d-flex" id="sliderConteudo">
                             <?php
                             foreach ($conteudos as $c) {
@@ -78,7 +81,7 @@ if (!empty($termo)) {
                             }
                             ?>
                         </div>
-                        <button class="btn-slide btn-right" onclick="scroll_slider(this, 300)">&#10095;</button>
+                        <button class="btn-slide btn-right">&#10095;</button>
                     </div>
                     <?php
                 }

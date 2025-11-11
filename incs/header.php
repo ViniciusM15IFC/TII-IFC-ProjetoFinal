@@ -58,7 +58,7 @@
                 </ul>
             </div>
 
-            <button type="button" id="theme-switch" class="btn btn-sm btn-theme ms-3" onclick="toggleMode()">
+            <button type="button" id="theme-switch" class="btn btn-sm btn-theme ms-3">
                 <iconify-icon icon="solar:moon-bold-duotone"></iconify-icon>
             </button>
         </div>

@@ -181,7 +181,7 @@ class Componentes
                                                 if ($classifId >= 1 && $classifId <= 6) {
                                                     ?>
                                                     <img src="../assets/img/classificacoes-icons/<?= $classifId ?>.png"
-                                                        alt="Classificação" style="width:36px; height:36px; margin-right:4px;">
+                                                        alt="Classificação" class="img-ind">
                                                     <?php
                                                 }
                                                 ?>
@@ -219,7 +219,7 @@ class Componentes
             </div>
         </div>
 
-        <script src="/assets/js/rating.js"></script>
+        
         <?php
     }
 
@@ -275,7 +275,7 @@ class Componentes
                                     <div class="d-flex flex-wrap gap-2 mb-2 align-items-center">
                                         <?php if (intval($classificacao) >= 1 && intval($classificacao) <= 6): ?>
                                             <img src="../assets/img/classificacoes-icons/<?= intval($classificacao) ?>.png"
-                                                alt="Classificação" style="width:36px;height:36px;">
+                                                alt="Classificação" class="img-ind">
                                         <?php endif; ?>
                                         <span class="badge-custom"><?= htmlspecialchars($genero) ?></span>
                                         <span class="badge-custom"><?= htmlspecialchars($temporadas) ?> Temp.</span>
@@ -356,7 +356,7 @@ class Componentes
                                     <div class="d-flex flex-wrap gap-2 mb-2 align-items-center">
                                         <?php if (intval($classificacao) >= 1 && intval($classificacao) <= 6): ?>
                                             <img src="../assets/img/classificacoes-icons/<?= intval($classificacao) ?>.png"
-                                                alt="Classificação" style="width:36px;height:36px;">
+                                                alt="Classificação" class="img-ind">
                                         <?php endif; ?>
                                         <span class="badge-custom"><?= htmlspecialchars($genero) ?></span>
                                         <span class="badge-custom"><?= htmlspecialchars($autor) ?></span>
@@ -595,18 +595,22 @@ class Componentes
             <div class="modal-dialog modal-dialog-scrollable rounded-4">
                 <div class="modal-content rounded-4">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="comentarioModalLabel">Adicionar Comentário</h5>
+                        <h5 class="modal-title color1" id="comentarioModalLabel">Comentários</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form id="comentarioForm" action="../actions/comentar.php" method="POST">
                             <input type="hidden" name="idpostagem" value="<?= $postagem['idpostagem'] ?>">
                             <div class="mb-3">
-                                <label for="comentarioTexto" class="form-label">Comentário</label>
-                                <textarea class="form-control" id="comentarioTexto" name="comentarioTexto" rows="3"
-                                    required></textarea>
+                                <label for="comentarioTexto" class="form-label">Adicionar Comentário</label>
+                                <div class="textarea-wrapper">
+                                    <textarea class="form-control" id="comentarioTexto" name="comentarioTexto" rows="3"
+                                        required></textarea>
+                                    <button type="submit" class="btn-enviar-icon color1" title="Enviar">
+                                        <iconify-icon icon="ic:round-send" class="color1"></iconify-icon>
+                                    </button>
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Enviar</button>
                         </form>
 
                         <div class="divider w-100"></div>
@@ -643,8 +647,8 @@ class Componentes
 
 
                         <p>Tem certeza que deseja excluir esta postagem?</p>
-                        <a
-                            href="../actions/excluir-postagem.php?idpostagem=<?= $postagem['idpostagem'] ?>"><button class="btn btn-secondary">Sim</button></a>
+                        <a href="../actions/excluir-postagem.php?idpostagem=<?= $postagem['idpostagem'] ?>"><button
+                                class="btn btn-secondary">Sim</button></a>
 
 
                     </div>
@@ -807,8 +811,8 @@ class Componentes
     public static function modalExcluirPerfil($idusuario)
     {
         ?>
-        <div class="modal fade" id="excluirPerfilModal<?= $idusuario ?>" tabindex="-1"
-            aria-labelledby="comentarioModalLabel" aria-hidden="true">
+        <div class="modal fade" id="excluirPerfilModal<?= $idusuario ?>" tabindex="-1" aria-labelledby="comentarioModalLabel"
+            aria-hidden="true">
             <div class="modal-dialog rounded-4">
                 <div class="modal-content rounded-4">
                     <div class="modal-header">
@@ -819,8 +823,8 @@ class Componentes
 
 
                         <p>Tem certeza que deseja excluir seu perfil?</p>
-                        <a
-                            href="../actions/excluir-perfil.php?idusuario=<?= $idusuario ?>"><button class="btn btn-secondary">Sim</button></a>
+                        <a href="../actions/excluir-perfil.php?idusuario=<?= $idusuario ?>"><button
+                                class="btn btn-secondary">Sim</button></a>
 
 
                     </div>

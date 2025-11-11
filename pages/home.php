@@ -17,6 +17,9 @@ include "../incs/valida-sessao.php";
         if (localStorage.getItem('darkmode') === 'active') {
             document.documentElement.classList.add('darkmode');
         }
+        else if (localStorage.getItem('darkmode') === 'inactive') {
+            document.documentElement.classList.remove('darkmode');
+        }
     </script>
     <link rel="stylesheet" href="..\assets\css\style.css">
 </head>

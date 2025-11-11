@@ -16,6 +16,14 @@ include "../incs/valida-sessao.php";
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
   <link rel="stylesheet" href="../assets/css/style.css">
+  <script>
+    if (localStorage.getItem('darkmode') === 'active') {
+      document.documentElement.classList.add('darkmode');
+    }
+    else if (localStorage.getItem('darkmode') === 'inactive') {
+      document.documentElement.classList.remove('darkmode');
+    }
+  </script>
 </head>
 
 <body>

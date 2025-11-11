@@ -416,7 +416,6 @@ header .nav-link:hover {
 .slider {
   display: flex;
   overflow-x: auto;
-  scroll-behavior: smooth;
   padding: 10px 0;
   gap: 15px;
 }
@@ -588,7 +587,6 @@ header .nav-link:hover {
 
 .slider {
   overflow-x: auto;
-  scroll-behavior: smooth;
   padding: 10px 0;
   gap: 15px;
 }
@@ -1183,7 +1181,7 @@ header .nav-link:hover {
   font-size: 0.75rem;
   font-weight: 700;
   color: white;
-  background: linear-gradient(135deg, var(--color1), var(--color2));
+  background-color: var(--color1) !important;
 }
 
 .sinopse-box {
@@ -1318,8 +1316,6 @@ h6.titulo-content {
   display: flex;
   gap: 1rem;
   overflow-x: auto;
-  /* permite scroll via JS */
-  scroll-behavior: smooth !important;
   /* rolagem suave */
   scrollbar-width: none;
   /* remove barra no Firefox */
@@ -1510,3 +1506,18 @@ h6.titulo-content {
   color: white;
   border: 0;
 }
+
+.modal-content {
+  border: 0;
+}
+
+.img-ind {
+  width: 36px;
+  height: 36px;
+  border-radius: 3px;
+}
+
+.slider {
+  scroll-behavior: auto !important; /* nunca smooth aqui */
+}
+
