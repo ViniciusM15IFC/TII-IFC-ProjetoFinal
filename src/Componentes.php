@@ -678,10 +678,8 @@ class Componentes
                                 <label for="motivoDenuncia" class="form-label">Motivo da Denúncia</label>
                                 <textarea class="form-control" id="motivoDenuncia" name="motivoDenuncia" rows="3"
                                     required></textarea>
-                                <button type="submit">Enviar</button>
+                                <button type="submit" class="btn btn-primary my-3">Enviar</button>
                         </form>
-
-
                     </div>
                 </div>
             </div>
