@@ -219,7 +219,7 @@ class Componentes
             </div>
         </div>
 
-        
+
         <?php
     }
 
@@ -648,7 +648,8 @@ class Componentes
 
                         <p>Tem certeza que deseja excluir esta postagem?</p>
                         <a href="../actions/excluir-postagem.php?idpostagem=<?= $postagem['idpostagem'] ?>"><button
-                                class="btn btn-secondary">Sim</button></a>
+                                class="btn btn-primary">Sim</button></a>
+                        <button data-bs-dismiss="modal" class="btn btn-secondary">Cancelar</button>
 
 
                     </div>
@@ -825,6 +826,7 @@ class Componentes
                         <p>Tem certeza que deseja excluir seu perfil?</p>
                         <a href="../actions/excluir-perfil.php?idusuario=<?= $idusuario ?>"><button
                                 class="btn btn-secondary">Sim</button></a>
+                        <button data-bs-dismiss="modal" class="btn btn-secondary">Cancelar</button>
 
 
                     </div>
