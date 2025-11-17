@@ -5,9 +5,10 @@ conteúdos culturais, como filmes, séries, músicas e livros. A proposta busca
 oferecer um ambiente digital que incentive a troca de experiências entre os 
 usuários, permitindo que avaliem obras, publiquem comentários, construam 
 perfis de preferências e interajam entre si.
-    O desenvolvimento ocorreu por meio do INTEGRA-INFO no IFC Campus Videira, e o 
-projeto foi idealizado e realizado pelos alunos Isabella D. Kochan, Jaine S. Silveira  e 
-Vinicius Marian, orientados pelos professores Tiago L. Gonçalves  e Fábio J. Pinheiro.
+    O desenvolvimento ocorreu por meio do INTEGRA-INFO no IFC Campus Videira,
+e o projeto foi idealizado e realizado pelos alunos Isabella D. Kochan,
+Jaine S. Silveira  e Vinicius Marian, orientados pelos professores
+Tiago L. Gonçalves  e Fábio J. Pinheiro.
     A iniciativa surge da necessidade de um espaço que valorize o diálogo e a 
 diversidade de perspectivas no contexto cultural atual, marcado pela ampla 
 oferta de conteúdo. Ao promover a interação e o engajamento, o sistema 
