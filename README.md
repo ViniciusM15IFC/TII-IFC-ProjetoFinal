@@ -1,22 +1,6 @@
 # O Crítico
-    O projeto "O Crítico" consiste no desenvolvimento de uma plataforma web 
-interativa voltada para o compartilhamento e discussão de opiniões sobre 
-conteúdos culturais, como filmes, séries, músicas e livros. A proposta busca 
-oferecer um ambiente digital que incentive a troca de experiências entre os 
-usuários, permitindo que avaliem obras, publiquem comentários, construam 
-perfis de preferências e interajam entre si.
-    O desenvolvimento ocorreu por meio do INTEGRA-INFO no IFC Campus Videira,
-e o projeto foi idealizado e realizado pelos alunos Isabella D. Kochan,
-Jaine S. Silveira  e Vinicius Marian, orientados pelos professores
-Tiago L. Gonçalves  e Fábio J. Pinheiro.
-    A iniciativa surge da necessidade de um espaço que valorize o diálogo e a 
-diversidade de perspectivas no contexto cultural atual, marcado pela ampla 
-oferta de conteúdo. Ao promover a interação e o engajamento, o sistema 
-contribui para a formação de uma comunidade interessada na apreciação e 
-reflexão sobre arte e cultura. Assim, o projeto busca estimular a 
-criticidade e incentivar a participação ativa dos usuários no meio digital.
-    Este projeto foi desenvolvido a partir da elaboração da ideia e 
-identificação dos requisitos. Posteriormente, foi elaborada a prototipagem 
-do sistema e a programação backend na linguagem PHP. Para a estilização do 
-sistema, utilizou-se a  linguagem HTML juntamente com a ferramenta 
-bootstrap, além do banco de dados elaborado através da ferramenta MySql.
+
+    O projeto "O Crítico" consiste no desenvolvimento de uma plataforma web interativa voltada para o compartilhamento e discussão de opiniões sobre conteúdos culturais, como filmes, séries, músicas e livros. A proposta busca oferecer um ambiente digital que incentive a troca de experiências entre os usuários, permitindo que avaliem obras, publiquem comentários, construam perfis de preferências e interajam entre si.
+    O desenvolvimento ocorreu por meio do INTEGRA-INFO no IFC Campus Videira,e o projeto foi idealizado e realizado pelos alunos Isabella D. Kochan,Jaine S. Silveira  e Vinicius Marian, orientados pelos professoresTiago L. Gonçalves  e Fábio J. Pinheiro.
+    A iniciativa surge da necessidade de um espaço que valorize o diálogo e a diversidade de perspectivas no contexto cultural atual, marcado pela ampla oferta de conteúdo. Ao promover a interação e o engajamento, o sistema contribui para a formação de uma comunidade interessada na apreciação e reflexão sobre arte e cultura. Assim, o projeto busca estimular a criticidade e incentivar a participação ativa dos usuários no meio digital.
+    Este projeto foi desenvolvido a partir da elaboração da ideia e identificação dos requisitos. Posteriormente, foi elaborada a prototipagem do sistema e a programação backend na linguagem PHP. Para a estilização do sistema, utilizou-se a  linguagem HTML juntamente com a ferramenta bootstrap, além do banco de dados elaborado através da ferramenta MySql.
